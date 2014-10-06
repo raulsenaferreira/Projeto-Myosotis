@@ -1,0 +1,9 @@
+Dar uma olha em http://blog.scrapinghub.com/ (ferramentas em python de web scraping)
+Crawleado:
+http://www.desaparecidos.gov.br/
+Em processo de scrape:
+http://portal.mj.gov.br/Desaparecidos/frmCriancaDetalhe.aspx?id=1
+Para Crawlear:
+http://www.desaparecidos.mg.gov.br/album.asp?pg=1
+http://www.cnpd.org.br/
+http://www.desaparecidosdobrasil.org/criancas-desaparecidas/rio-de-janeiro?offset=0
