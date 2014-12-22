@@ -57,11 +57,7 @@ async.eachLimit(ufs, concurrency, function (uf, next) {
 		      var local = $(this).find('.local').text().trim();
 		      var mais = $(this).find('.readmore a').attr('href').trim();
 		      casos++;
-		      // app.insert('Desaparecido', { Nome: nome }, function (err, response) {
-		      //   console.log(response);
-		      // });
 
-		      //console.log('\n\nNome: %s\nFoto: %s\nStatus: %s\nData: %s\nLocal: %s\nLeia mais em: %s ', nome, img, status, data, local, mais);
 		      var registro = new Desaparecido({
 				  nome: nome
 				, img: img
@@ -73,7 +69,7 @@ async.eachLimit(ufs, concurrency, function (uf, next) {
 
 			registro.save(function(err, registro) {
 			  if (err) return console.error(err);
-			  console.dir(thor);
+			  //console.dir(registro);
 			});
         });
         next();

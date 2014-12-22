@@ -26,15 +26,6 @@ var desaparecido = new mongoose.Schema({
 	var Desaparecido = mongoose.model('Desaparecido', desaparecido);
 mongoose.connect('mongodb://localhost/myosotis');
 // instantiate
-/*
-var APP_ID = 'j2lEE7HSOkEndQ0ZhZjfFGQ9vNOUMsvv9JappIPf';
-var REST_API_KEY = '6FfGoukX0uG6r1C6gci6Z6MIzaDNieEYofu35704';
-var app = new Parse(APP_ID, REST_API_KEY);
-
-app.insert('TestObject', { foo: 'bar' }, function (err, response) {
-          console.log(response);
-        });
-*/
 var ufs = [ 'AL','AM','BA','DF','ES','GO','MA','MG','MT','PA','PE','PI','PR','RJ','RN','RR','RS','SC','SE','SP','TO' ]
   , concurrency = 2, casos = 0;
 
@@ -57,11 +48,7 @@ async.eachLimit(ufs, concurrency, function (uf, next) {
 		      var local = $(this).find('.local').text().trim();
 		      var mais = $(this).find('.readmore a').attr('href').trim();
 		      casos++;
-		      // app.insert('Desaparecido', { Nome: nome }, function (err, response) {
-		      //   console.log(response);
-		      // });
 
-		      //console.log('\n\nNome: %s\nFoto: %s\nStatus: %s\nData: %s\nLocal: %s\nLeia mais em: %s ', nome, img, status, data, local, mais);
 		      var registro = new Desaparecido({
 				  nome: nome
 				, img: img
@@ -73,7 +60,7 @@ async.eachLimit(ufs, concurrency, function (uf, next) {
 
 			registro.save(function(err, registro) {
 			  if (err) return console.error(err);
-			  console.dir(registro);
+			  //console.dir(registro);
 			});
         });
         next();
