@@ -68,7 +68,7 @@ async.eachLimit(ufs, concurrency, function (uf, next) {
     });
     
 });
-/*
+
 var limite = 2512;
 //async.eachLimit(estados, concurrency, function (estado, next) {
 async.times(limite, function (id, next) { 
@@ -86,78 +86,108 @@ async.times(limite, function (id, next) {
           var status = "Desaparecido";     
           var data = $('#lblDataDesaparecimento').text();
 
-          console.log('\n\nNome: %s\nFoto: %s\nStatus: %s\nData: %s ', nome, img, status, data);
+          var registro = new Desaparecido({
+				  nome: nome
+				, img: img
+				, status: status
+				, data: data
+			});
+
+			registro.save(function(err, registro) {
+			  if (err) return console.error(err);
+			  //console.dir(registro);
+			});
         };
          
         next();
         console.log('Número de casos: '+casos);
     });
     
-});*/
+});
 
-// var estados = ['sao-paulo','rio-de-janeiro','bahia','parana','rio-grande-do-sul','santa-catarina',''];
-// async.eachLimit(estados, concurrency, function (estado, next) {
-//   for (var offset = 0; offset < 300; offset = offset+10) {
+ var estados = ['sao-paulo','rio-de-janeiro','bahia','parana','rio-grande-do-sul','santa-catarina',''];
+ async.eachLimit(estados, concurrency, function (estado, next) {
+   for (var offset = 0; offset < 300; offset = offset+10) {
 
-//     var url = format('http://www.desaparecidosdobrasil.org/criancas-desaparecidas/%s?offset=%d', estado, offset);
-//     request(url, function (err, response, body) {
-//         if (err) throw err;
-//         var $ = cheerio.load(body);
+     var url = format('http://www.desaparecidosdobrasil.org/criancas-desaparecidas/%s?offset=%d', estado, offset);
+     request(url, function (err, response, body) {
+         if (err) throw err;
+         var $ = cheerio.load(body);
 
-//         /*var paginacao = $('div.sites-pagination-info').text();
-//         paginacao = paginacao.split(' ');
-//         paginacao = paginacao[5];*/
+         /*var paginacao = $('div.sites-pagination-info').text();
+         paginacao = paginacao.split(' ');
+         paginacao = paginacao[5];*/
 
-//         $('.announcement').each(function () {
-//           var nome = $(this).find('h4 a').text();
+         $('.announcement').each(function () {
+           var nome = $(this).find('h4 a').text();
 
           
-//             nome = nome.trim();
-//             var mais = $(this).find('h4 a').attr('href');
-//             var img = $(this).find('.sites-layout-tile.sites-tile-name-content-2').find('img').attr('src');
+             nome = nome.trim();
+             var mais = $(this).find('h4 a').attr('href');
+             var img = $(this).find('.sites-layout-tile.sites-tile-name-content-2').find('img').attr('src');
 
-//             console.log('\n\nNome: %s\nFoto: %s\nLocal: %s\nLeia mais em: http://www.desaparecidosdobrasil.org%s ', nome, img, estado, mais);
+             //console.log('\n\nNome: %s\nFoto: %s\nLocal: %s\nLeia mais em: http://www.desaparecidosdobrasil.org%s ', nome, img, estado, mais);
 
-//             var verificador = nome + img + estado + mais;
-//           if (verificador!=undefined || verificador!='') {
-//             next();
-//           }
+             var verificador = nome + img + estado + mais;
+           if (verificador!=undefined || verificador!='') {
+             next();
+           }
           
-//           casos++;
-          
-//         });
-//         next();
-//         console.log('Número de casos: '+casos);
-//     });
-//   }
+           casos++;
+          	var registro = new Desaparecido({
+				  nome: nome
+				, img: img
+				, local: estado
+				, mais: "http://www.desaparecidosdobrasil.org"+mais
+			});
+
+			registro.save(function(err, registro) {
+			  if (err) return console.error(err);
+			  //console.dir(registro);
+			});
+         });
+         	
+         next();
+         console.log('Número de casos: '+casos);
+     });
+   }
     
-// });
+ });
 
 
-// var x=[];i=1;while(x.push(i++)<1576);
-// async.eachLimit(x, concurrency, function (id, next) {
+ var x=[];i=1;while(x.push(i++)<1576);
+ async.eachLimit(x, concurrency, function (id, next) {
   
-//     var url = format('http://www.desaparecidos.mg.gov.br/album.asp?pg=%d', id);
+     var url = format('http://www.desaparecidos.mg.gov.br/album.asp?pg=%d', id);
 
-//     request(url, function (err, response, body) {
-//         if (err) throw err;
-//         var $ = cheerio.load(body);
+     request(url, function (err, response, body) {
+         if (err) throw err;
+         var $ = cheerio.load(body);
 
-//         //var tabela = $('table tr:nth-child(7)').find('table');
-//         $('table tr:nth-child(7) table td:nth-child(odd)').each(function () {
-//           var nome = $(this).find('.txtalbum1').text();
-//           var mais = $(this).find('table a').attr('href');
-//           var img = $(this).find('table a img').attr('src');
+        //var tabela = $('table tr:nth-child(7)').find('table');
+         $('table tr:nth-child(7) table td:nth-child(odd)').each(function () {
+           var nome = $(this).find('.txtalbum1').text();
+           var mais = $(this).find('table a').attr('href');
+           var img = $(this).find('table a img').attr('src');
 
-//           console.log('\n\nNome: %s\nFoto: %s\nLeia mais em: http://www.desaparecidos.mg.gov.br%s ', nome, img, mais);
+          //console.log('\n\nNome: %s\nFoto: %s\nLeia mais em: http://www.desaparecidos.mg.gov.br%s ', nome, img, mais);
+			var registro = new Desaparecido({
+				  nome: nome
+				, img: img
+				, local: "Minas Gerais"
+				, mais: "http://www.desaparecidos.mg.gov.br"+mais
+			});
 
-//           casos++;
+			registro.save(function(err, registro) {
+			  if (err) return console.error(err);
+			  //console.dir(registro);
+			});
+           casos++;
           
-//         });
-//         next();
-//         console.log('Número de casos: '+casos);
-//     });
-  
+         });
+         next();
+         console.log('Número de casos: '+casos);
+     });
     
-// });
+ });
 
