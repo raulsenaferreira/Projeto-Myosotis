@@ -50,8 +50,8 @@ arrCrawler1 = generateArray(3018, 3019, arrCrawler1);
 arrCrawler2 = generateArray(2510, 2512, arrCrawler2);
 arrCrawler3 = generateArray(8, 12, arrCrawler3);
 
-//crawler1(arrCrawler1);
-//crawler2();
+crawler1(arrCrawler1);
+crawler2(arrCrawler2);
 //crawler3();
 
 function generateArray(ini, end, arr) {
