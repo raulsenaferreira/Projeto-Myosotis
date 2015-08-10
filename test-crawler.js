@@ -13,12 +13,12 @@ db.once('open', function() {
   
 });
 var desaparecido = new mongoose.Schema({
-	  nome: { type: String }
-	, img: String
-	, status: {type: String, default: "Desaparecido(a)"}
-	, dataDesaparecimento: String
+    nome: { type: String }
+  , img: String
+  , status: {type: String, default: "Desaparecido(a)"}
+  , dataDesaparecimento: String
   , dataDoRegistro: String
-	, local: String
+  , local: String
   , motivacao: String
   , boletimOcorrencia: String
   , sexo: String
@@ -39,25 +39,31 @@ var desaparecido = new mongoose.Schema({
   , ultimaInformacao: String
   , fonte: String
   , atualizado_em: { type: Date, default: Date.now }
-	});
+  });
 
 var Desaparecido = mongoose.model('Desaparecido', desaparecido);
 mongoose.connect('mongodb://localhost/myosotis');
 
 // preparing limits of crawling
 var arrCrawler1=[], arrCrawler2=[], arrCrawler3=[];
-arrCrawler1 = generateArray(1, 3019, arrCrawler1);
-arrCrawler2 = generateArray(1, 2512, arrCrawler2);
-arrCrawler3 = generateArray(1, 300, arrCrawler3);
+arrCrawler1 = generateArray(3018, 3019, arrCrawler1);
+arrCrawler2 = generateArray(2510, 2512, arrCrawler2);
+arrCrawler3 = generateArray(8, 12, arrCrawler3);
 
-crawler1(arrCrawler1);
-crawler2(arrCrawler2);
-crawler3(arrCrawler3);
+//crawler1(arrCrawler1);
+//crawler2();
+//crawler3();
+
+function generateArray(ini, end, arr) {
+  while (ini<=end) { arr.push(ini); ini++; }
+  return arr;
+}
 
 //http://www.desaparecidos.gov.br
 function crawler1 (limite) {
   console.dir("Iniciando crawler do primeiro site...");
   var casos=0;
+  //var limite = [3010, 3011, 3012]; // 3020
   
   async.each(limite, function (id, callback) { 
     
@@ -134,9 +140,9 @@ function crawler1 (limite) {
 )}
 
 //http://portal.mj.gov.br
-function crawler2() {
+function crawler2(limite) {
   console.dir("Iniciando crawler do segundo site...");
-  var limite = [19, 199]; // 2512
+  //var limite = [19, 199]; // 2512
   var casos=0;
 
   async.each(limite, function (id, callback) { 
@@ -167,10 +173,10 @@ function crawler2() {
           var fonte = 'http://portal.mj.gov.br/Desaparecidos/frmCriancaDetalhe.aspx?id='+id;
           
           var registro = new Desaparecido({
-    				  nome: nome
-    				, img: img
-    				, status: status
-    				, sexo: sexo
+              nome: nome
+            , img: img
+            , status: status
+            , sexo: sexo
             , dataNascimento: dataNascimento
             , dataDesaparecimento: dataDesaparecimento
             , dataDoRegistro: dataDoRegistro
@@ -183,14 +189,14 @@ function crawler2() {
             , circunstanciasLocalizacao: circunstanciasLocalizacao
             , ufLocalizacao: ufLocalizacao
             , fonte: fonte
-    			});
+          });
 
-    			registro.save(function(err, registro) {
-    			  if (err) return console.error(err);
-    			  //console.dir(registro);
+          registro.save(function(err, registro) {
+            if (err) return console.error(err);
+            //console.dir(registro);
             casos++;
             callback();
-    			});
+          });
         }
       })   
     },
@@ -201,20 +207,21 @@ function crawler2() {
 }
 
 //http://www.desaparecidosdobrasil.org
-function crawler3() {
+function crawler3(limite) {
   
- var estados = ['sao-paulo','rio-de-janeiro','bahia','parana','rio-grande-do-sul','santa-catarina',''];
- async.eachLimit(estados, concurrency, function (estado, next) {
-   for (var offset = 0; offset < 300; offset = offset+10) {
+  var estados = ['sao-paulo','rio-de-janeiro','outros-estados/bahia','parana','rio-grande-do-sul','santa-catarina','outros-estados/demais-estados'];
+  async.each(estados, function (estado, next) {
+    for (var offset = 0; offset < 300; offset = offset+10) {
 
-     var url = format('http://www.desaparecidosdobrasil.org/criancas-desaparecidas/%s?offset=%d', estado, offset);
-     request(url, function (err, response, body) {
-         if (err) throw err;
-         var $ = cheerio.load(body);
+      var url = format('http://www.desaparecidosdobrasil.org/criancas-desaparecidas/%s?offset=%d', estado, offset);
+      request(url, function (err, response, body) {
+        if (err) throw err;
+        var $ = cheerio.load(body);
 
-         //var paginacao = $('div.sites-pagination-info').text();
-         //paginacao = paginacao.split(' ');
-         //paginacao = paginacao[5];
+         var paginacao = $('div.sites-pagination-info').text();
+         paginacao = paginacao.split('de');
+         paginacao = paginacao[paginacao.length - 1].trim();
+         paginacao = Number(paginacao);
 
          $('.announcement').each(function () {
            var nome = $(this).find('h4 a').text();
@@ -232,19 +239,19 @@ function crawler3() {
            }
           
            casos++;
-          	var registro = new Desaparecido({
-				  nome: nome
-				, img: img
-				, local: estado
-				, mais: "http://www.desaparecidosdobrasil.org"+mais
-			});
+            var registro = new Desaparecido({
+          nome: nome
+        , img: img
+        , local: estado
+        , mais: "http://www.desaparecidosdobrasil.org"+mais
+      });
 
-			registro.save(function(err, registro) {
-			  if (err) return console.error(err);
-			  //console.dir(registro);
-			});
+      registro.save(function(err, registro) {
+        if (err) return console.error(err);
+        //console.dir(registro);
+      });
          });
-         	
+          
          next();
          console.log('Número de casos: '+casos);
      });
@@ -255,8 +262,7 @@ function crawler3() {
 
 //http://www.desaparecidos.mg.gov.br
 function crawler4() {
-  // body...
-}
+  
  var x=[];i=1;while(x.push(i++)<1576);
  async.eachLimit(x, concurrency, function (id, next) {
   
@@ -273,17 +279,17 @@ function crawler4() {
            var img = $(this).find('table a img').attr('src');
 
           //console.log('\n\nNome: %s\nFoto: %s\nLeia mais em: http://www.desaparecidos.mg.gov.br%s ', nome, img, mais);
-			var registro = new Desaparecido({
-				  nome: nome
-				, img: img
-				, local: "Minas Gerais"
-				, mais: "http://www.desaparecidos.mg.gov.br"+mais
-			});
+      var registro = new Desaparecido({
+          nome: nome
+        , img: img
+        , local: "Minas Gerais"
+        , mais: "http://www.desaparecidos.mg.gov.br"+mais
+      });
 
-			registro.save(function(err, registro) {
-			  if (err) return console.error(err);
-			  //console.dir(registro);
-			});
+      registro.save(function(err, registro) {
+        if (err) return console.error(err);
+        //console.dir(registro);
+      });
            casos++;
           
          });
@@ -292,3 +298,4 @@ function crawler4() {
      });
     
  });
+}
