@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from registro import Registro
-
+from pprint import pprint as pp
 connection = MongoClient("mongodb://localhost/test_myosotis")
 
 db = connection.test_myosotis.registrocrawler1
@@ -18,15 +18,19 @@ arrayObjeto = []
 reg = dict()
 
 for record in resultsCrawler1:
-    nome = record['nome'].lower
+    nome = record['nome']
+    nome=nome.lower()
     img = record['img'] if 'img' in record.keys() else ''
     sexo = record['sexo']
     observacao = record['observacao']
     dataDesaparecimento = record['dataDesaparecimento']
     reg.update({nome: nome})
     objeto = Registro(nome, img, sexo, dataDesaparecimento, observacao)
-    arrayObjeto.append(objeto)
-    count+=1
+  
+    try:
+        reg.update({nome: objeto})
+    except KeyError:
+        reg[nome] = objeto
     '''
     try:
         arrayOfDictionaries[token].append(key)
@@ -35,24 +39,37 @@ for record in resultsCrawler1:
         tokenList.append(key)
         arrayOfDictionaries.update({token:tokenList})
     '''
+print(len(reg))
+
 for record in resultsCrawler2:
-    nome = record['nome'].lower
+    nome = record['nome']
+    nome=nome.lower()
     img = record['img'] if 'img' in record.keys() else ''
     sexo = record['sexo']
     observacao = record['observacao']
     dataDesaparecimento = record['dataDesaparecimento']
-    reg.update({nome: nome})
+    
     objeto = Registro(nome, img, sexo, dataDesaparecimento, observacao)
-    arrayObjeto.append(objeto)
-    count+=1
+  
+    try:
+        reg.update({nome: objeto})
+    except KeyError:
+        reg[nome] = objeto
+    
+print(len(reg))
 
 for record in resultsCrawler5:
-    nome = record['nome'].lower
+    nome = record['nome']
+    nome=nome.lower()
     img = record['img'] if 'img' in record.keys() else ''
     info = record['informacoes']
     arrayInfo = info.split('$$$$')
-    reg.update({nome: nome})
-    count+=1
+    objeto = Registro(nome, img, sexo, dataDesaparecimento, observacao)
+  
+    try:
+        reg.update({nome: objeto})
+    except KeyError:
+        reg[nome] = objeto
 
     '''
     observacao = record['observacao']
@@ -61,13 +78,9 @@ for record in resultsCrawler5:
     objeto = Registro(nome, img, sexo, dataDesaparecimento, observacao)
     arrayObjeto.append(objeto)
     '''
-print(len(reg))
-print(count)
-f=dict()
-r = "Raull"
-f.insert({nome:r})
-r = "RAUL"
-f.update({nome:r})
-print(len(f))
+
+print(len(reg)) #Quantidade de registros coletados com nomes diferentes
+pp(reg['cintia luana ribeiro moraes'].dataDesaparecimento) #exemplo de acesso a um atributo de um objeto guardado
+#pp(reg)
 #print(len(arrayObjeto))
 #print (arrayObjeto[3105].observacao)
