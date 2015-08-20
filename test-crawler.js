@@ -41,6 +41,9 @@ var registroCrawler2 = new mongoose.Schema({
   , status: {type: String, default: "Desaparecido(a)"}
   , dataNascimento: String
   , dataDesaparecimento: String
+  , nomeContato: String
+  , telContato: String
+  , emailContato: String
   , dataDoRegistro: String
   , sexo: String
   , pesoAproximado: String
@@ -189,6 +192,9 @@ function crawler2(limite) {
           var sexo = $('#lblSexo').text();
           var dataNascimento = $('#lblDataNascimento').text();
           var dataDesaparecimento = $('#lblDataDesaparecimento').text();
+          var nomeContato = $('#Table2 #lblOrgao').text();
+          var telContato = $('#Table2 #lblTelefone').text();
+          var emailContato = $('#Table2 #lblEmail').text();
           var dataDoRegistro = $('#lblDataInclusao').text();
           var alturaAproximada = $('#lblAltura').text();
           var pesoAproximado = $('#lblPeso').text();
@@ -206,6 +212,9 @@ function crawler2(limite) {
             , sexo: sexo
             , dataNascimento: dataNascimento
             , dataDesaparecimento: dataDesaparecimento
+            , nomeContato: nomeContato
+            , telContato: telContato
+            , emailContato: emailContato
             , dataDoRegistro: dataDoRegistro
             , alturaAproximada: alturaAproximada
             , pesoAproximado: pesoAproximado
