@@ -81,7 +81,7 @@ arrCrawler = generateArray(2511, 2512, arrCrawler);
 //crawler2(arrCrawler);
 arrCrawler = ['rio-de-janeiro'];
 //crawler3(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
-arrCrawler = generateArray(1, 2, arrCrawler);//176
+arrCrawler = generateArray(1, 1, arrCrawler);//176
 //crawler4(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
 arrCrawler = generateArray(1, 1, arrCrawler);
 //crawler5(arrCrawler);
