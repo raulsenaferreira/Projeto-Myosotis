@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from registro import Registro
+from util import Util
 from pprint import pprint as pp
 import re
 
@@ -22,7 +23,7 @@ reg = dict()
 
 dataDesaparecimentoRegex = re.compile('Data do desaparecimento:')
 localDesaparecimentoRegex = re.compile('Local do desaparecimento:')
-localDesaparecimentoRegex2 = re.compile('\([0-9]+')
+dddDesaparecimentoRegex = re.compile('\([0-9]+')
 
 for record in resultsCrawler1:
     nome = record['nome']
@@ -40,14 +41,7 @@ for record in resultsCrawler1:
         reg.update({nome: objeto})
     except KeyError:
         reg[nome] = objeto
-    '''
-    try:
-        arrayOfDictionaries[token].append(key)
-        arrayOfDictionaries.update({token:arrayOfDictionaries[token]})
-    except KeyError:
-        tokenList.append(key)
-        arrayOfDictionaries.update({token:tokenList})
-    '''
+    
 print(len(reg))
 
 
@@ -58,10 +52,11 @@ for record in resultsCrawler2:
     sexo = record['sexo']
     observacao = record['observacao']
     dataDesaparecimento = record['dataDesaparecimento']
-    localDesaparecimento = localDesaparecimentoRegex2.match(record['telContato'])
+    dddDesaparecimento = dddDesaparecimentoRegex.match(record['telContato'])
     
     if localDesaparecimento != None:
-        localDesaparecimento = localDesaparecimento.group().replace('(', '')
+        dddDesaparecimento = dddDesaparecimento.group().replace('(', '')
+        localDesaparecimento = Util(dddDesaparecimento)
     else:
         localDesaparecimento = ''
         
@@ -98,16 +93,9 @@ for record in resultsCrawler5:
     except KeyError:
         reg[nome] = objeto
 
-    '''
-    observacao = record['observacao']
-    dataDesaparecimento = record['dataDesaparecimento']
-    
-    objeto = Registro(nome, img, sexo, dataDesaparecimento, observacao)
-    arrayObjeto.append(objeto)
-    '''
 
 print(len(reg)) #Quantidade de registros coletados com nomes diferentes
-pp(reg['humberto sarli neto'].localDesaparecimento) #exemplo de acesso a um atributo de um objeto guardado
+pp(reg['humberto sarli neto'].localDesaparecimento)
 #pp(reg)
 #print(len(arrayObjeto))
 #print (arrayObjeto[3105].observacao)

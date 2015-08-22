@@ -7,16 +7,5 @@ class Registro(object):
         self.dataDesaparecimento = dataDesaparecimento
         self.localDesaparecimento = localDesaparecimento
         self.observacao = observacao
-'''
-    def soma(self):
-        return self.a + self.b
 
-    def subtrai(self):
-        return self.a - self.b
-
-    def multiplica(self):
-        return self.a * self.b
-
-    def divide(self):
-        return self.a / self.b
-'''
+   
