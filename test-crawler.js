@@ -75,14 +75,19 @@ mongoose.connect('mongodb://localhost/test_myosotis');
 
 // preparing limits of crawling
 var arrCrawler=[];
+
 arrCrawler = generateArray(3018, 3019, arrCrawler);
 //crawler1(arrCrawler);
+
 arrCrawler = generateArray(2511, 2512, arrCrawler);
 //crawler2(arrCrawler);
+
 arrCrawler = ['rio-de-janeiro'];
 //crawler3(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
+
 arrCrawler = generateArray(1, 1, arrCrawler);//176
 //crawler4(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
+
 arrCrawler = generateArray(1, 1, arrCrawler);
 //crawler5(arrCrawler);
 
@@ -107,11 +112,11 @@ function crawler1 (limite) {
       var nome = $('.titulo').text().trim();
       
       //Só prossegue se tiver pelo menos um nome
-      if(nome!='' && nome!=undefined){
+      if(nome!="" && nome!=undefined){
         var img = $('img').attr('src');
         var status = $('.desaparecido').text().trim();
 
-        if (status=='' || status==undefined) {
+        if (status=="" || status==undefined) {
           status = $('.encontrado').text().trim();
         }
         
@@ -185,8 +190,7 @@ function crawler2(limite) {
         
         var nome = $('#lblNome').text();
         
-        
-        if (nome!=undefined && nome!='') {
+        if (nome!=undefined && nome!="") {
           var img = "http://portal.mj.gov.br/Desaparecidos/"+$('#imgFoto1').attr('src');
           var sexo = $('#lblSexo').text();
           var dataNascimento = $('#lblDataNascimento').text();
@@ -205,9 +209,9 @@ function crawler2(limite) {
           var ufLocalizacao = $('#lblUF').text();
           var dataLocalizacao = $('#lblDataLocalizacao').text();
 
-          if((ufLocalizacao!='' && ufLocalizacao!=undefined) || (dataLocalizacao!='' && dataLocalizacao!=undefined) || (circunstanciasLocalizacao!='' && circunstanciasLocalizacao!=undefined))
-            status='Encontrado(a)'
-          
+          if((ufLocalizacao!="" && ufLocalizacao!=undefined) || (dataLocalizacao!="" && dataLocalizacao!=undefined) || (circunstanciasLocalizacao!="" && circunstanciasLocalizacao!=undefined))
+            status='Encontrado(a)';
+          else status = "Desaparecido(a)";
           var fonte = 'http://portal.mj.gov.br/Desaparecidos/frmCriancaDetalhe.aspx?id='+id;
           
           var registro = new RegistroCrawler2({
@@ -234,7 +238,7 @@ function crawler2(limite) {
 
           registro.save(function(err, registro) {
             if (err) return console.error(err);
-            console.dir(registro);
+            //console.dir(registro);
             casos++;
             callback();
           });
@@ -268,7 +272,7 @@ function crawler3(estados) {
         $('.announcement').each(function () {
           var nome = $('h4 a:nth-child(1)').text();
           
-          if (nome!=undefined && nome!='') {      
+          if (nome!=undefined && nome!="") {      
             nome = nome.trim();
             var fonte = 'http://www.desaparecidosdobrasil.org'+$('h4 a').attr('href');
             var img = $('.sites-layout-tile.sites-tile-name-content-2').find('img').attr('src');
@@ -363,7 +367,7 @@ function crawler5(ids) {
       $('.cConteudoListaItem').each(function () {
         var nome = $(this).find('h1 a').text().trim();
         
-        if(nome!='' && nome!=undefined){
+        if(nome!="" && nome!=undefined){
           var img = $(this).find('img').attr('src');
           var informacoes = '';
 

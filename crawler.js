@@ -75,16 +75,21 @@ mongoose.connect('mongodb://localhost/myosotis');
 
 // preparing limits of crawling
 var arrCrawler=[];
+
 arrCrawler = generateArray(1, 3019, arrCrawler);
 crawler1(arrCrawler);
+
 arrCrawler = generateArray(1, 2512, arrCrawler);
 crawler2(arrCrawler);
+
 arrCrawler = ['rio-de-janeiro'];
-crawler3(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
+//crawler3(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
+
 arrCrawler = generateArray(1, 2, arrCrawler);//176
 //crawler4(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
+
 arrCrawler = generateArray(1, 3, arrCrawler);
-//crawler5(arrCrawler);
+crawler5(arrCrawler);
 
 function generateArray(ini, end, arr) {
   while (ini<=end) { arr.push(ini); ini++; }
@@ -94,6 +99,7 @@ function generateArray(ini, end, arr) {
 //http://www.desaparecidos.gov.br
 function crawler1 (limite) {
   console.dir("Iniciando crawler do primeiro site...");
+  var casos=0;
   
   async.each(limite, function (id, callback) { 
     
@@ -106,11 +112,11 @@ function crawler1 (limite) {
       var nome = $('.titulo').text().trim();
       
       //Só prossegue se tiver pelo menos um nome
-      if(nome!='' && nome!=undefined){
+      if(nome!="" && nome!=undefined){
         var img = $('img').attr('src');
         var status = $('.desaparecido').text().trim();
 
-        if (status=='' || status==undefined) {
+        if (status=="" || status==undefined) {
           status = $('.encontrado').text().trim();
         }
         
@@ -172,6 +178,8 @@ function crawler1 (limite) {
 //http://portal.mj.gov.br
 function crawler2(limite) {
   console.dir("Iniciando crawler do segundo site...");
+  //var limite = [19, 199]; // 2512
+  var casos=0;
 
   async.each(limite, function (id, callback) { 
       var url = format('http://portal.mj.gov.br/Desaparecidos/frmCriancaDetalhe.aspx?id=%s', id);
@@ -182,7 +190,7 @@ function crawler2(limite) {
         
         var nome = $('#lblNome').text();
         
-        if (nome!=undefined && nome!='') {
+        if (nome!=undefined && nome!="") {
           var img = "http://portal.mj.gov.br/Desaparecidos/"+$('#imgFoto1').attr('src');
           var sexo = $('#lblSexo').text();
           var dataNascimento = $('#lblDataNascimento').text();
@@ -201,9 +209,9 @@ function crawler2(limite) {
           var ufLocalizacao = $('#lblUF').text();
           var dataLocalizacao = $('#lblDataLocalizacao').text();
 
-          if((ufLocalizacao!='' && ufLocalizacao!=undefined) || (dataLocalizacao!='' && dataLocalizacao!=undefined) || (circunstanciasLocalizacao!='' && circunstanciasLocalizacao!=undefined))
-            status='Encontrado(a)'
-          
+          if((ufLocalizacao!="" && ufLocalizacao!=undefined) || (dataLocalizacao!="" && dataLocalizacao!=undefined) || (circunstanciasLocalizacao!="" && circunstanciasLocalizacao!=undefined))
+            status='Encontrado(a)';
+          else status = "Desaparecido(a)";
           var fonte = 'http://portal.mj.gov.br/Desaparecidos/frmCriancaDetalhe.aspx?id='+id;
           
           var registro = new RegistroCrawler2({
@@ -264,7 +272,7 @@ function crawler3(estados) {
         $('.announcement').each(function () {
           var nome = $('h4 a:nth-child(1)').text();
           
-          if (nome!=undefined && nome!='') {      
+          if (nome!=undefined && nome!="") {      
             nome = nome.trim();
             var fonte = 'http://www.desaparecidosdobrasil.org'+$('h4 a').attr('href');
             var img = $('.sites-layout-tile.sites-tile-name-content-2').find('img').attr('src');
@@ -347,6 +355,7 @@ function crawler4(x) {
 function crawler5(ids) {
 
   console.dir("Iniciando crawler do quinto site...");
+  var casos=0;
   
   async.each(ids, function (id, callback) { 
     
@@ -358,7 +367,7 @@ function crawler5(ids) {
       $('.cConteudoListaItem').each(function () {
         var nome = $(this).find('h1 a').text().trim();
         
-        if(nome!='' && nome!=undefined){
+        if(nome!="" && nome!=undefined){
           var img = $(this).find('img').attr('src');
           var informacoes = '';
 
