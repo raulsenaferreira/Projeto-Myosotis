@@ -10,10 +10,15 @@ A proposta inicial é coletar informações contidas em sites e blogs de crianç
 
 O ideal é que todas as operações(quantidade de registros duplicados, informações desatualizadas) sejam guardadas como um histórico para possíveis análises estatísticas.
 
+Além disso, deve-se explorar as informações geográficas dos registros e a partir dessas informações, conseguir inferir e extrair informações relevantes.
+
+É importante a contrução de uma API que possa fornecer os dados coletados em formato JSON para que outros desenvolvedores possam criar novas ferramentas ou estudos baseados nos dados já coletados por este sistema.
+
 ##Implementado até o momento
 
 Crawler parcialmente paralelizado e registros salvos no MongoDB.
 
-##Erros
+Processo mínimo de ETL pronto e salvo no Postgres.
 
-Alguns sites travam a busca da informação depois de alguns requests, provocando travamento da ferramenta e posterior desconexão, o que causa interrupção precoce do crawler. Isso faz com que a ferramenta ainda não esteja pegando o máximo de registros que ele poderia pegar.
+##Issues
+https://github.com/raulsenaferreira/Projeto-Myosotis/issues
