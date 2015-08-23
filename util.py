@@ -1,6 +1,6 @@
 class Util(object):
     
-     def mapDDD(self, ddd):
+     def mapDDD(ddd):
         mapa = dict()
         mapa['68'] = 'AC'
         mapa['82'] = 'AL'
@@ -70,4 +70,7 @@ class Util(object):
         mapa['79'] = 'SE'
         mapa['63'] = 'TO'
         
-        return mapa[self.ddd]
+        try:
+            return mapa[ddd]
+        except KeyError:
+            return 'lugar desconhecido'            
