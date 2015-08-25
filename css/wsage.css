@@ -1,0 +1,131 @@
+body {
+	background-image:url("../imagens/blizzard.png");
+} 
+
+/*Header*/
+#top{
+	background-color: rgba(255, 255, 255, 0.9);
+	height:  85px;
+	border-top: 4px solid #514ce0;
+	box-shadow: 0 4px 2px -2px gray;
+}
+
+#nav{
+	height:  81px;	
+}
+
+.navBarLiClass{
+	width: 81px;
+	height:  81px;
+	text-align: center;
+	border-right: 1px solid #EEEEEE;
+}
+
+.navBarLiClass a{
+	width: 81px;
+	height:  81px;
+	padding-bottom: 0 !important;
+	padding-top: 21px !important;
+}
+
+.navBarLinkClass:hover{
+	color: rgb(255, 255, 255) !important;
+}
+
+.navBarLiClass:hover{
+	background-color: #514ce0;
+}
+
+/* Mapa */
+#map{
+	width: 100%;	
+}
+
+#mapMenu{
+    margin-bottom: 0;
+    /*margin-left: 150px;*/
+    margin-top: 0;
+    padding: 0;
+}
+
+#wsageLogo{
+	height: 80px;
+	width:  80px;
+}
+
+.liButtonMap{
+	float: left;
+    margin-right: 2px;
+    margin-top: 2px;
+}
+
+.btn.btn-primary.mapMenuButton.imagem{
+	width: 100px;
+}
+
+.imageButton{
+	height: 18px;
+	width:  18px;
+	border: none;
+	padding: 0;
+	margin:  0;
+}
+
+.aviosMap{
+	background-color: transparent;
+	padding-top: 8px;
+}
+
+/*Grafico*/
+#grafh{
+	clear: both;
+	padding-top: 5px;
+}
+
+/*Classe Generica*/
+.listaSemMarcador{
+	list-style-type: none;
+}
+
+#grafh > #genero {
+    float: left;
+    width: 250px;
+}
+#grafh > #campus {
+    float: right;
+    width: 250px;
+}
+#grafh > #crm {
+    float: left;
+}
+.container > #page3 {
+    clear: both;
+}
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.area {
+  fill: steelblue;
+}
+
+.arc path {
+  stroke: #fff;
+}
+#myModal{
+	z-index: 1;
+}
+.ui-helper-hidden-accessible{
+	z-index: 100;
+}
+.modal-backdrop.in{
+	z-index: 0;
+}
