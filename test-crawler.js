@@ -67,9 +67,31 @@ var registroCrawler5 = new mongoose.Schema({
   , atualizado_em: { type: Date, default: Date.now }
 });
 
+var registroCrawler6 = new mongoose.Schema({
+    nome: { type: String }
+  , img: String
+  , idade: String
+  , status: {type: String, default: "Desaparecido(a)"}
+  , dataNascimento: String
+  , dataDesaparecimento: String
+  , diasDesaparecido: String
+  , sexo: String
+  , pesoAproximado: String
+  , alturaAproximada: String
+  , olhos: String
+  , corDaPele: String
+  , observacao: String
+  , informacoes: String
+  , cabelo: String
+  , local: String
+  , fonte: String
+  , atualizado_em: { type: Date, default: Date.now }
+  });
+
 var RegistroCrawler1 = mongoose.model('RegistroCrawler1', registroCrawler1);
 var RegistroCrawler2 = mongoose.model('RegistroCrawler2', registroCrawler2);
 var RegistroCrawler5 = mongoose.model('RegistroCrawler5', registroCrawler5);
+var RegistroCrawler6 = mongoose.model('RegistroCrawler6', registroCrawler6);
 
 mongoose.connect('mongodb://localhost/test_myosotis');
 
@@ -90,6 +112,9 @@ arrCrawler = generateArray(1, 1, arrCrawler);//176
 
 arrCrawler = generateArray(1, 1, arrCrawler);
 //crawler5(arrCrawler);
+
+arrCrawler = generateArray(1, 1, arrCrawler);
+crawler6(arrCrawler);
 
 function generateArray(ini, end, arr) {
   while (ini<=end) { arr.push(ini); ini++; }
@@ -396,5 +421,83 @@ function crawler5(ids) {
   function(err){
     // All tasks are done now
     console.dir("Crawler do quinto site terminado!!! "+casos+" casos registrados.");
-  }
-)}
+  })
+}
+
+//http://www.biamap.com.br/
+function crawler6 (limite) {
+  console.dir("Iniciando crawler do sexto site...");
+  var urls=[];
+
+  async.each(limite, function (id, callback) { 
+    
+    var url = format('http://www.biamap.com.br/page/%s/', id);
+    
+    request(url, function (err, response, body) {
+      if (err) throw err;
+      var $ = cheerio.load(body);
+
+      //urls.push($('.desaparecido a').text().trim());
+      //console.dir(urls);
+      $('.desaparecido').each(function(){
+        var url2 = $(this).find('.thumb a').attr('href');
+        var idade = $(this).find('span[itemprop="age"]').text().trim();
+
+        // >30 tamanho seguro pra não pegar outros link
+        if(url2.length>30){
+          
+          request(url2, function (err, response, body) {
+            if (err) throw err;
+            var $ = cheerio.load(body);
+
+            var nome = $('.entry-title').text().trim();
+            var img = $('.gallery img').attr('src');
+            var sexo = $('span[itemprop="gender"]').text().trim();
+            var dataNascimento = $('span[itemprop="birthdate"]').text().trim();
+            var alturaAproximada = $('.altura').text().trim();
+            var pesoAproximado = $('span[itemprop="weight"]').text().trim();
+            var cabelo = $('span[itemprop="hair"]').text().trim();
+            var olhos = $('span[itemprop="olhos"]').text().trim();
+            var corDaPele = $('.pele').text().trim();
+            var outros = $('.outros').text().trim();
+            var diasDesaparecido = $('.daystolost').text().trim();
+            var dataDesaparecimento = $('span[itemprop="lostdate"]').text().trim();
+            var local = $('span[itemprop="lostlocal"]').text().trim();
+            var informacoes = $('.aboutlost').text().trim();
+            
+
+            var registro = new RegistroCrawler6({
+              nome: nome
+              , img: img
+              , idade: idade
+              , informacoes: informacoes
+              , dataNascimento: dataNascimento
+              , dataDesaparecimento: dataDesaparecimento
+              , diasDesaparecido: diasDesaparecido
+              , sexo: sexo
+              , pesoAproximado: pesoAproximado
+              , alturaAproximada: alturaAproximada
+              , olhos: olhos
+              , corDaPele: corDaPele
+              , observacao: outros
+              , informacoes: informacoes
+              , cabelo: cabelo
+              , local: local
+              , fonte: url2
+            });
+
+            registro.save(function(err, registro) {
+              if (err) return console.error(err);
+              //console.dir(registro);
+            });
+          });
+        }
+      });
+      callback();
+    });
+  },
+  function(err){
+    // All tasks are done now
+    console.dir("Crawler do sexto site terminado!!!");
+  })
+}
