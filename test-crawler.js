@@ -105,7 +105,7 @@ arrCrawler = generateArray(2511, 2512, arrCrawler);
 //crawler2(arrCrawler);
 
 arrCrawler =  ['sao-paulo'];
-crawler3(arrCrawler);
+//crawler3(arrCrawler);
 
 arrCrawler = generateArray(1, 1, arrCrawler);//176
 //crawler4(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
