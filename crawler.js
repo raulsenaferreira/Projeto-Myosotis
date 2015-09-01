@@ -99,19 +99,19 @@ mongoose.connect('mongodb://localhost/myosotis');
 var arrCrawler=[];
 
 arrCrawler = generateArray(1, 3019, arrCrawler);
-//crawler1(arrCrawler);
+crawler1(arrCrawler);
 
 arrCrawler = generateArray(1, 2512, arrCrawler);
-//crawler2(arrCrawler);
+crawler2(arrCrawler);
 
-arrCrawler = ['rio-de-janeiro'];
+arrCrawler = ['sao-paulo','rio-de-janeiro','bahia','parana','rio-grande-do-sul','santa-catarina','outros-estados'];
 //crawler3(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
 
 arrCrawler = generateArray(1, 2, arrCrawler);//176
 //crawler4(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
 
 arrCrawler = generateArray(1, 3, arrCrawler);
-//crawler5(arrCrawler);
+crawler5(arrCrawler);
 
 arrCrawler = generateArray(1, 5, arrCrawler);
 crawler6(arrCrawler);
@@ -124,9 +124,9 @@ function generateArray(ini, end, arr) {
 //http://www.desaparecidos.gov.br
 function crawler1 (limite) {
   console.dir("Iniciando crawler do primeiro site...");
-  var casos=0;
+
   
-  async.each(limite, function (id, callback) { 
+  async.forEach(limite, function (id, callback) { 
     
     var urlSegundoNivel = format('http://www.desaparecidos.gov.br/desaparecidos/application/modulo/detalhes.php?id=%s', id);
     
@@ -188,7 +188,7 @@ function crawler1 (limite) {
         registro.save(function(err, registro) {
           if (err) return console.error(err);
           //console.dir(registro);
-          casos++;
+          
           callback();
         });
       }
@@ -196,15 +196,14 @@ function crawler1 (limite) {
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do primeiro site terminado!!! "+casos+" casos registrados.");
+    console.dir("Crawler do primeiro site terminado!!!");
   }
 )}
 
 //http://portal.mj.gov.br
 function crawler2(limite) {
   console.dir("Iniciando crawler do segundo site...");
-  //var limite = [19, 199]; // 2512
-  var casos=0;
+  
 
   async.each(limite, function (id, callback) { 
       var url = format('http://portal.mj.gov.br/Desaparecidos/frmCriancaDetalhe.aspx?id=%s', id);
@@ -264,7 +263,7 @@ function crawler2(limite) {
           registro.save(function(err, registro) {
             if (err) return console.error(err);
             //console.dir(registro);
-            casos++;
+            
             callback();
           });
         }
@@ -272,14 +271,14 @@ function crawler2(limite) {
     },
     function(err){
       // All tasks are done now
-      console.dir("Crawler do segundo site terminado!!! "+casos+" casos registrados.");
+      console.dir("Crawler do segundo site terminado!!!");
     });
 }
 
 //http://www.desaparecidosdobrasil.org
 function crawler3(estados) {
   console.dir("Iniciando crawler do terceiro site...");
-  var casos = 0;
+  
   var paginacao = 2;
   for (var offset = 1; offset <= paginacao; offset = offset+10) {
     async.each(estados, function (estado, next) {
@@ -315,7 +314,7 @@ function crawler3(estados) {
             registro.save(function(err, registro) {
               if (err) return console.error(err);
               console.dir(registro);
-              casos++;
+             
             });
           }
         });
@@ -324,7 +323,7 @@ function crawler3(estados) {
     },
     function(err){
       // All tasks are done now
-      console.dir("Crawler do terceiro site terminado!!! "+casos+" casos registrados.");
+      console.dir("Crawler do terceiro site terminado!!!  ");
     });
   }
 }
@@ -334,7 +333,7 @@ function crawler4(x) {
   console.dir("Iniciando crawler do quarto site...");
   async.each(x, function (id, next) {
     var url = format('http://www.desaparecidos.mg.gov.br/album.asp?pg=%d', id);
-    var casos=0;
+   
     request(url, function (err, response, body) {
       if (err) throw err;
       var $ = cheerio.load(body);
@@ -362,16 +361,16 @@ function crawler4(x) {
         registro.save(function(err, registro) {
           if (err) return console.error(err);
           console.dir(registro);
-          casos++;
+          
           next();
         });
       });
-      //console.log('Número de casos: '+casos);
+      //console.log('Número de : '+);
     });
  },
     function(err){
       // All tasks are done now
-      console.dir("Crawler do quarto site terminado!!! "+casos+" casos registrados.");
+      console.dir("Crawler do quarto site terminado!!!");
     }
   );
 }
@@ -380,7 +379,7 @@ function crawler4(x) {
 function crawler5(ids) {
 
   console.dir("Iniciando crawler do quinto site...");
-  var casos=0;
+ 
   
   async.each(ids, function (id, callback) { 
     
@@ -410,7 +409,7 @@ function crawler5(ids) {
           registro.save(function(err, registro) {
             if (err) return console.error(err);
             //console.dir(registro);
-            casos++;
+           
             
           });
         }
@@ -420,7 +419,7 @@ function crawler5(ids) {
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do quinto site terminado!!! "+casos+" casos registrados.");
+    console.dir("Crawler do quinto site terminado!!! ");
   }
 )}
 
@@ -470,7 +469,6 @@ function crawler6 (limite) {
               nome: nome
               , img: img
               , idade: idade
-              , informacoes: informacoes
               , dataNascimento: dataNascimento
               , dataDesaparecimento: dataDesaparecimento
               , diasDesaparecido: diasDesaparecido

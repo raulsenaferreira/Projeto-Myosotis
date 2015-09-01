@@ -17,6 +17,9 @@ resultsCrawler2 = db.find()
 db = connection.myosotis.registrocrawler5
 resultsCrawler5 = db.find()
 
+db = connection.myosotis.registrocrawler6
+resultsCrawler6 = db.find()
+
 connection.close()
 count=0
 arrayObjeto = []
@@ -30,9 +33,24 @@ def extractAndTransform():
         nome = record['nome'].replace('\'','').strip()
         nome=nome.lower()
         
-        img = record['img'].replace('\'','"').strip() if 'img' in record.keys() else ''
+        imagem = record['img'].replace('\'','"').strip() if 'img' in record.keys() else ''
 
+        sexo = record['sexo'].replace('\'','')
+        sexo = sexo.lower().replace('sexo:','').replace('masculino', 'M').replace('feminino', 'F').strip()
+        
+        olhos = record['olhos'].lower().replace('olhos:','').strip()
+        corDaPele = record['corDaPele'].lower().replace('cor da pele:','').strip()
+        cabelo=''
+        pesoAproximado = record['pesoAproximado'].lower().replace('peso aproximado:','').strip()
+        alturaAproximada = record['alturaAproximada'].lower().replace('altura aproximada:','').strip()
+        tipoFisico = record['tipoFisico'].lower().replace('tipo físico:','').strip()
+        transtornoMental = record['transtornoMental'].lower().replace('tem algum tipo de transtorno mental?','').strip()
+        idade = record['idadeHoje'].lower().replace('idade hoje:','').strip()
+        dataNascimento = ''
+        
         dataDesaparecimentoOrig = record['dataDesaparecimento'].replace('\'','').replace('Desapareceu em ','').strip()
+        diasDesaparecido = dataDesaparecimentoOrig.split('(')[1].replace(')','')
+        
         dataDesaparecimento = dataDesaparecimentoRegexSite1.match(dataDesaparecimentoOrig)
         if dataDesaparecimento != None:
             dataDesaparecimento = dataDesaparecimento.group().strip()
@@ -41,20 +59,26 @@ def extractAndTransform():
         
         localDesaparecimento = record['local'].replace('\'','').replace('.','').strip()
         localDesaparecimento = localDesaparecimento.split('/')
-        cidadeDesaparecimento = localDesaparecimento[0]
-        ufDesaparecimento = localDesaparecimento[1]
-        
+        bairroDesaparecimento = ''
+        cidadeDesaparecimento=''
+        ufDesaparecimento=''
+        if len(localDesaparecimento) > 2:
+            bairroDesaparecimento = localDesaparecimento[0]
+            cidadeDesaparecimento = localDesaparecimento[1]
+            ufDesaparecimento = localDesaparecimento[2]
+        elif len(localDesaparecimento) == 2:
+            cidadeDesaparecimento = localDesaparecimento[0]
+            ufDesaparecimento = localDesaparecimento[1]
+            
+        marcaCaracteristica = ''
+        status = record['status']
+        informacoes = record['observacao'].replace('\'','').strip()
+        boletimOcorrencia = record['boletimOcorrencia'].lower().replace('foi feito boletim de ocorrência do caso?','').strip()
         fonte = record['fonte']
         
-        sexo = record['sexo'].replace('\'','')
-        sexo = sexo.replace('Sexo:','').replace('Masculino', 'M').replace('Feminino', 'F').strip()
-        
-        corDaPele = record['corDaPele'].replace('Cor da pele:','').strip()
-        observacao = record['observacao'].replace('\'','').strip()
-        status = record['status']
         
         reg.update({nome: nome})
-        objeto = Registro(nome, img, sexo, corDaPele, dataDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, observacao, status, fonte)
+        objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
       
         try:
             reg.update({nome: objeto})
@@ -72,11 +96,25 @@ def extractAndTransform():
         nome = record['nome'].replace('\'','').strip()
         nome=nome.lower()
         
-        img = record['img'].replace('\'','"').strip() if 'img' in record.keys() else ''
+        imagem = record['img'].replace('\'','"').strip() if 'img' in record.keys() else ''
+        
+        sexo = record['sexo'].replace('\'','').strip()
+        olhos = record['olhos'].replace('\'','').strip()
+        corDaPele = record['raca'].strip()
+        cabelo = ''
+        pesoAproximado = record['pesoAproximado'].strip()  if record['pesoAproximado'].strip() != '0' else ''
+        alturaAproximada = record['alturaAproximada'].strip()  if record['alturaAproximada'].strip() != '0' else ''
+        tipoFisico = ''
+        transtornoMental = ''
+        
+        dataNascimento = record['dataNascimento'].replace('\'','').strip()
+        idade = ''#fazer metodo pra calcular a idade
         
         dataDesaparecimento = record['dataDesaparecimento'].replace('\'','').strip()
+        diasDesaparecido = ''#fazer metodo pra calcular os dias de desaparecimento
         
         dddDesaparecimento = dddDesaparecimentoRegex.match(record['telContato'])
+        bairroDesaparecimento = ''
         ufDesaparecimento = ''
         cidadeDesaparecimento = ''
         
@@ -84,13 +122,13 @@ def extractAndTransform():
             dddDesaparecimento = dddDesaparecimento.group().replace('(', '')
             ufDesaparecimento = Util.mapDDD(dddDesaparecimento)
         
-        fonte = record['fonte'].strip()
-        sexo = record['sexo'].replace('\'','').strip()
-        observacao = record['observacao'].replace('\'','').strip()
-        corDaPele = record['raca'].strip()
+        marcaCaracteristica = ''
         status = record['status'].strip()
+        informacoes = record['observacao'].replace('\'','').strip()
+        boletimOcorrencia = ''#fazer metodo pra verificar no email de contato se eh de algum orgao responsavel, assim, provavelmente tem B.O.
+        fonte = record['fonte'].strip()
         
-        objeto = Registro(nome, img, sexo, corDaPele, dataDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, observacao, status, fonte)
+        objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
       
         try:
             reg.update({nome: objeto})
@@ -105,18 +143,36 @@ def extractAndTransform():
     dataDesaparecimentoRegex = re.compile('Data do desaparecimento:')
     localDesaparecimentoRegex = re.compile('[lL]ocal do desaparecimento:|[dD]esapareceu de|[dD]esapareceu do|[dD]esapareceu da|[dD]esapareceu em|[dD]esapareceu no')
     corDaPeleRegex = re.compile('Cor|cor')
+    sexoRegex = re.compile('Sexo|sexo')
     
     for record in resultsCrawler5:
         nome = record['nome'].replace('\'','').strip()
         nome=nome.lower()
         
-        img = record['img'].replace('\'','"').strip() if 'img' in record.keys() else ''
+        imagem = record['img'].replace('\'','"').strip() if 'img' in record.keys() else ''
+        
+        sexo = ''
+        olhos = ''
+        corDaPele = ''
+        cabelo = ''
+        pesoAproximado = ''
+        alturaAproximada = ''
+        corDaPele = ''
+        tipoFisico = ''
+        transtornoMental = ''
+        idade = ''
+        dataNascimento = ''
+        diasDesaparecido = ''
+        dataDesaparecimento =''
+        bairroDesaparecimento =''
+        cidadeDesaparecimento =''
+        ufDesaparecimento ='RS' 
+        marcaCaracteristica =''
+        informacoes =''
+        boletimOcorrencia =''
         
         info = record['informacoes'].replace('\'','').strip()
-        dataDesaparecimento=''
-        ufDesaparecimento='RS'
-        cidadeDesaparecimento=''
-        corDaPele=''
+        
         fonte = record['fonte'].strip()
         arrayInfo = info.split('$$$$')
         
@@ -130,19 +186,72 @@ def extractAndTransform():
                 cidadeDesaparecimento = cidadeDesaparecimentoAux.split('-')[0].strip()
             if corDaPeleRegex.match(r) != None:
                 corDaPele = r.replace('Cor:','').strip()
+            if sexoRegex.match(r) != None:
+                sexo = r.replace('Sexo:','').strip().lower().replace('masculino', 'M').replace('feminino', 'F')
+            
                 
         status = record['status'].strip()
         
-        objeto = Registro(nome, img, sexo, corDaPele, dataDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, observacao, status, fonte)
+        objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
+      
+        try:
+            reg.update({nome: objeto})
+        except KeyError:
+            reg[nome] = objeto
+            
+            
+            
+    #ETL for Site 6
+    for record in resultsCrawler6:
+        nome = record['nome'].replace('\'','').strip()
+        nome=nome.lower()
+        
+        imagem = record['img'].replace('\'','"').strip() if 'img' in record.keys() else ''
+        
+        idade = record['idade'].strip()
+        dataNascimento = record['dataNascimento'].strip()
+        informacoes = record['informacoes'].replace('\'','').strip()
+        dataDesaparecimento=record['dataDesaparecimento'].strip()
+        diasDesaparecido=record['diasDesaparecido'].strip()
+        sexo=record['sexo'].strip()
+        pesoAproximado = record['pesoAproximado'].strip()
+        alturaAproximada=record['alturaAproximada'].strip()
+        olhos=record['olhos'].strip()
+        corDaPele=record['corDaPele'].strip()
+        marcaCaracteristica=record['observacao'].strip()
+        cabelo=record['cabelo'].strip()
+        
+        local=record['local'].strip()
+        local = local.split(',')
+        ufDesaparecimento=''
+        cidadeDesaparecimento=''
+        bairroDesaparecimento=''
+        if len(local)==2:
+            ufDesaparecimento=local[1].strip()
+            cidadeDesaparecimento=local[0].strip()
+        elif len(local)==3:
+            ufDesaparecimento=local[2].strip()
+            cidadeDesaparecimento=local[1].strip()
+            bairroDesaparecimento=local[0].strip()
+        
+        fonte = record['fonte'].strip()
+        status = record['status'].strip()
+        
+        objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
       
         try:
             reg.update({nome: objeto})
         except KeyError:
             reg[nome] = objeto
     
+    
     #print(len(reg)) #Quantidade de registros coletados com nomes diferentes
-    load()
+    #load to database
+    #load()
 
+              
+              
+              
 def load():
     conn_string = "host='localhost' dbname='banco' user='usuario' password='senha'"
     conn = psycopg2.connect(conn_string)
@@ -150,8 +259,8 @@ def load():
     print ("Connected!")
     
     for k in reg.keys():
-        values = "'{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}'".format(reg[k].nome, reg[k].imagem, reg[k].sexo, reg[k].corDaPele, reg[k].dataDesaparecimento, reg[k].cidadeDesaparecimento, reg[k].ufDesaparecimento, reg[k].observacao, reg[k].status, reg[k].fonte)
-        query = "INSERT INTO registro (nome, imagem, sexo, cor_da_pele, data_desaparecimento, cidade_desaparecimento, uf_desaparecimento, observacao, status, fonte) VALUES ({});".format(values)
+        values = "'{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}'".format(reg[k].nome, reg[k].imagem, reg[k].sexo, reg[k].olhos, reg[k].corDaPele, reg[k].cabelo, reg[k].pesoAproximado, reg[k].alturaAproximada, reg[k].tipoFisico, reg[k].transtornoMental, reg[k].idade, reg[k].dataNascimento, reg[k].diasDesaparecido, reg[k].dataDesaparecimento, reg[k].bairroDesaparecimento, reg[k].cidadeDesaparecimento, reg[k].ufDesaparecimento, reg[k].marcaCarateristica, reg[k].status, reg[k].informacoes, reg[k].boletimOcorrencia, reg[k].fonte)
+        query = "INSERT INTO registro (nome, imagem, sexo, olhos, cor_da_pele, cabelo, peso_aproximado, altura_aproximada, tipo_fisico, transtorno_mental, idade, data_nascimento, dias_desaparecido, data_desaparecimento, bairro_desaparecimento, cidade_desaparecimento, uf_desaparecimento, marca_caracteristica, status, informacoes, boletim_ocorrencia, fonte) VALUES ({});".format(values)
         cursor.execute(query)
         conn.commit()
         

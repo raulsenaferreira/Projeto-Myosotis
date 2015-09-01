@@ -104,8 +104,8 @@ arrCrawler = generateArray(3018, 3019, arrCrawler);
 arrCrawler = generateArray(2511, 2512, arrCrawler);
 //crawler2(arrCrawler);
 
-arrCrawler = ['rio-de-janeiro'];
-//crawler3(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
+arrCrawler =  ['sao-paulo'];
+crawler3(arrCrawler);
 
 arrCrawler = generateArray(1, 1, arrCrawler);//176
 //crawler4(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
@@ -114,7 +114,7 @@ arrCrawler = generateArray(1, 1, arrCrawler);
 //crawler5(arrCrawler);
 
 arrCrawler = generateArray(1, 1, arrCrawler);
-crawler6(arrCrawler);
+//crawler6(arrCrawler);
 
 function generateArray(ini, end, arr) {
   while (ini<=end) { arr.push(ini); ini++; }
@@ -124,7 +124,7 @@ function generateArray(ini, end, arr) {
 //http://www.desaparecidos.gov.br
 function crawler1 (limite) {
   console.dir("Iniciando crawler do primeiro site...");
-  var casos=0;
+ 
   
   async.each(limite, function (id, callback) { 
     
@@ -188,7 +188,7 @@ function crawler1 (limite) {
         registro.save(function(err, registro) {
           if (err) return console.error(err);
           //console.dir(registro);
-          casos++;
+          ++;
           callback();
         });
       }
@@ -196,7 +196,7 @@ function crawler1 (limite) {
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do primeiro site terminado!!! "+casos+" casos registrados.");
+    console.dir("Crawler do primeiro site terminado!!! "++"  registrados.");
   }
 )}
 
@@ -204,7 +204,7 @@ function crawler1 (limite) {
 function crawler2(limite) {
   console.dir("Iniciando crawler do segundo site...");
   //var limite = [19, 199]; // 2512
-  var casos=0;
+ 
 
   async.each(limite, function (id, callback) { 
       var url = format('http://portal.mj.gov.br/Desaparecidos/frmCriancaDetalhe.aspx?id=%s', id);
@@ -264,7 +264,7 @@ function crawler2(limite) {
           registro.save(function(err, registro) {
             if (err) return console.error(err);
             //console.dir(registro);
-            casos++;
+            ++;
             callback();
           });
         }
@@ -272,14 +272,14 @@ function crawler2(limite) {
     },
     function(err){
       // All tasks are done now
-      console.dir("Crawler do segundo site terminado!!! "+casos+" casos registrados.");
+      console.dir("Crawler do segundo site terminado!!! "++"  registrados.");
     });
 }
 
 //http://www.desaparecidosdobrasil.org
 function crawler3(estados) {
   console.dir("Iniciando crawler do terceiro site...");
-  var casos = 0;
+  
   var paginacao = 2;
   for (var offset = 1; offset <= paginacao; offset = offset+10) {
     async.each(estados, function (estado, next) {
@@ -295,14 +295,22 @@ function crawler3(estados) {
         paginacao = Number(paginacao);
 
         $('.announcement').each(function () {
-          var nome = $('h4 a:nth-child(1)').text();
+          var nome = $(this).find('h4').text();
           
           if (nome!=undefined && nome!="") {      
             nome = nome.trim();
-            var fonte = 'http://www.desaparecidosdobrasil.org'+$('h4 a').attr('href');
-            var img = $('.sites-layout-tile.sites-tile-name-content-2').find('img').attr('src');
-            var ultimaInformacao = $('.timestamp .updatedTime').text();
-            var metaDados = $('.sites-layout-tile sites-tile-name-content-1 blockquote').text();
+            var link = $(this).find('a').attr('href');
+            var fonte = 'http://www.desaparecidosdobrasil.org';
+            var img = $(this).find('img').attr('src');
+            var metaDados = $(this).find('blockquote').text();
+            var ultimaInformacao = $(this).find('.timestamp').text();
+
+            console.dir(nome);
+            console.dir(fonte);
+            console.dir(img);
+            console.dir(ultimaInformacao);
+            console.dir(metaDados);
+            console.dir(link);
 
             var registro = new Desaparecido({
                 nome: nome
@@ -314,64 +322,50 @@ function crawler3(estados) {
 
             registro.save(function(err, registro) {
               if (err) return console.error(err);
-              console.dir(registro);
-              casos++;
+              //console.dir(registro);
+              
             });
           }
         });
+        next();
       });
-      next();
+      
     },
     function(err){
       // All tasks are done now
-      console.dir("Crawler do terceiro site terminado!!! "+casos+" casos registrados.");
+      console.dir("Crawler do terceiro site terminado!!!");
     });
   }
 }
 
 //http://www.desaparecidos.mg.gov.br
-function crawler4(x) {
+function crawler4(limite) {
   console.dir("Iniciando crawler do quarto site...");
-  async.each(x, function (id, next) {
-    var url = format('http://www.desaparecidos.mg.gov.br/album.asp?pg=%d', id);
-    var casos=0;
+  async.each(limite, function (id, next) {
+    var url = format('http://www.desaparecidos.mg.gov.br/album.asp?pg=%s', id);
+    
     request(url, function (err, response, body) {
       if (err) throw err;
       var $ = cheerio.load(body);
 
-      //var tabela = $('table tr:nth-child(7)').find('table');
-      $('table tr:nth-child(7) table td:nth-child(odd)').each(function () {
-        var nome = $('.txtalbum1').text();
-        var mais = "http://www.desaparecidos.mg.gov.br"+$('table a').attr('href');
-        var img = $('table a img').attr('src');
+      
+      $('a').each(function () {
+        var nome = $(this).text();
+        var link = $(this).attr('href');
+        
 
-        // request(mais, function (err, response, body) {
-        //   if (err) throw err;
-        //   var $ = cheerio.load(body);
-        //   var detalhe = $('.txtdetalhe').text();
-        //   console.dir(detalhe);
-        // });
+        console.dir(nome);
+        console.dir(img);
+        
 
-         var registro = new Desaparecido({
-            nome: nome
-          , img: img
-          , local: "Minas Gerais"
-          , mais: mais
-        });
-
-        registro.save(function(err, registro) {
-          if (err) return console.error(err);
-          console.dir(registro);
-          casos++;
-          next();
-        });
+         
       });
-      //console.log('Número de casos: '+casos);
+      //console.log('Número de : '+);
     });
  },
     function(err){
       // All tasks are done now
-      console.dir("Crawler do quarto site terminado!!! "+casos+" casos registrados.");
+      console.dir("Crawler do quarto site terminado!!!");
     }
   );
 }
@@ -380,7 +374,7 @@ function crawler4(x) {
 function crawler5(ids) {
 
   console.dir("Iniciando crawler do quinto site...");
-  var casos=0;
+ 
   
   async.each(ids, function (id, callback) { 
     
@@ -410,7 +404,7 @@ function crawler5(ids) {
           registro.save(function(err, registro) {
             if (err) return console.error(err);
             //console.dir(registro);
-            casos++;
+            ++;
             
           });
         }
@@ -420,7 +414,7 @@ function crawler5(ids) {
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do quinto site terminado!!! "+casos+" casos registrados.");
+    console.dir("Crawler do quinto site terminado!!! "++"  registrados.");
   })
 }
 
@@ -429,7 +423,7 @@ function crawler6 (limite) {
   console.dir("Iniciando crawler do sexto site...");
   var urls=[];
 
-  async.each(limite, function (id, callback) { 
+  async.forEach(limite, function (id, callback) { 
     
     var url = format('http://www.biamap.com.br/page/%s/', id);
     
@@ -470,7 +464,6 @@ function crawler6 (limite) {
               nome: nome
               , img: img
               , idade: idade
-              , informacoes: informacoes
               , dataNascimento: dataNascimento
               , dataDesaparecimento: dataDesaparecimento
               , diasDesaparecido: diasDesaparecido
