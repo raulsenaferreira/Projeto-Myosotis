@@ -188,7 +188,6 @@ function crawler1 (limite) {
         registro.save(function(err, registro) {
           if (err) return console.error(err);
           //console.dir(registro);
-          ++;
           callback();
         });
       }
@@ -264,7 +263,6 @@ function crawler2(limite) {
           registro.save(function(err, registro) {
             if (err) return console.error(err);
             //console.dir(registro);
-            ++;
             callback();
           });
         }
@@ -404,7 +402,6 @@ function crawler5(ids) {
           registro.save(function(err, registro) {
             if (err) return console.error(err);
             //console.dir(registro);
-            ++;
             
           });
         }
