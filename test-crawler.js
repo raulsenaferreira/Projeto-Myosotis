@@ -195,7 +195,7 @@ function crawler1 (limite) {
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do primeiro site terminado!!! "++"  registrados.");
+    console.dir("Crawler do primeiro site terminado!!!");
   }
 )}
 
@@ -270,7 +270,7 @@ function crawler2(limite) {
     },
     function(err){
       // All tasks are done now
-      console.dir("Crawler do segundo site terminado!!! "++"  registrados.");
+      console.dir("Crawler do segundo site terminado!!!");
     });
 }
 
@@ -411,7 +411,7 @@ function crawler5(ids) {
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do quinto site terminado!!! "++"  registrados.");
+    console.dir("Crawler do quinto site terminado!!!");
   })
 }
 
