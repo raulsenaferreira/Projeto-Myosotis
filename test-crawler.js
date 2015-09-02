@@ -105,7 +105,7 @@ arrCrawler = generateArray(2511, 2512, arrCrawler);
 //crawler2(arrCrawler);
 
 arrCrawler =  ['sao-paulo'];
-crawler3(arrCrawler);
+//crawler3(arrCrawler);
 
 arrCrawler = generateArray(1, 1, arrCrawler);//176
 //crawler4(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
@@ -188,7 +188,6 @@ function crawler1 (limite) {
         registro.save(function(err, registro) {
           if (err) return console.error(err);
           //console.dir(registro);
-          ++;
           callback();
         });
       }
@@ -196,7 +195,7 @@ function crawler1 (limite) {
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do primeiro site terminado!!! "++"  registrados.");
+    console.dir("Crawler do primeiro site terminado!!!");
   }
 )}
 
@@ -264,7 +263,6 @@ function crawler2(limite) {
           registro.save(function(err, registro) {
             if (err) return console.error(err);
             //console.dir(registro);
-            ++;
             callback();
           });
         }
@@ -272,7 +270,7 @@ function crawler2(limite) {
     },
     function(err){
       // All tasks are done now
-      console.dir("Crawler do segundo site terminado!!! "++"  registrados.");
+      console.dir("Crawler do segundo site terminado!!!");
     });
 }
 
@@ -404,7 +402,6 @@ function crawler5(ids) {
           registro.save(function(err, registro) {
             if (err) return console.error(err);
             //console.dir(registro);
-            ++;
             
           });
         }
@@ -414,7 +411,7 @@ function crawler5(ids) {
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do quinto site terminado!!! "++"  registrados.");
+    console.dir("Crawler do quinto site terminado!!!");
   })
 }
 
