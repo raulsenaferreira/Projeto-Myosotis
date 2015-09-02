@@ -128,11 +128,31 @@ def extractAndTransform():
         boletimOcorrencia = ''#fazer metodo pra verificar no email de contato se eh de algum orgao responsavel, assim, provavelmente tem B.O.
         fonte = record['fonte'].strip()
         
-        objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
-      
         try:
-            reg.update({nome: objeto})
+            if reg[nome].imagem=='': reg[nome].imagem = imagem 
+            if reg[nome].sexo=='' : reg[nome].sexo = sexo 
+            if reg[nome].olhos=='': reg[nome].olhos = olhos 
+            if reg[nome].corDaPele=='': reg[nome].corDaPele = corDaPele 
+            if reg[nome].cabelo=='': reg[nome].cabelo = cabelo 
+            if reg[nome].pesoAproximado=='': reg[nome].pesoAproximado = pesoAproximado 
+            if reg[nome].alturaAproximada=='': reg[nome].alturaAproximada = alturaAproximada 
+            if reg[nome].tipoFisico=='': reg[nome].tipoFisico = tipoFisico 
+            if reg[nome].transtornoMental=='': reg[nome].transtornoMental = transtornoMental 
+            if reg[nome].dataNascimento=='': reg[nome].dataNascimento = dataNascimento 
+            if reg[nome].idade=='': reg[nome].idade = idade 
+            if reg[nome].dataDesaparecimento=='': reg[nome].dataDesaparecimento = dataDesaparecimento 
+            if reg[nome].diasDesaparecido=='': reg[nome].diasDesaparecido = diasDesaparecido
+            if reg[nome].bairroDesaparecimento=='': reg[nome].bairroDesaparecimento = bairroDesaparecimento
+            if reg[nome].cidadeDesaparecimento=='': reg[nome].cidadeDesaparecimento = cidadeDesaparecimento 
+            if reg[nome].ufDesaparecimento=='': reg[nome].ufDesaparecimento = ufDesaparecimento
+            if reg[nome].marcaCaracteristica=='': reg[nome].marcaCaracteristica = marcaCaracteristica
+            if reg[nome].status=='': reg[nome].status = status
+            if reg[nome].informacoes=='': reg[nome].informacoes = informacoes
+            if reg[nome].boletimOcorrencia=='': reg[nome].boletimOcorrencia = boletimOcorrencia
+            if reg[nome].fonte=='': reg[nome].fonte = fonte
+        
         except KeyError:
+            objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
             reg[nome] = objeto
         
     #print(len(reg))
@@ -188,15 +208,34 @@ def extractAndTransform():
                 corDaPele = r.replace('Cor:','').strip()
             if sexoRegex.match(r) != None:
                 sexo = r.replace('Sexo:','').strip().lower().replace('masculino', 'M').replace('feminino', 'F')
-            
                 
         status = record['status'].strip()
         
-        objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
-      
         try:
-            reg.update({nome: objeto})
+            if reg[nome].imagem=='': reg[nome].imagem = imagem 
+            if reg[nome].sexo=='' : reg[nome].sexo = sexo 
+            if reg[nome].olhos=='': reg[nome].olhos = olhos 
+            if reg[nome].corDaPele=='': reg[nome].corDaPele = corDaPele 
+            if reg[nome].cabelo=='': reg[nome].cabelo = cabelo 
+            if reg[nome].pesoAproximado=='': reg[nome].pesoAproximado = pesoAproximado 
+            if reg[nome].alturaAproximada=='': reg[nome].alturaAproximada = alturaAproximada 
+            if reg[nome].tipoFisico=='': reg[nome].tipoFisico = tipoFisico 
+            if reg[nome].transtornoMental=='': reg[nome].transtornoMental = transtornoMental 
+            if reg[nome].dataNascimento=='': reg[nome].dataNascimento = dataNascimento 
+            if reg[nome].idade=='': reg[nome].idade = idade 
+            if reg[nome].dataDesaparecimento=='': reg[nome].dataDesaparecimento = dataDesaparecimento 
+            if reg[nome].diasDesaparecido=='': reg[nome].diasDesaparecido = diasDesaparecido
+            if reg[nome].bairroDesaparecimento=='': reg[nome].bairroDesaparecimento = bairroDesaparecimento
+            if reg[nome].cidadeDesaparecimento=='': reg[nome].cidadeDesaparecimento = cidadeDesaparecimento 
+            if reg[nome].ufDesaparecimento=='': reg[nome].ufDesaparecimento = ufDesaparecimento
+            if reg[nome].marcaCaracteristica=='': reg[nome].marcaCaracteristica = marcaCaracteristica
+            if reg[nome].status=='': reg[nome].status = status
+            if reg[nome].informacoes=='': reg[nome].informacoes = informacoes
+            if reg[nome].boletimOcorrencia=='': reg[nome].boletimOcorrencia = boletimOcorrencia
+            if reg[nome].fonte=='': reg[nome].fonte = fonte
+        
         except KeyError:
+            objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
             reg[nome] = objeto
             
             
@@ -237,17 +276,37 @@ def extractAndTransform():
         fonte = record['fonte'].strip()
         status = record['status'].strip()
         
-        objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
-      
         try:
-            reg.update({nome: objeto})
+            if reg[nome].imagem=='': reg[nome].imagem = imagem 
+            if reg[nome].sexo=='' : reg[nome].sexo = sexo 
+            if reg[nome].olhos=='': reg[nome].olhos = olhos 
+            if reg[nome].corDaPele=='': reg[nome].corDaPele = corDaPele 
+            if reg[nome].cabelo=='': reg[nome].cabelo = cabelo 
+            if reg[nome].pesoAproximado=='': reg[nome].pesoAproximado = pesoAproximado 
+            if reg[nome].alturaAproximada=='': reg[nome].alturaAproximada = alturaAproximada 
+            if reg[nome].tipoFisico=='': reg[nome].tipoFisico = tipoFisico 
+            if reg[nome].transtornoMental=='': reg[nome].transtornoMental = transtornoMental 
+            if reg[nome].dataNascimento=='': reg[nome].dataNascimento = dataNascimento 
+            if reg[nome].idade=='': reg[nome].idade = idade 
+            if reg[nome].dataDesaparecimento=='': reg[nome].dataDesaparecimento = dataDesaparecimento 
+            if reg[nome].diasDesaparecido=='': reg[nome].diasDesaparecido = diasDesaparecido
+            if reg[nome].bairroDesaparecimento=='': reg[nome].bairroDesaparecimento = bairroDesaparecimento
+            if reg[nome].cidadeDesaparecimento=='': reg[nome].cidadeDesaparecimento = cidadeDesaparecimento 
+            if reg[nome].ufDesaparecimento=='': reg[nome].ufDesaparecimento = ufDesaparecimento
+            if reg[nome].marcaCaracteristica=='': reg[nome].marcaCaracteristica = marcaCaracteristica
+            if reg[nome].status=='': reg[nome].status = status
+            if reg[nome].informacoes=='': reg[nome].informacoes = informacoes
+            if reg[nome].boletimOcorrencia=='': reg[nome].boletimOcorrencia = boletimOcorrencia
+            if reg[nome].fonte=='': reg[nome].fonte = fonte
+        
         except KeyError:
+            objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
             reg[nome] = objeto
     
     
     #print(len(reg)) #Quantidade de registros coletados com nomes diferentes
     #load to database
-    #load()
+    load()
 
               
               
@@ -259,7 +318,7 @@ def load():
     print ("Connected!")
     
     for k in reg.keys():
-        values = "'{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}'".format(reg[k].nome, reg[k].imagem, reg[k].sexo, reg[k].olhos, reg[k].corDaPele, reg[k].cabelo, reg[k].pesoAproximado, reg[k].alturaAproximada, reg[k].tipoFisico, reg[k].transtornoMental, reg[k].idade, reg[k].dataNascimento, reg[k].diasDesaparecido, reg[k].dataDesaparecimento, reg[k].bairroDesaparecimento, reg[k].cidadeDesaparecimento, reg[k].ufDesaparecimento, reg[k].marcaCarateristica, reg[k].status, reg[k].informacoes, reg[k].boletimOcorrencia, reg[k].fonte)
+        values = "'{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}'".format(reg[k].nome, reg[k].imagem, reg[k].sexo, reg[k].olhos, reg[k].corDaPele, reg[k].cabelo, reg[k].pesoAproximado, reg[k].alturaAproximada, reg[k].tipoFisico, reg[k].transtornoMental, reg[k].idade, reg[k].dataNascimento, reg[k].diasDesaparecido, reg[k].dataDesaparecimento, reg[k].bairroDesaparecimento, reg[k].cidadeDesaparecimento, reg[k].ufDesaparecimento, reg[k].marcaCaracteristica, reg[k].status, reg[k].informacoes, reg[k].boletimOcorrencia, reg[k].fonte)
         query = "INSERT INTO registro (nome, imagem, sexo, olhos, cor_da_pele, cabelo, peso_aproximado, altura_aproximada, tipo_fisico, transtorno_mental, idade, data_nascimento, dias_desaparecido, data_desaparecimento, bairro_desaparecimento, cidade_desaparecimento, uf_desaparecimento, marca_caracteristica, status, informacoes, boletim_ocorrencia, fonte) VALUES ({});".format(values)
         cursor.execute(query)
         conn.commit()

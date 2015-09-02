@@ -1,6 +1,6 @@
 class Registro(object):
 
-    def __init__(self, nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracterística, status, informacoes, boletimOcorrencia, fonte):
+    def __init__(self, nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte):
         self.nome = nome
         self.imagem = imagem
         self.sexo = sexo
@@ -18,7 +18,7 @@ class Registro(object):
         self.bairroDesaparecimento = bairroDesaparecimento
         self.cidadeDesaparecimento = cidadeDesaparecimento
         self.ufDesaparecimento = ufDesaparecimento
-        self.marcaCaracterística = marcaCaracterística
+        self.marcaCaracteristica = marcaCaracteristica
         self.status = status
         self.informacoes = informacoes
         self.boletimOcorrencia = boletimOcorrencia
