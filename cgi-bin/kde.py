@@ -13,6 +13,7 @@ data = cgi.FieldStorage()
 
 latitude = []
 longitude = []
+estado = []
 
 try:
     dataFromPHP = sys.argv[1]
@@ -22,13 +23,13 @@ except:
 
 #verifica se essa consulta ja esta em cache
 redis = redis.Redis('localhost')
-chave = hashlib.md5(dataFromPHP).hexdigest()
-if(redis.get(chave)):
+chave = '3'#hashlib.md5(dataFromPHP).hexdigest()
+if(redis.get(chave) == ''):
 	print redis.get(chave)
 else:
 	#substitua com os dados do seu banco
 	try:
-		conn = psycopg2.connect("host='host' dbname='banco' user='usuario' password='senha'")
+		conn = psycopg2.connect("host='localhost' dbname='banco' user='usuario' password='senha'")
 	except:
 		print "Nao conectou!"
 
@@ -41,19 +42,20 @@ else:
 	cur.close()
 	conn.close()
 
-	def pegaLatLon(linhas):
+	def pegaLatLonUF(linhas):
 		for linha in linhas:
 			latitude.append( float(linha[0]) )
 			longitude.append( float(linha[1]) )
-		return latitude, longitude
+			estado.append(linha[2])
+		return latitude, longitude, estado
 
-	m1, m2 = pegaLatLon(linhas)
+	m1, m2, uf = pegaLatLonUF(linhas)
 
 	values = np.vstack([m1, m2])
 
 	tam = len(values[0])
 	limite = range(tam)
-	fator = 500 #Equivale a 5 no Matlab
+	fator = 50000
 
 	#Calculo do KDE
 	kernel = scipy.stats.kde.gaussian_kde(values)
@@ -72,16 +74,21 @@ else:
 	print Parallel(n_jobs=numThreads, backend="threading")(delayed(recuperaArrayPDFParalelo)(j) for j in limite)
 	'''
 	#Sequencial
-	def recuperaArrayPDF(kernel, values):
-		lst = []
+	def recuperaArrayPDF(kernel, values, estados):
+		lst = {}
 		for j in range(tam):
-			lst.append(kernel.evaluate(np.vstack([values[0][j], values[1][j]]))[0]*fator)
+			PDF = kernel.evaluate(np.vstack([values[0][j], values[1][j]]))[0]*fator
+			nomeEstado = str(estados[j])
+			try:
+				lst[nomeEstado] = (PDF+lst[nomeEstado])
+			except KeyError:
+				lst[nomeEstado] = PDF
 		return lst
 
-	PDFs = recuperaArrayPDF(kernel, values)
+	CDFs = recuperaArrayPDF(kernel, values, uf)
 	
 	#grava a nova consulta no redis (cache)
-	redis.set(chave, PDFs)
+	redis.set(chave, CDFs)
 	
 	#resultado enviado 
-	print PDFs
+	print CDFs

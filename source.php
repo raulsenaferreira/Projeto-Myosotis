@@ -5,12 +5,12 @@
 	// Montagem da query e envio dos dados
 	if(isset($_POST['submitted']) ) {
 		$tipoProcessamento = trim($_POST['tipoProcessamento']);
-		$campus = trim($_POST['campus']);
-		$sexo = trim($_POST['sexo']);
-		$situacao = trim($_POST['situacao']);
-		$cra_aluno = trim($_POST['cra_aluno']);
-		$cod_curso = trim($_POST['cod_curso']);
-		$naturalidade = trim($_POST['naturalidade']);
+		// $campus = trim($_POST['campus']);
+		// $sexo = trim($_POST['sexo']);
+		// $situacao = trim($_POST['situacao']);
+		// $cra_aluno = trim($_POST['cra_aluno']);
+		// $cod_curso = trim($_POST['cod_curso']);
+		// $naturalidade = trim($_POST['naturalidade']);
 		$poligono = trim($_POST['poligono']);
 
 		$params .= ($cod_curso!="") ? " AND cod_curso = '".$cod_curso."'" : "";
@@ -23,23 +23,23 @@
 		if($tipoProcessamento=='python'){
 			// envia restrição do polígono caso este tenha sido desenhado no mapa
 			if(!empty($poligono)) {
-				$query = "SELECT ST_X(geom), ST_Y(geom) from alunos_rural WHERE ST_Intersects(geom,ST_Transform(ST_GeomFromText('".$poligono."',3857),4326))".$params.";";
+				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao) from registro WHERE ST_Intersects(geolocalizacao,ST_Transform(ST_GeomFromText('".$poligono."',3857),4674))".$params.";";
 			} 
 			else {
-				$query = "SELECT ST_X(geom), ST_Y(geom) from alunos_rural WHERE latitude != 0 ".$params.";";
+				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao), uf_desaparecimento from registro WHERE latitude is not null  ".$params.";";
 			}
 
 			exec('python cgi-bin/kde.py "'.$query.'"' , $dataFromPython);
 			
-			echo (empty($dataFromPython)) ? "python não carregou" : json_encode($dataFromPython);
+			print_r ((empty($dataFromPython)) ? "python não carregou" : json_encode($dataFromPython));
 		}
 		else if($tipoProcessamento=='php'){
 			// envia restrição do polígono caso este tenha sido desenhado no mapa
 			if(!empty($poligono)) {
-				$query = "SELECT ST_X(geom), ST_Y(geom), bolsista, nascimento, cra, naturalidade, cod_curso, sexo, forma_ingresso, campus, crm from alunos_rural WHERE ST_Intersects(geom,ST_Transform(ST_GeomFromText('".$poligono."',3857),4326))".$params.";";
+				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao) from registro WHERE ST_Intersects(geolocalizacao,ST_Transform(ST_GeomFromText('".$poligono."',3857),4674))".$params.";";
 			} 
 			else {
-				$query = "SELECT ST_X(geom), ST_Y(geom), bolsista, nascimento, cra, naturalidade, cod_curso, sexo, forma_ingresso, campus, crm from alunos_rural WHERE latitude != 0".$params.";";
+				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao), nome from registro WHERE latitude is not null  ".$params.";";
 			}
 
 			$result = pg_query($query);
