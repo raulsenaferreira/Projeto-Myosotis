@@ -137,7 +137,10 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                        <div id="map"></div>
+                        <div id="map_container">
+                            <div id="map"></div>
+                        </div>
+                        
                         <div class="aviosMap">
                             <ul class="listaSemMarcador">
                                 <li> Use o botão com a <img src="imagens/hand.png" style="width:15px;height:15px;"> para poder navegar no mapa. </li>

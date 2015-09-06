@@ -1,14 +1,21 @@
 $(function(){ 
     var geojson; 
-    var mapGlobal;
+    
+    
+    
     //autocomplete de codigo de curso
     preencheCodCurso();
     //Gráficos
 });
 
-// Carrega o 1º mapa
+
 function init() {
+    var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+    }), latlng = L.latLng(-15.7956343, -58.6324594);//Fazendo o mapa iniciar no Brasil
     
+    mapGlobal = L.map('map', {center: latlng, zoom: 4, layers: [tiles]});
 }
 
 // botão de nova busca
@@ -64,8 +71,6 @@ function enviaDados() {
         data: dados+"&tipoProcessamento=php",                 
         success: function(response) {
             $("#pontos").attr('value',response);
-            
-            
         }             
     });           
 }
@@ -88,12 +93,11 @@ function enviaDadosPython(dados){
 // Carrega os pontos retornados do banco no 2º mapa
 function carregaPontosMapa() {
     try{
-var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
-    }),
-        latlng = L.latLng(-15.7956343, -58.6324594);//Fazendo o mapa iniciar no Brasil
-    mapGlobal = L.map('map', {center: latlng, zoom: 4, layers: [tiles]});
+        $('#map_container').html('');
+        $('#map_container').html('<div id="map"></div>');
+        
+        init();
+
         var tCoordenadas,
             coordenadas;
 
