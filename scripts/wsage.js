@@ -1,4 +1,6 @@
-$(function(){    
+$(function(){ 
+    var geojson; 
+    var mapGlobal;
     //autocomplete de codigo de curso
     preencheCodCurso();
     //Gráficos
@@ -134,7 +136,7 @@ function heatMap(pdfs){
     $.each(statesData.features , function(i){
         nomeEstado = statesData.features[i].properties.Name;
         statesData.features[i].properties.density = arrayPDF[nomeEstado];
-        console.log(statesData.features[i].properties.density);
+        //console.log(statesData.features[i].properties.density);
     });    
     
     function style(feature) {
@@ -147,7 +149,82 @@ function heatMap(pdfs){
             fillOpacity: 0.7
         };
     }
-    L.geoJson(statesData, {style: style}).addTo(mapGlobal);
+    
+    function onEachFeature(feature, layer) {
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            click: zoomToFeature
+        });
+    }
+    
+    var info = L.control();
+
+    info.onAdd = function (mapGlobal) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+        this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
+            '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
+            : 'Hover over a state');
+    };
+
+    info.addTo(mapGlobal);
+
+    function highlightFeature(e) {
+        var layer = e.target;
+
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera) {
+            layer.bringToFront();
+        }
+        info.update(layer.feature.properties);
+    }
+
+    function resetHighlight(e) {
+        geojson.resetStyle(e.target);
+        info.update();
+    }
+
+    function zoomToFeature(e) {
+        mapGlobal.fitBounds(e.target.getBounds());
+    }
+
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+            grades = [0, 2, 3, 4, 5, 6, 7, 8],
+            labels = [];
+
+        // loop through our density intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+    };
+
+    legend.addTo(mapGlobal);
+
+
+    geojson = L.geoJson(statesData, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(mapGlobal);
     //grafico
     //drawChart();
 }
@@ -293,3 +370,4 @@ function drawChart(){
     var ctx = $("#graficoCrm").get(0).getContext("2d");
     var myPieChart = new Chart(ctx).Bar(crMedio);
 }
+
