@@ -13,7 +13,8 @@ function init() {
     var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
-    }), latlng = L.latLng(-15.7956343, -58.6324594);//Fazendo o mapa iniciar no Brasil
+    }),
+        latlng = L.latLng(-15.7956343, -58.6324594);//Fazendo o mapa iniciar no Brasil
     
     mapGlobal = L.map('map', {center: latlng, zoom: 4, layers: [tiles]});
 }
@@ -114,15 +115,26 @@ function carregaPontosMapa() {
             for (var i = 0; i < coordenadas.length; i++) {
                 var a = coordenadas[i];
                 var title = a.nome;
+                var idade = a.idade;
+                var dataDesaparecimento = a.data_desaparecimento;
+                var fonte = a.fonte;
                 var marker = L.marker(new L.LatLng(a.st_y, a.st_x), { title: title });
-                marker.bindPopup(title);
+                
+                var popup = '<b style="text-transform: capitalize;">'+title+'</b><br>';
+                popup+='Idade: '+idade+'<br>';
+                popup+='Desaparecido desde: '+dataDesaparecimento+'<br>';
+                popup+='<a href="'+fonte+'" target="_blank">Clique aqui para ler direto da fonte.</a>';
+                marker.bindPopup(popup);
                 markers.addLayer(marker);
             }
             mapGlobal.addLayer(markers);
             
-            var pdfs = JSON.parse($("#pdfs").val());
-
-            heatMap(pdfs);
+            //Adiciona uma caixa de controle
+            // var clusterControl = {"Pontos": markers}
+            // L.control.layers(clusterControl).addTo(mapGlobal);
+            
+            //Coloração dos estados
+            heatMap(JSON.parse($("#pdfs").val()));
         }
     }
     catch(e){
@@ -150,7 +162,7 @@ function heatMap(pdfs){
             opacity: 1,
             color: 'white',
             dashArray: '3',
-            fillOpacity: 0.7
+            fillOpacity: 0.6
         };
     }
     
@@ -172,9 +184,9 @@ function heatMap(pdfs){
 
     // method that we will use to update the control based on feature properties passed
     info.update = function (props) {
-        this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
-            '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
-            : 'Hover over a state');
+        this._div.innerHTML = '<h4>Desaparecidos por Estado</h4>' +  (props ?
+            '<b>' + props.Name + '</b><br />' + props.density + ' registros.'
+            : 'Passe o mouse sobre um estado');
     };
 
     info.addTo(mapGlobal);
@@ -212,6 +224,7 @@ function heatMap(pdfs){
             grades = [0, 2, 3, 4, 5, 6, 7, 8],
             labels = [];
 
+        div.innerHTML += '<h5>*Probabilidade de<br>desaparecerimento</h5>';
         // loop through our density intervals and generate a label with a colored square for each interval
         for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=
@@ -224,13 +237,14 @@ function heatMap(pdfs){
 
     legend.addTo(mapGlobal);
 
-
     geojson = L.geoJson(statesData, {
         style: style,
         onEachFeature: onEachFeature
     }).addTo(mapGlobal);
+    
+    
     //grafico
-    //drawChart();
+    drawChart();
 }
 
 function getColor(d) {
@@ -246,18 +260,14 @@ function getColor(d) {
 
 //grafico
 function drawChart(){
-    var mapCrm={};
-    var crm=0.0;
     var masculino = 1;
     var feminino = 1;
-    var seropedica = 0;
-    var ni = 0;
-    var tr = 0;
-    var crmMasculino = 0.0;
-    var crmFeminino = 0.0;
-
     var coordenadas = "";
     var tCoordenadas = $("#pontos").val();
+    var corDaPele={'Branca':0, 'Preta':0, 'Amarela':0, 'Parda':0, 'Indigena':0};
+    var estados={'AC':0, 'AL':0, 'AP':0, 'AM':0, 'BA':0, 'CE':0, 'DF':0, 'ES':0, 'GO':0,
+        'MA':0, 'MT':0, 'MS':0, 'MG':0, 'PA':0, 'PB':0, 'PR':0, 'PE':0, 'PI':0,
+        'RJ':0, 'RN':0, 'RS':0, 'RO':0, 'RR':0, 'SC':0, 'SP':0, 'SE':0, 'TO':0};
     
     if(tCoordenadas != undefined && tCoordenadas != ""){
         coordenadas = JSON.parse(tCoordenadas);
@@ -266,27 +276,21 @@ function drawChart(){
         
         $.each(coordenadas , function(i){
 
-            if (coordenadas[i].sexo=="M" && (coordenadas[i].cra!="" && coordenadas[i].cra!=null)) {
-                crmMasculino+=parseFloat(coordenadas[i].cra);
-                masculino++;
-            }
-            else if (coordenadas[i].sexo=="F" && (coordenadas[i].cra!="" && coordenadas[i].cra!=null)) {
-                crmFeminino+=parseFloat(coordenadas[i].cra);
-                feminino++;
-            }
-            if (coordenadas[i].campus=="Seropédica") {
-                seropedica++;
-            }
-            else if (coordenadas[i].campus=="Nova Iguaçu") {
-                ni++;
-            }
-            else if (coordenadas[i].campus=="Três Rios") {
-                tr++;
-            }
-            //pegar CR médio de forma genérica independente da consulta
-            mapCrm[coordenadas[i].campus]=coordenadas[i].crm;
+            if (coordenadas[i].sexo=="M") masculino++;
+            else if (coordenadas[i].sexo=="F") feminino++;
+            
+            var etnia = coordenadas[i].cor_da_pele.toLowerCase();
+            if (etnia=="branca" || etnia=="branco") corDaPele['Branca']++;
+            else if (etnia=="negra" || etnia=="negro" || etnia=="morena escura" || etnia=="moreno escuro" || etnia=="mulato" || etnia=="mulata") corDaPele['Preta']++;
+            else if (etnia=="amarela" || etnia=="amarelo") corDaPele['Amarela']++;
+            else if (etnia=="parda" || etnia=="pardo" || etnia=="moreno" || etnia=="morena" || etnia=="moreno claro" || etnia=="morena clara") corDaPele['Parda']++;
+            else if (etnia=="indigena" || etnia=="indígena") corDaPele['Indigena']++;
+        
+            var uf = coordenadas[i].uf_desaparecimento;
+            estados[uf]++;
         });
     }
+
     coordenadas="";
 
     // For a pie chart
@@ -306,29 +310,41 @@ function drawChart(){
     ]
 
     var html='<canvas id="graficoGenero" width="250" height="250"></canvas>';
-     $("#genero").html(html);               
+    $("#genero").html(html);               
     var ctx = $("#graficoGenero").get(0).getContext("2d");
     var myPieChart = new Chart(ctx).Pie(genero);
     
     // Doughnut
-    var campus = [
+    var raca = [
         {
-            value: seropedica,
+            value: corDaPele['Branca'],
             color:"#F7464A",
             highlight: "#FF5A5E",
-            label: "Seropédica"
+            label: "Branca"
         },
         {
-            value: ni,
+            value: corDaPele['Preta'],
             color: "#46BFBD",
             highlight: "#5AD3D1",
-            label: "Nova Iguaçu"
+            label: "Preta"
         },
         {
-            value: tr,
+            value: corDaPele['Parda'],
             color: "#FDB45C",
             highlight: "#FFC870",
-            label: "Três Rios"
+            label: "Parda"
+        },
+        {
+            value: corDaPele['Amarela'],
+            color: "#FDB00C",
+            highlight: "#FFC000",
+            label: "Amarela"
+        },
+        {
+            value: corDaPele['Indigena'],
+            color: "#FDCDDC",
+            highlight: "#FFCDD0",
+            label: "Indígena"
         }
     ]
     
@@ -336,7 +352,7 @@ function drawChart(){
      $("#campus").html(html);               
     // For a pie chart
     var ctx = $("#graficoCampus").get(0).getContext("2d");
-    var myPieChart = new Chart(ctx).Doughnut(campus);
+    var myPieChart = new Chart(ctx).Doughnut(raca);
 
     //Polar
     //var myPieChart = new Chart(ctx).PolarArea(coordenadas);
@@ -344,34 +360,36 @@ function drawChart(){
     //var myPieChart = new Chart(ctx).Radar(data);
     
     //Bar
-    var count=0.0;
-    for(indice in mapCrm){
-        crm+=parseFloat(mapCrm[indice]);
-        count++;
+    var i=0;
+    arrayEstado=[];
+
+    for (x in estados) {
+        arrayEstado[i] = estados[x];
+        i++;
     }
-    crm /= count;
-    
-    crmMasculino = crmMasculino/masculino;
-    crmFeminino = crmFeminino/feminino;
-    
-    var crMedio = {
-        labels: ["Geral", "Masculino", "Feminino"],
+    //console.log(arrayEstado[18]);
+    var estadoBar = {
+        labels: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+        'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+        'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'],
         datasets: [
             {
-                label: "CRM",
+                label: "Registros/Estados",
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,0.8)",
                 highlightFill: "rgba(220,220,220,0.75)",
                 highlightStroke: "rgba(220,220,220,1)",
-                data: [crm.toFixed(2), crmMasculino.toFixed(2), crmFeminino.toFixed(2)]
+                data: [estados['AC'], estados['AL'], estados['AP'], estados['AM'], estados['BA'], estados['CE'], estados['DF'],
+                estados['ES'], estados['GO'], estados['MA'], estados['MT'], estados['MS'], estados['MG'], estados['PA'],
+                estados['PB'], estados['PR'], estados['PE'], estados['PI'], estados['RJ'], estados['RN'], estados['RS'],
+                estados['RO'], estados['RR'], estados['SC'], estados['SP'], estados['SE'], estados['TO']]
             }
         ]
     };
-    var html='<canvas id="graficoCrm" width="250" height="250"></canvas>';
+    var html='<canvas id="graficoCrm" width="650" height="250"></canvas>';
      $("#crm").html(html);
 
     //pie chart
     var ctx = $("#graficoCrm").get(0).getContext("2d");
-    var myPieChart = new Chart(ctx).Bar(crMedio);
+    var myPieChart = new Chart(ctx).Bar(estadoBar);
 }
-

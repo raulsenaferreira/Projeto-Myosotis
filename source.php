@@ -39,7 +39,7 @@
 				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao) from registro WHERE ST_Intersects(geolocalizacao,ST_Transform(ST_GeomFromText('".$poligono."',3857),4674))".$params.";";
 			} 
 			else {
-				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao), nome from registro WHERE latitude is not null  ".$params.";";
+				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao), nome, sexo, cor_da_pele, idade, data_desaparecimento, uf_desaparecimento, fonte from registro WHERE latitude is not null  ".$params.";";
 			}
 
 			$result = pg_query($query);

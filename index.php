@@ -100,6 +100,7 @@
         background: rgba(255,255,255,0.8);
         box-shadow: 0 0 15px rgba(0,0,0,0.2);
         border-radius: 5px;
+        color: #000000;
     }
     .info h4 {
         margin: 0 0 5px;
@@ -115,6 +116,10 @@
         float: left;
         margin-right: 8px;
         opacity: 0.7;
+    }
+    .chart.tab-pane.active{
+        float: left;
+        margin-left: 25px;
     }
     </style>
     <body onload="init()" role="document" class="skin-blue">
@@ -141,11 +146,12 @@
                             <div id="map"></div>
                         </div>
                         
-                        <div class="aviosMap">
+                        <div class="avisoMap">
                             <ul class="listaSemMarcador">
-                                <li> Use o botão com a <img src="imagens/hand.png" style="width:15px;height:15px;"> para poder navegar no mapa. </li>
-                                <li> Use o botão com o <img src="imagens/polygon.png" style="width:15px;height:15px;"> para conseguir desenhar um polígono no mapa.</li>
-                                <li> Use o <i> shift</i> ou um duplo clique do mouse, para poder fechar o polígono.</li>
+                                <li> Clique no botão "Buscar" e monte a sua consulta, caso você não selecione nenhuma opção a consulta trará todos os resultados. </li>
+                                <li> Clique nos <i>clusters</i> (grupos no mapa) para detalhar melhor os pontos. Clique nos pontos para mostrar as informações da pessoa desaparecida. </li>
+                                <li> *A probabilidade de cada estado foi calculada usando-se o método KDE (Kernel Density Estimation) em cima dos registros fornecidos pelos sites de buscas de pessoas desaparecidas. <a href="#">Clique aqui</a> para maiores detalhes. </li>
+                                <li> **Este site não se responsabiliza por informações erradas, e nem afirma que os dados aqui apresentados são mais confiáveis do que os da polícia civil ou departamentos afins. Apenas centralizamos as informações de várias fontes confiáveis e disponibilizamos de uma maneira geograficamente organizada. <a href="#">Clique aqui</a> para maiores detalhes.</li>
                             </ul>
                         </div>
                     </div><!-- /.box-body-->
@@ -155,22 +161,6 @@
                             <li class="liButtonMap"> 
                                 <input type="button" class="btn btn-primary mapMenuButton imagem" value="Buscar" 
                                        id="enviar" data-toggle="modal" data-target="#myModal"> 
-                            </li>
-                            <li class="liButtonMap" >
-                                <input type="button" class="btn btn-primary mapMenuButton" value="Nova Busca" 
-                                       id="reset" onclick="novaBusca();">
-                            </li>
-                            <li class="liButtonMap" onclick="activePolygonDraw(0);">
-                                <div class="btn btn-primary mapMenuButton imagem">
-                                    <input type="image" class="btn btn-primary imageButton" 
-                                       src="imagens/hand.png" alt="Hand"/>
-                                </div>
-                            </li>
-                            <li class="liButtonMap" onclick="activePolygonDraw(1);">
-                                <div class="btn btn-primary mapMenuButton imagem">
-                                    <input type="image" class="btn btn-primary imageButton" 
-                                       src="imagens/polygon.png" alt="Polygon"/>
-                                </div>
                             </li>
                             <li class="liButtonMap"> 
                                 <input type="button" class="btn btn-primary mapMenuButton" value="Salvar Consulta" 
@@ -183,37 +173,22 @@
                 <div class="nav-tabs-custom">
                     <!-- Tabs within a box -->
                     
-                    <ul class="nav nav-tabs pull-right">
-                        <li>
-                            <a href="#revenue-chart">Geral</a>
-                        </li>
-                        <li>
-                            <a href="#sales-chart">Estado</a>
-                        </li>
-                        <li>
-                            <a href="#crm-chart">Gênero</a>
-                        </li>
-                        <li>
-                            <a href="#populacao-chart">Raça</a>
-                        </li>
-                        <li class="pull-left header"><i class="fa fa-inbox"></i> Gráficos</li>
-                        
-                    </ul>
+                    <h3 class="graficoTitulo">Gráficos</h3>
                     <div class="tab-content no-padding">
                         
-                        <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 270px;">
+                        <div class="chart tab-pane active" id="revenue-chart" style="position: relative; width: 270px; height: 270px;">
                             <div id="genero" width="250" height="250"></div>
                         </div>
 
-                        <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 270px;">
+                        <div class="chart tab-pane active" id="sales-chart" style="position: relative; height: 270px;">
                             <div id="campus" width="250" height="250"></div>
                         </div>
 
-                        <div class="chart tab-pane" id="crm-chart" style="position: relative; height: 270px;">
-                            <div id="crm" width="250" height="250"></div>
+                        <div class="chart tab-pane active" id="crm-chart" style="position: relative; width: 670px; height: 270px;">
+                            <div id="crm" width="650" height="250"></div>
                         </div>
 
-                        <div class="chart tab-pane" id="populacao-chart" style="position: relative; height: 270px;">
+                        <div class="chart tab-pane active" id="populacao-chart" style="position: relative; height: 270px;">
                             <div id="populacao" width="250" height="250"></div>
                         </div>
 
