@@ -122,7 +122,7 @@ body {
   stroke: #fff;
 }
 #myModal{
-	z-index: 1;
+	z-index: 1000;
 }
 .ui-helper-hidden-accessible{
 	z-index: 100;
@@ -232,4 +232,44 @@ body {
 }
 .modal-body{
     font-size: 12px;
+}
+#pontos{
+    display: none;
+}
+#pdfs{
+    display: none;
+}
+#map{
+    width: 1000px;
+    height: 500px
+}
+.content_detail{
+    text-align: center;
+    font-size: 16px;
+}
+.content_detail #nome{
+    text-transform: capitalize;
+}
+.content_detail .box{
+    width: 325px;
+    float: left;
+    margin: 15px;
+}
+.content_detail #imagem{
+    float: left;
+    margin-top: -50px;
+}
+.content_detail #informacoes{
+    clear: both;
+    padding-top: 25px;
+}
+.content_detail #fonte{
+    clear: both;
+    margin-top: 25px;
+}
+.content_detail #status .found{
+    color: blue;
+}
+.content_detail #status .missing{
+    color: red;
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Projeto Myosotis | Dashboard</title>
+        <title>Projeto Myosotis | Mapa</title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -9,7 +9,6 @@
         <meta name="author" content="Raul Sena Ferreira">
         <!-- Stylesheets -->
         <link href="css/default.css" rel="stylesheet" type="text/css" />
-        <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
         <link href="css/myosotis.css" rel="stylesheet" type="text/css" />
@@ -28,22 +27,12 @@
     <body onload="init()" role="document" class="skin-blue">
         <!-- Main content -->
         <section class="content">
-            <!-- Main row -->
-            <div class="row">
                 <!-- Map box -->
                 <div class="box box-solid bg-light-blue-gradient">
-                    <div class="box-header">
-                        <!-- tools box -->
-                        <div class="pull-right box-tools">
-                            <button class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Date range"><i class="fa fa-calendar"></i></button>
-                            <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
-                        </div><!-- /. tools -->
-
-                        <i class="fa fa-map-marker"></i>
-                        <h3 class="box-title">
-                            Mapa
-                        </h3>
-                    </div>
+                    <i class="fa fa-map-marker"></i>
+                    <h2 class="box-title">
+                        Mapa
+                    </h2>
                     <div class="box-body">
                         <div id="map_container">
                             <div id="map"></div>
@@ -100,7 +89,6 @@
 
                     </div>
                 </div><!-- /.nav-tabs-custom -->
-            </div><!-- /.row (main row) -->
         </section><!-- /.content -->
         <!-- guarda informaçoes dos pontos -->
         <input id="pontos">

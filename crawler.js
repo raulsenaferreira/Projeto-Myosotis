@@ -32,6 +32,7 @@ var registroCrawler1 = new mongoose.Schema({
   , tipoFisico: String
   , ultimaInformacao: String
   , fonte: String
+  , cabelo: String
   , atualizado_em: { type: Date, default: Date.now }
   });
 
@@ -49,6 +50,7 @@ var registroCrawler2 = new mongoose.Schema({
   , pesoAproximado: String
   , alturaAproximada: String
   , olhos: String
+  , cabelo: String
   , raca: String
   , observacao: String
   , dataLocalizacao: String
@@ -160,7 +162,7 @@ function crawler1 (limite) {
         var transtornoMental = $('table tr:nth-child(4) td:nth-child(1)').text().trim();
         var olhos = $('table tr:nth-child(4) td:nth-child(2)').text().trim();
         var tipoFisico = $('table tr:nth-child(5) td:nth-child(1)').text().trim();
-        var cabelos = $('table tr:nth-child(5) td:nth-child(2)').text().trim();
+        var cabelo = $('table tr:nth-child(5) td:nth-child(2)').text().trim();
         var ultimaInformacao = $('.inf p:nth-child(6)').text().trim();
 
 
@@ -182,6 +184,7 @@ function crawler1 (limite) {
           , transtornoMental: transtornoMental
           , olhos: olhos
           , tipoFisico: tipoFisico
+          , cabelo: cabelo
           , ultimaInformacao: ultimaInformacao
         });
 
@@ -252,6 +255,7 @@ function crawler2(limite) {
             , alturaAproximada: alturaAproximada
             , pesoAproximado: pesoAproximado
             , olhos: olhos
+            , cabelo: cabelo
             , raca: raca
             , observacao: observacao
             , dataLocalizacao: dataLocalizacao

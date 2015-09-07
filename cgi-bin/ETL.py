@@ -40,7 +40,7 @@ def extractAndTransform():
         
         olhos = record['olhos'].lower().replace('olhos:','').strip()
         corDaPele = record['corDaPele'].lower().replace('cor da pele:','').strip()
-        cabelo=''
+        cabelo=record['cabelo'].lower().replace('cabelos:','').strip()
         pesoAproximado = record['pesoAproximado'].lower().replace('peso aproximado:','').strip()
         alturaAproximada = record['alturaAproximada'].lower().replace('altura aproximada:','').strip()
         tipoFisico = record['tipoFisico'].lower().replace('tipo físico:','').strip()
@@ -74,7 +74,7 @@ def extractAndTransform():
         status = record['status']
         informacoes = record['observacao'].replace('\'','').strip()
         boletimOcorrencia = record['boletimOcorrencia'].lower().replace('foi feito boletim de ocorrência do caso?','').strip()
-        fonte = record['fonte']
+        fonte = record['fonte']+' '
         
         
         reg.update({nome: nome})
@@ -101,7 +101,7 @@ def extractAndTransform():
         sexo = record['sexo'].replace('\'','').strip()
         olhos = record['olhos'].replace('\'','').strip()
         corDaPele = record['raca'].strip()
-        cabelo = ''
+        cabelo = cabelo=record['cabelo'].lower().strip()
         pesoAproximado = record['pesoAproximado'].strip()  if record['pesoAproximado'].strip() != '0' else ''
         alturaAproximada = record['alturaAproximada'].strip()  if record['alturaAproximada'].strip() != '0' else ''
         tipoFisico = ''
@@ -126,7 +126,7 @@ def extractAndTransform():
         status = record['status'].strip()
         informacoes = record['observacao'].replace('\'','').strip()
         boletimOcorrencia = ''#fazer metodo pra verificar no email de contato se eh de algum orgao responsavel, assim, provavelmente tem B.O.
-        fonte = record['fonte'].strip()
+        fonte = record['fonte'].strip()+' '
         
         try:
             if reg[nome].imagem=='': reg[nome].imagem = imagem 
@@ -149,7 +149,7 @@ def extractAndTransform():
             if reg[nome].status=='': reg[nome].status = status
             if reg[nome].informacoes=='': reg[nome].informacoes = informacoes
             if reg[nome].boletimOcorrencia=='': reg[nome].boletimOcorrencia = boletimOcorrencia
-            if reg[nome].fonte=='': reg[nome].fonte = fonte
+            reg[nome].fonte+=fonte 
         
         except KeyError:
             objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
@@ -193,7 +193,7 @@ def extractAndTransform():
         
         info = record['informacoes'].replace('\'','').strip()
         
-        fonte = record['fonte'].strip()
+        fonte = record['fonte'].strip()+' '
         arrayInfo = info.split('$$$$')
         
         for r in arrayInfo:
@@ -232,7 +232,7 @@ def extractAndTransform():
             if reg[nome].status=='': reg[nome].status = status
             if reg[nome].informacoes=='': reg[nome].informacoes = informacoes
             if reg[nome].boletimOcorrencia=='': reg[nome].boletimOcorrencia = boletimOcorrencia
-            if reg[nome].fonte=='': reg[nome].fonte = fonte
+            reg[nome].fonte+=fonte 
         
         except KeyError:
             objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
@@ -273,7 +273,7 @@ def extractAndTransform():
             cidadeDesaparecimento=local[1].strip()
             bairroDesaparecimento=local[0].strip()
         
-        fonte = record['fonte'].strip()
+        fonte = record['fonte'].strip()+' '
         status = record['status'].strip()
         
         try:
@@ -297,7 +297,7 @@ def extractAndTransform():
             if reg[nome].status=='': reg[nome].status = status
             if reg[nome].informacoes=='': reg[nome].informacoes = informacoes
             if reg[nome].boletimOcorrencia=='': reg[nome].boletimOcorrencia = boletimOcorrencia
-            if reg[nome].fonte=='': reg[nome].fonte = fonte
+            reg[nome].fonte+=fonte 
         
         except KeyError:
             objeto = Registro(nome, imagem, sexo, olhos, corDaPele, cabelo, pesoAproximado, alturaAproximada, tipoFisico, transtornoMental, idade, dataNascimento, diasDesaparecido, dataDesaparecimento, bairroDesaparecimento, cidadeDesaparecimento, ufDesaparecimento, marcaCaracteristica, status, informacoes, boletimOcorrencia, fonte)
