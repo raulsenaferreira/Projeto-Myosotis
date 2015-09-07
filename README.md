@@ -28,6 +28,8 @@ Envie um pull request para consideração, ele será muito bem vindo!
 4. Execute o script "INSTALL.sql" contido na pasta raiz deste projeto
 5. Certifique-se de colocar o projeto dentro de uma pasta que possa ser lida pelo Apache Web Server. Certifique-se também em ter instalado em sua máquina a versão 2.7.x do Python
 6. Para executar o crawler, primeiro inicie o mongodb, em seguida vá na pasta raiz do projeto e digite na linha de comando (node crawler.js) ou caso queira apenas testar com alguns registros digite (node test-crawler.js)
+7. Para acessar a aplicação acesse em seu navegador http://localhost/Projeto-Myosotis/
+8. Para acessar o webservice, primeiro inicie-o digitando na linha de comando(node API.js) digite http://localhost/Projeto-Myosotis:4000/collections/site1/all (a numeração vai de 1 até 6)
 
 * As informações de latitude e longitude precisarão ser extraídas a partir dos endereços que o crawler conseguiu garimpar e colocar no banco de dados. Para isso você deverá geocodificar os endereços do banco mantendo o id do respectivo registro para posterior update no banco (o script de update está no arquivo INSTALL.sql).
 
