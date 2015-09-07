@@ -5,25 +5,27 @@
 	// Montagem da query e envio dos dados
 	if(isset($_POST['submitted']) ) {
 		$tipoProcessamento = trim($_POST['tipoProcessamento']);
-		// $campus = trim($_POST['campus']);
-		// $sexo = trim($_POST['sexo']);
-		// $situacao = trim($_POST['situacao']);
-		// $cra_aluno = trim($_POST['cra_aluno']);
-		// $cod_curso = trim($_POST['cod_curso']);
-		// $naturalidade = trim($_POST['naturalidade']);
+		//$faixa = trim($_POST['faixa']);
+		$sexo = trim($_POST['sexo']);
+		$situacao = trim($_POST['situacao']);
+		$nome = trim($_POST['nome_desaparecido']);
+		$cod_estado = trim($_POST['cod_estado']);
+		$cor_da_pele = trim($_POST['raca']);
 		$poligono = trim($_POST['poligono']);
 
-		$params .= ($cod_curso!="") ? " AND cod_curso = '".$cod_curso."'" : "";
+		$params .= ($cod_estado!="") ? " AND uf_desaparecimento = '".$cod_estado."'" : "";
 		$params .= ($sexo!="") ? " AND sexo = '".$sexo."'" : "";
-		$params .= ($situacao!="") ? " AND situacao = '".$situacao."'" : "";
-		$params .= ($campus!="") ? " AND campus = '".$campus."'" : "";
-		$params .= ($cra_aluno!="") ? " AND cra_aluno = '".$cra_aluno."'" : "";
-		$params .= ($naturalidade!="") ? " AND naturalidade = '".$naturalidade."'" : "";
+		$params .= ($situacao!="") ? " AND status ilike '".$situacao."%'" : "";
+		
+		//$params .= ($faixa!="") ? " AND campus = '".$faixa."'" : "";
+		
+		$params .= ($nome!="") ? " AND nome ilike '".$nome."%'" : "";
+		$params .= ($cor_da_pele!="") ? " AND cor_da_pele ilike '".$cor_da_pele."%'" : "";
 		
 		if($tipoProcessamento=='python'){
 			// envia restrição do polígono caso este tenha sido desenhado no mapa
 			if(!empty($poligono)) {
-				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao) from registro WHERE ST_Intersects(geolocalizacao,ST_Transform(ST_GeomFromText('".$poligono."',3857),4674))".$params.";";
+				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao) from registro WHERE ST_Intersects(geolocalizacao,ST_Transform(ST_GeomFromText('".$poligono."',3857),4674)) ".$params.";";
 			} 
 			else {
 				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao), uf_desaparecimento from registro WHERE latitude is not null  ".$params.";";
@@ -36,10 +38,10 @@
 		else if($tipoProcessamento=='php'){
 			// envia restrição do polígono caso este tenha sido desenhado no mapa
 			if(!empty($poligono)) {
-				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao) from registro WHERE ST_Intersects(geolocalizacao,ST_Transform(ST_GeomFromText('".$poligono."',3857),4674))".$params.";";
+				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao) from registro WHERE ST_Intersects(geolocalizacao,ST_Transform(ST_GeomFromText('".$poligono."',3857),4674)) ".$params.";";
 			} 
 			else {
-				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao), nome, sexo, cor_da_pele, idade, data_desaparecimento, uf_desaparecimento, fonte from registro WHERE latitude is not null  ".$params.";";
+				$query = "SELECT ST_X(geolocalizacao), ST_Y(geolocalizacao), nome, sexo, cor_da_pele, idade, data_desaparecimento, uf_desaparecimento from registro WHERE latitude is not null  ".$params.";";
 			}
 
 			$result = pg_query($query);

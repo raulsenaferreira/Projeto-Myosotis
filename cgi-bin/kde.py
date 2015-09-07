@@ -23,13 +23,13 @@ except:
 
 #verifica se essa consulta ja esta em cache
 redis = redis.Redis('localhost')
-chave = hashlib.md5(dataFromPHP).hexdigest()
-if(redis.get(chave)):
+chave = '3'#hashlib.md5(dataFromPHP).hexdigest()
+if(redis.get(chave) == ''):
 	print redis.get(chave)
 else:
 	#substitua com os dados do seu banco
 	try:
-		conn = psycopg2.connect("host='localhost' dbname='banco' user='usuario' password='senha'")
+		conn = psycopg2.connect("host='localhost' dbname='database' user='user' password='pass'")
 	except:
 		print "Nao conectou!"
 

@@ -12,7 +12,6 @@
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-        <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
         <link href="css/wsage.css" rel="stylesheet" type="text/css" />
         <!-- Font -->
         <link href="font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -121,6 +120,12 @@
         float: left;
         margin-left: 25px;
     }
+    .nav-tabs-custom > .tab-content {
+        text-align: center;
+    }
+    .modal-body{
+        font-size: 12px;
+    }
     </style>
     <body onload="init()" role="document" class="skin-blue">
         <!-- Main content -->
@@ -177,14 +182,17 @@
                     <div class="tab-content no-padding">
                         
                         <div class="chart tab-pane active" id="revenue-chart" style="position: relative; width: 270px; height: 270px;">
+                            <h3>Gênero</h3>
                             <div id="genero" width="250" height="250"></div>
                         </div>
 
                         <div class="chart tab-pane active" id="sales-chart" style="position: relative; height: 270px;">
+                            <h3>Raça</h3>
                             <div id="campus" width="250" height="250"></div>
                         </div>
 
                         <div class="chart tab-pane active" id="crm-chart" style="position: relative; width: 670px; height: 270px;">
+                            <h3>Desaparecido/Estado</h3>
                             <div id="crm" width="650" height="250"></div>
                         </div>
 
@@ -213,31 +221,37 @@
                         <h4 class="modal-title">Escolha o filtro de busca</h4>
                       </div>
                       <div class="modal-body">
-                        <p>Você deseja buscar por&hellip;</p>
-                        <p>Sexo:
+                        <p><b style="font-size: 14px;">Você deseja buscar por&hellip;</b></p>
+                        <p><b style="font-size: 14px;">Sexo:</b>
                             <input type="radio" name="sexo" value="F">Feminino
                             <input type="radio" name="sexo" value="M">Masculino
                             <input type="radio" name="sexo" value="">Ambos
                         </p>
-                        <p>Situação:
-                            <input type="radio" name="situacao" value="1">Ativo
-                            <input type="radio" name="situacao" value="1">Inativo
-                            <input type="radio" name="situacao" value="6">Formado
+                        <p><b style="font-size: 14px;">Situação:</b>
+                            <input type="radio" name="situacao" value="D">Desaparecidos
+                            <input type="radio" name="situacao" value="E">Encontrados
+                            <input type="radio" name="situacao" value="">Todos
                         </p>
-                        <p>Campus:
-                            <input type="radio" name="campus" value="Seropédica">Seropédica
-                            <input type="radio" name="campus" value="Nova Iguaçu">Nova Iguaçu
-                            <input type="radio" name="campus" value="Três Rios">Três Rios
-                            <input type="radio" name="campus" value="">Todos
+                        <!-- <p><b style="font-size: 14px;">Faixa Etária:</b>
+                            <input type="radio" name="faixa" value="1">Crianças (até 12 anos)
+                            <input type="radio" name="faixa" value="2">Adolescentes (13 até 17 anos)
+                            <input type="radio" name="faixa" value="3">Adultos (18 até 60 anos)
+                            <input type="radio" name="faixa" value="4">Idosos (acima de 60 anos)
+                            <input type="radio" name="faixa" value="">Todos
+                        </p> -->
+                        <p><b style="font-size: 14px;">Cor de pele:</b>
+                            <input type="radio" name="raca" value="b">Branca
+                            <input type="radio" name="raca" value="pr">Preta
+                            <input type="radio" name="raca" value="pa">Parda
+                            <input type="radio" name="raca" value="a">Amarela
+                            <input type="radio" name="raca" value="i">Indígena
+                            <input type="radio" name="raca" value="">Todas
                         </p>
-                        <p class="texto">CR Acumulado acima de:
-                            <input type="text" name="cra_aluno">
+                        <p class="texto"><b style="font-size: 14px;">Nome:</b>
+                            <input type="text" name="nome_desaparecido">
                         </p>
-                        <p class="texto">Nome do Curso:
-                            <input class="cod_curso" type="text" name="cod_curso">
-                        </p>
-                        <p class="texto">Naturalidade:
-                            <input class="naturalidade" type="text" name="naturalidade">
+                        <p class="texto"><b style="font-size: 14px;">Estado:</b>
+                            <input class="cod_estado" type="text" name="cod_estado">
                         </p>
                       </div>
                       <div class="modal-footer">

@@ -117,13 +117,12 @@ function carregaPontosMapa() {
                 var title = a.nome;
                 var idade = a.idade;
                 var dataDesaparecimento = a.data_desaparecimento;
-                var fonte = a.fonte;
                 var marker = L.marker(new L.LatLng(a.st_y, a.st_x), { title: title });
                 
                 var popup = '<b style="text-transform: capitalize;">'+title+'</b><br>';
                 popup+='Idade: '+idade+'<br>';
                 popup+='Desaparecido desde: '+dataDesaparecimento+'<br>';
-                popup+='<a href="'+fonte+'" target="_blank">Clique aqui para ler direto da fonte.</a>';
+                popup+='<a href="registroAgregado.php?nome='+title+'" target="_blank">Clique aqui para mais detalhes.</a>';
                 marker.bindPopup(popup);
                 markers.addLayer(marker);
             }

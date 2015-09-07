@@ -7,11 +7,12 @@ var util = require('util');
 
 var registrocrawler1, registrocrawler2, registrocrawler5;
 // Connect to the db
-MongoClient.connect("mongodb://localhost/test_myosotis", function(err, db) {
+MongoClient.connect("mongodb://localhost/myosotis", function(err, db) {
   if(err) { return console.dir(err); }
   registrocrawler1 = db.collection('registrocrawler1');
   registrocrawler2 = db.collection('registrocrawler2');
   registrocrawler5 = db.collection('registrocrawler5');
+  registrocrawler6 = db.collection('registrocrawler6');
 });
 
 app.use("/css", express.static(__dirname + '/css'));
@@ -25,13 +26,6 @@ app.get('/', function (req, res) {
 });
 
 app.get('/collection/site1/all/', function(req,res){
-  // var stream = registrocrawler1.find().stream();
-  // stream.on("data", function(item) {
-  //   res.send(item);
-  // });
-  // stream.on("end", function() {
-  //   console.dir("No more items");
-  // });
   registrocrawler1.find().toArray(function(err, items) {            
     res.send(items);
   });
@@ -49,6 +43,11 @@ app.get('/collection/site5/all/', function(req,res){
   });
 });
 
+app.get('/collection/site6/all/', function(req,res){
+  registrocrawler6.find().toArray(function(err, items) {            
+    res.send(items);
+  });
+});
 
 http.listen(4000, function(){
   console.log('Disponível na porta 4000');

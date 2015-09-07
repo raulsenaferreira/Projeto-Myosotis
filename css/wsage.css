@@ -71,9 +71,10 @@ body {
 	margin:  0;
 }
 
-.aviosMap{
+.avisoMap{
 	background-color: transparent;
 	padding-top: 8px;
+	font-size: 12px;
 }
 
 /*Grafico*/

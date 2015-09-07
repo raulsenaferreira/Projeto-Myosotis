@@ -1,10 +1,10 @@
 <?php
 
-$host = 'host';
-$port = 'porta';
-$database = 'banco';
-$user = 'usuario';
-$password = 'senha';
+$host = 'localhost';
+$port = '5432';
+$database = 'database';
+$user = 'user';
+$password = 'pass';
 
 $connectString = 'host=' . $host . ' port=' . $port . ' dbname=' . $database . 
 	' user=' . $user . ' password=' . $password;
