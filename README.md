@@ -15,7 +15,7 @@ Além disso, deve-se explorar as informações geográficas dos registros e a pa
 É importante a contrução de uma API que possa fornecer os dados coletados em formato JSON para que outros desenvolvedores possam criar novas ferramentas ou estudos baseados nos dados já coletados por este sistema.
 
 ##Como contribuir
-Dê um Fork e edite as partes que você julga necessário.
+Dê um Fork e edite as partes que você julga necessário (P.S.: As issues do projeto são um bom lugar para começar).
 
 Instale opcionalmente as dependências listadas no projeto caso queira visualizar as mudanças.
 
