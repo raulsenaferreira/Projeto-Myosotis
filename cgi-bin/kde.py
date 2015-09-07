@@ -29,7 +29,7 @@ if(redis.get(chave) == ''):
 else:
 	#substitua com os dados do seu banco
 	try:
-		conn = psycopg2.connect("host='localhost' dbname='database' user='user' password='pass'")
+		conn = psycopg2.connect("host='localhost' dbname='banco' user='usuario' password='pass'")
 	except:
 		print "Nao conectou!"
 

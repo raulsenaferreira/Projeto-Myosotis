@@ -12,120 +12,18 @@
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-        <link href="css/wsage.css" rel="stylesheet" type="text/css" />
+        <link href="css/myosotis.css" rel="stylesheet" type="text/css" />
         <!-- Font -->
         <link href="font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <!-- Ionicons -->
         <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
         <!-- Leaflet -->
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
-        <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
-        <script src="scripts/leaflet.markercluster-src.js"></script>
+        <link rel="stylesheet" href="css/leaflet.css" />
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.markercluster-src.js"></script>
     </head>
     <style type="text/css">
-    .marker-cluster-small {
-        background-color: rgba(181, 226, 140, 0.6);
-        }
-    .marker-cluster-small div {
-        background-color: rgba(110, 204, 57, 0.6);
-        }
-
-    .marker-cluster-medium {
-        background-color: rgba(241, 211, 87, 0.6);
-        }
-    .marker-cluster-medium div {
-        background-color: rgba(240, 194, 12, 0.6);
-        }
-
-    .marker-cluster-large {
-        background-color: rgba(253, 156, 115, 0.6);
-        }
-    .marker-cluster-large div {
-        background-color: rgba(241, 128, 23, 0.6);
-        }
-
-        /* IE 6-8 fallback colors */
-    .leaflet-oldie .marker-cluster-small {
-        background-color: rgb(181, 226, 140);
-        }
-    .leaflet-oldie .marker-cluster-small div {
-        background-color: rgb(110, 204, 57);
-        }
-
-    .leaflet-oldie .marker-cluster-medium {
-        background-color: rgb(241, 211, 87);
-        }
-    .leaflet-oldie .marker-cluster-medium div {
-        background-color: rgb(240, 194, 12);
-        }
-
-    .leaflet-oldie .marker-cluster-large {
-        background-color: rgb(253, 156, 115);
-        }
-    .leaflet-oldie .marker-cluster-large div {
-        background-color: rgb(241, 128, 23);
-    }
-
-    .marker-cluster {
-        background-clip: padding-box;
-        border-radius: 20px;
-        }
-    .marker-cluster div {
-        width: 30px;
-        height: 30px;
-        margin-left: 5px;
-        margin-top: 5px;
-
-        text-align: center;
-        border-radius: 15px;
-        font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
-        }
-    .marker-cluster span {
-        line-height: 30px;
-        }
-        .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
-            -webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
-            -moz-transition: -moz-transform 0.3s ease-out, opacity 0.3s ease-in;
-            -o-transition: -o-transform 0.3s ease-out, opacity 0.3s ease-in;
-            transition: transform 0.3s ease-out, opacity 0.3s ease-in;
-        }
-    .leaflet-popup-content{
-        color: #000000;
-    }
-    .info {
-        padding: 6px 8px;
-        font: 14px/16px Arial, Helvetica, sans-serif;
-        background: white;
-        background: rgba(255,255,255,0.8);
-        box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        border-radius: 5px;
-        color: #000000;
-    }
-    .info h4 {
-        margin: 0 0 5px;
-        color: #777;
-    }
-    .legend {
-        line-height: 18px;
-        color: #555;
-    }
-    .legend i {
-        width: 18px;
-        height: 18px;
-        float: left;
-        margin-right: 8px;
-        opacity: 0.7;
-    }
-    .chart.tab-pane.active{
-        float: left;
-        margin-left: 25px;
-    }
-    .nav-tabs-custom > .tab-content {
-        text-align: center;
-    }
-    .modal-body{
-        font-size: 12px;
-    }
+    
     </style>
     <body onload="init()" role="document" class="skin-blue">
         <!-- Main content -->
@@ -264,12 +162,11 @@
                 </div>
         </form> 
         <!-- scripts -->
-        <script type="text/javascript" src="scripts/jquery-2.0.3.js"></script>
-        <script async type="text/javascript" src="scripts/jquery-ui.min.js"></script>
-        <script async type="text/javascript" src="scripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="scripts/smoothScroll.js"></script>
-        <script type="text/javascript" src="scripts/Chart.js"></script>
-        <script type="text/javascript" src="scripts/estadosNomeados.js"></script>
-        <script type="text/javascript" src="scripts/wsage.js"></script>
+        <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+        <script async type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script async type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/Chart.js"></script>
+        <script type="text/javascript" src="js/estadosNomeados.js"></script>
+        <script type="text/javascript" src="js/myosotis.js"></script>
     </body>
 </html>

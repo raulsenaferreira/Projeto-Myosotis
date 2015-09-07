@@ -1,0 +1,235 @@
+body {
+	
+} 
+
+/*Header*/
+#top{
+	background-color: rgba(255, 255, 255, 0.9);
+	height:  85px;
+	border-top: 4px solid #514ce0;
+	box-shadow: 0 4px 2px -2px gray;
+}
+
+#nav{
+	height:  81px;	
+}
+
+.navBarLiClass{
+	width: 81px;
+	height:  81px;
+	text-align: center;
+	border-right: 1px solid #EEEEEE;
+}
+
+.navBarLiClass a{
+	width: 81px;
+	height:  81px;
+	padding-bottom: 0 !important;
+	padding-top: 21px !important;
+}
+
+.navBarLinkClass:hover{
+	color: rgb(255, 255, 255) !important;
+}
+
+.navBarLiClass:hover{
+	background-color: #514ce0;
+}
+
+/* Mapa */
+#map{
+	width: 100%;	
+}
+
+#mapMenu{
+    margin-bottom: 0;
+    /*margin-left: 150px;*/
+    margin-top: 0;
+    padding: 0;
+}
+
+#wsageLogo{
+	height: 80px;
+	width:  80px;
+}
+
+.liButtonMap{
+	float: left;
+    margin-right: 2px;
+    margin-top: 2px;
+}
+
+.btn.btn-primary.mapMenuButton.imagem{
+	width: 100px;
+}
+
+.imageButton{
+	height: 18px;
+	width:  18px;
+	border: none;
+	padding: 0;
+	margin:  0;
+}
+
+.avisoMap{
+	background-color: transparent;
+	padding-top: 8px;
+	font-size: 12px;
+}
+
+/*Grafico*/
+#grafh{
+	clear: both;
+	padding-top: 5px;
+}
+
+/*Classe Generica*/
+.listaSemMarcador{
+	list-style-type: none;
+}
+
+#grafh > #genero {
+    float: left;
+    width: 250px;
+}
+#grafh > #campus {
+    float: right;
+    width: 250px;
+}
+#grafh > #crm {
+    float: left;
+}
+.container > #page3 {
+    clear: both;
+}
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.area {
+  fill: steelblue;
+}
+
+.arc path {
+  stroke: #fff;
+}
+#myModal{
+	z-index: 1;
+}
+.ui-helper-hidden-accessible{
+	z-index: 100;
+}
+.modal-backdrop.in{
+	z-index: 0;
+}
+.marker-cluster-small {
+    background-color: rgba(181, 226, 140, 0.6);
+    }
+.marker-cluster-small div {
+    background-color: rgba(110, 204, 57, 0.6);
+    }
+
+.marker-cluster-medium {
+    background-color: rgba(241, 211, 87, 0.6);
+    }
+.marker-cluster-medium div {
+    background-color: rgba(240, 194, 12, 0.6);
+    }
+
+.marker-cluster-large {
+    background-color: rgba(253, 156, 115, 0.6);
+    }
+.marker-cluster-large div {
+    background-color: rgba(241, 128, 23, 0.6);
+    }
+
+    /* IE 6-8 fallback colors */
+.leaflet-oldie .marker-cluster-small {
+    background-color: rgb(181, 226, 140);
+    }
+.leaflet-oldie .marker-cluster-small div {
+    background-color: rgb(110, 204, 57);
+    }
+
+.leaflet-oldie .marker-cluster-medium {
+    background-color: rgb(241, 211, 87);
+    }
+.leaflet-oldie .marker-cluster-medium div {
+    background-color: rgb(240, 194, 12);
+    }
+
+.leaflet-oldie .marker-cluster-large {
+    background-color: rgb(253, 156, 115);
+    }
+.leaflet-oldie .marker-cluster-large div {
+    background-color: rgb(241, 128, 23);
+}
+
+.marker-cluster {
+    background-clip: padding-box;
+    border-radius: 20px;
+    }
+.marker-cluster div {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+
+    text-align: center;
+    border-radius: 15px;
+    font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    }
+.marker-cluster span {
+    line-height: 30px;
+    }
+    .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+        -webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
+        -moz-transition: -moz-transform 0.3s ease-out, opacity 0.3s ease-in;
+        -o-transition: -o-transform 0.3s ease-out, opacity 0.3s ease-in;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-in;
+    }
+.leaflet-popup-content{
+    color: #000000;
+}
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    color: #000000;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+.chart.tab-pane.active{
+    float: left;
+    margin-left: 25px;
+}
+.nav-tabs-custom > .tab-content {
+    text-align: center;
+}
+.modal-body{
+    font-size: 12px;
+}
