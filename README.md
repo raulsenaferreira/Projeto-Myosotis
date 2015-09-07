@@ -4,15 +4,15 @@ Projeto-Myosotis
 
 Um sistema crawler-based para ajudar na busca de pessoas desaparecidas
 
-##Proposta Inicial
+##O Sistema
 
-A proposta inicial é coletar informações contidas em sites e blogs de crianças e pessoas adultas desaparecidas e guardar em um banco de dados. Depois eliminar registros duplicados automaticamente. Em seguida garimpar se os registros estão atualizados, ou seja, se aquela pessoa ainda está desaparecida. E por último, agregar as informações da pessoa desaparecida espalhada em diferentes sites em um registro só, tornando-o mais completo e embasado por diferentes fontes.
+Este sistema coleta informações contidas em sites de pessoas desaparecidas e guarda em um banco de dados NoSQL, preservando a estrutura heterogênea dos dados. Depois, através de um processo de ETL simples feito em Python, elimina registros duplicados e extrai o máximo de informações do registro. Em seguida, essas informações de diferentes fontes sobre um determinado registro são agregados, unificando assim as informações da pessoa desaparecida e tornando a informação mais completa mantendo as fontes de onde as informações foram extraídas.
 
-O ideal é que todas as operações(quantidade de registros duplicados, informações desatualizadas) sejam guardadas como um histórico para possíveis análises estatísticas.
+Por último, os dados são armazenados de forma estruturada em um banco de dados relacional, para posterior análise espacial e textual. O sistema dispõe também de um webservice, e permite que através de algumas URLs qualquer pessoa ou sistema possa consumir os dados "crawleados".
 
-Além disso, deve-se explorar as informações geográficas dos registros e a partir dessas informações, conseguir inferir e extrair informações relevantes.
+O sistema permite que se faça alguns tipos de consultas específicas como situação(desaparecido/encontrado), raça(branco, pardo, negro, amarelo e indígena), gênero(masculino e feminino), estado(estados do Brasil) ou nome. Além disso, as consultas são armazenadas em um banco NoSQL chave-valor, funcionando como um cache e deixando as consultas mais rápidas. 
 
-É importante a contrução de uma API que possa fornecer os dados coletados em formato JSON para que outros desenvolvedores possam criar novas ferramentas ou estudos baseados nos dados já coletados por este sistema.
+Ainda em fase experimental, está a coloração dos estados baseados na probabilidade de ocorrer um novo caso de desaparecimento naquele estado. O cálculo é feito com um método estatístico não paramétrico, conhecido como KDE(https://pt.wikipedia.org/wiki/Estimativa_de_densidade_kernel). Ferramentas de visualização em formato de cluster e polígonos também são utilizados, bem como ferramentas para geração de gráficos.
 
 ##Como contribuir
 Dê um Fork e edite as partes que você julga necessário (P.S.: As issues do projeto são um bom lugar para começar).
