@@ -17,9 +17,16 @@ Além disso, deve-se explorar as informações geográficas dos registros e a pa
 ##Como contribuir
 Dê um Fork e edite as partes que você julga necessário (P.S.: As issues do projeto são um bom lugar para começar).
 
-Instale opcionalmente as dependências listadas no projeto caso queira visualizar as mudanças.
+Instale opcionalmente as dependências listadas abaixo caso queira visualizar as mudanças.
 
 Envie um pull request para consideração, ele será muito bem vindo!
+
+##Dependências
+1. Instale o Postgres (http://www.postgresql.org/) e a extensão PostGIS (http://postgis.net/)
+2. Instale o Node.js (https://nodejs.org/en/) e o mongodb (https://www.mongodb.org/) em sua máquina
+3. Execute o script "INSTALL.sh" contido na pasta INSTALL deste projeto
+4. Certifique-se de colocar o projeto dentro de uma pasta que possa ser lida pelo Apache Web Server. Certifique-se também em ter instalado em sua máquina a versão 2.7.x do Python
+5. Para executar o crawler, primeiro inicie o mongodb, em seguida vá na pasta raiz do projeto e digite na linha de comando (node crawler.js) ou caso queira apenas testar com alguns registros digite (node test-crawler.js)
 
 ##Issues
 https://github.com/raulsenaferreira/Projeto-Myosotis/issues
