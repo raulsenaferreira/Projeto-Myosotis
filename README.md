@@ -2,7 +2,10 @@ Projeto-Myosotis
 ================
 [![Build Status](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis.svg)](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis)
 
-Um sistema crawler-based para ajudar na busca de pessoas desaparecidas
+Um sistema crawler-based baseado em tecnologias NoSQL no auxílio a unificação e estudo dos registros de pessoas desaparecidas.
+
+Uma versão beta do sistema pode ser acessado no link: http://www.raulferreira.com.br/Projeto-Myosotis/
+
 
 ##O Sistema
 
