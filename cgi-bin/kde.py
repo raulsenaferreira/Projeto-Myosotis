@@ -23,8 +23,8 @@ except:
 
 #verifica se essa consulta ja esta em cache
 redis = redis.Redis('localhost')
-chave = '3'#hashlib.md5(dataFromPHP).hexdigest()
-if(redis.get(chave) == ''):
+chave = hashlib.md5(dataFromPHP).hexdigest()
+if(redis.get(chave)):
 	print redis.get(chave)
 else:
 	#substitua com os dados do seu banco
