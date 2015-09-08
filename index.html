@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="author" content="Raul Sena Ferreira">
+<!-- Stylesheets -->
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+
+<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<!-- Font -->
+<link href="font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<!-- Ionicons -->
+<link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
+<!-- Leaflet -->
+<link rel="stylesheet" href="css/leaflet.css" />
+<script src="js/leaflet.js"></script>
+<script src="js/leaflet.markercluster-src.js"></script>
+
+<!-- Custom CSS -->
+<link href="css/five.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="css/myosotis.css" rel="stylesheet" type="text/css" />
+<!-- Custom Fonts -->
+<link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600,600italic' rel='stylesheet' type='text/css'>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" class="index" onload="init()">
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container"> 
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Trocar Navegação</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+    </div>
+    <span class="navbar-header page-scroll"><a class="navbar-brand page-scroll" href="#page-top">Myosotis</a></span> 
+    
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="hidden"> <a href="#page-top"></a> </li>
+        <li> <a class="page-scroll" href="#services">Gráficos</a> </li>
+        <li> <a class="page-scroll" href=":4000">API</a> </li>
+        <li> <a class="page-scroll" href="#about">Sobre</a> </li>
+        <li> <a class="page-scroll" href="#team">Termos de Uso</a> </li>
+        <li> <a class="page-scroll" href="#contact">Contato</a> </li>
+        <li style="font-size: 40px; text-align: center; height: 10px; margin-top: -10px;"><a target="_blank" href="https://github.com/raulsenaferreira/Projeto-Myosotis"><i class="fa fa-github"></i></a> </li>
+      </ul>
+          
+    </div>
+    <!-- /.navbar-collapse --> 
+  </div>
+  <!-- /.container-fluid --> 
+</nav>
+
+<!-- Header -->
+<header>
+  <!-- Main content -->
+  <section class="content">
+      <!-- Map box -->
+      <div class="box-body">
+          <div id="map_container">
+              <div id="map"></div>
+          </div>
+          
+          <div class="avisoMap">
+              <ul class="listaSemMarcador">
+                  <li> Clique no botão "Buscar" e monte a sua consulta, caso você não selecione nenhuma opção a consulta trará todos os resultados. </li>
+                  <li> Clique nos <i>clusters</i> (grupos no mapa) para detalhar melhor os pontos. Clique nos pontos para mostrar as informações da pessoa desaparecida. </li>
+                  <li> *A probabilidade de cada estado foi calculada usando-se o método KDE (Kernel Density Estimation) em cima dos registros fornecidos pelos sites de buscas de pessoas desaparecidas. <a target="_blank" href="https://pt.wikipedia.org/wiki/Estimativa_de_densidade_kernel">Clique aqui</a> para maiores detalhes. </li>
+                  <li> **Este site não se responsabiliza por informações erradas. Apenas centralizamos as informações de várias fontes confiáveis e disponibilizamos de uma maneira geograficamente organizada. <a href="#team">Clique aqui</a> para maiores detalhes.</li>
+              </ul>
+          </div>
+          <!-- botões de busca -->
+          <ul id="mapMenu" class="listaSemMarcador">
+              <li class="liButtonMap"> 
+                  <input type="button" class="btn btn-primary mapMenuButton imagem" value="Buscar" 
+                         id="enviar" data-toggle="modal" data-target="#myModal"> 
+              </li>
+              <li class="liButtonMap"> 
+                  <input type="button" class="btn btn-primary mapMenuButton" value="Salvar Consulta" 
+                         id="save" data-toggle="modal" data-target="#modalSave" onclick="salvarConsulta();"> 
+              </li>
+          </ul>
+      </div><!-- /.box-body-->
+  </section><!-- /.content -->
+</header>
+
+<!-- Services Section -->
+<section id="services">
+  <!-- Gráficos -->
+  <div class="chart tab-pane active" id="revenue-chart" style="position: relative; width: 270px; height: 270px;">
+      <h4 class="section-heading">Gênero</h4>
+      <div id="genero" width="250" height="250"></div>
+  </div>
+
+  <div class="chart tab-pane active" id="sales-chart" style="position: relative; height: 270px;">
+      <h4 class="section-heading">Raça</h4>
+      <div id="campus" width="250" height="250"></div>
+  </div>
+
+  <div class="chart tab-pane active" id="crm-chart" style="position: relative; width: 670px; height: 270px;">
+      <h4 class="section-heading">Desaparecido/Estado</h4>
+      <div id="crm" width="650" height="250"></div>
+  </div>
+
+  <div class="chart tab-pane active" id="populacao-chart" style="position: relative; height: 270px;">
+      <div id="populacao" width="250" height="250"></div>
+  </div>
+  <!-- Gráficos 2 -->
+  <div class="chart tab-pane active" id="revenue-chart" style="position: relative; width: 270px; height: 270px;">
+      <h4 class="section-heading">Gênero</h4>
+      <div id="genero" width="250" height="250"></div>
+  </div>
+
+  <div class="chart tab-pane active" id="sales-chart" style="position: relative; height: 270px;">
+      <h4 class="section-heading">Raça</h4>
+      <div id="campus" width="250" height="250"></div>
+  </div>
+
+  <div class="chart tab-pane active" id="crm-chart" style="position: relative; width: 670px; height: 270px;">
+      <h4 class="section-heading">Desaparecido/Estado</h4>
+      <div id="crm" width="650" height="250"></div>
+  </div>
+
+  <div class="chart tab-pane active" id="populacao-chart" style="position: relative; height: 270px;">
+      <div id="populacao" width="250" height="250"></div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h3 class="section-heading">Sobre</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h4 class="about-heading">Myosotis</h4>
+        <img class="img-responsive" src="css/images/myosotis.jpg" alt="Flor Myosotis">
+        <p class="text-muted">Flor habitualmente chamada de "forget me not" ou "não-me-esqueças" escolhida para representar este trabalho.</p>
+      </div>
+      <div class="col-md-4">
+        <h4 class="about-heading">O Sistema</h4>
+        <h4>Motivação</h4>
+        <p class="text-muted">O cadastro nacional de pessoas desaparecidas não se atualiza na velocidade em que os desaparecimentos ocorrem. Para resolver isso, inúmeros sites se propõem a cadastrar e divulgar pessoas desaparecidas. Porém com isso, surge outro problema: Informações repetidas e espalhadas em diferentes fontes.</p>
+        <h4>Objetivo</h4>
+        <p class="text-muted">Criar um repositório nacional unificado de pessoas desaparecidas baseado nas informações dos sites que cadastram essas informações. Desta forma, este sistema visa dar maior importância ao trabalho realizado por estes sites ao mesmo tempo em que tenta trazer novas formas de enxergar o problema, explorando os dados não só em formato textual mas também em formato geoespacial.</p>
+      </div>
+      <div class="col-md-4">
+        <h4 class="about-heading">Quem sou eu?</h4>
+        <p class="text-muted">Raul Sena Ferreira.<br>Mestrando em Engenharia de Sistemas e Computação - PESC - UFRJ.<br>Desenvolvedor Web pela COPPE - UFRJ.</p>
+        <div class="team-member">
+          <div class="col-md-4">
+            <h5><i class="fa fa-envelope-o"></i> Email</h5>
+            <p>raulsf@cos.ufrj.br</p>
+          </div>
+          <ul class="list-inline social-buttons">
+            <li>
+              <a target="_blank" href="https://br.linkedin.com/in/raulsenaferreira">
+                <i class="fa fa-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href="https://github.com/raulsenaferreira">
+                <i class="fa fa-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team Section -->
+<section id="team" class="bg-light-gray">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h3 class="section-heading">Termos de Uso</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="team-member"> 
+        <p>Este sistema faz uso de imagens públicas divulgadas pelos sites de pessoas desaparecidas, mantendo inalterado o sentido da informação coletada, e por tanto, não se responsabiliza por informações erradas vindas destes sites.</p>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="team-member">
+        <p>O sistema não tem fins lucrativos e seu código está disponível para que outras pessoas possam contribuir desde que se respeite a licença de uso que pode ser encontrada no repositório deste projeto. A autoria deste trabalho também deve ser citado por quem desejar utilizar uma parte ou todo o código produzido.</p>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="team-member">
+        <p>O usuário se responsabiliza por qualquer uso indevido que venha a fazer no site. Este sistema tem o intuito de apresentar as informações de maneira unificada e não se responsabiliza por quaisquer interpretações que o usuário venha a fazer referente aos resultados das consultas realizadas aqui.</p>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="team-member">
+        <p>A lista de sites no qual este sistema copiou os dados está disponível no repositório público do projeto e também logo abaixo. Em todas as informações coletadas manteve-se o link para a fonte original, visando dar os créditos ao fornecedor da informação e dar a possibilidade para que qualquer pessoa possa acessar e conhecer o site, bem como averiguar os dados informados. Apesar de serem domínios públicos com informações de utilidade pública, os mesmos foram avisados por email sobre este sistema.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 text-center">
+        <p class="large text-muted">Lista de Fontes: <a target="_blank" href="http://www.desaparecidos.gov.br">Desaparecidos.gov</a> | <a target="_blank" href="http://portal.mj.gov.br">Ministério da justiça</a> | <a target="_blank" href="http://www.desaparecidosdobrasil.org">Desaparecidos do Brasil.org</a> | <a target="_blank" href="http://www.desaparecidos.mg.gov.br">Desaparecidos de Minas Gerais</a> | <a target="_blank" href="http://www.desaparecidos.rs.gov.br">Desaparecidos do Rio Grande do Sul</a> | <a target="_blank" href="http://www.biamap.com.br/">BiaMap</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team Section -->
+<section id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h3 class="section-heading">Contato</h3>
+      </div>
+    </div>
+    <div class="row">
+      <!-- <div class="col-md-4">
+        <h5><i class="fa fa-map-marker"></i> Address</h5>
+        <p>3821 Laoreet quis risus, NY 07209, United States</p>
+      </div> -->
+      <!-- <div class="col-md-4">
+        <h5><i class="fa fa-envelope-o"></i> Email</h5>
+        <p>raulsf@cos.ufrj.br</p>
+      </div> -->
+      <!-- <div class="col-md-4">
+        <h5><i class="fa fa-phone"></i> Phone</h5>
+        +1 800 123 1234 </div> -->
+    </div>
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 text-center">
+        <p class="contact text-muted">Tem algum site de pessoas desaparecidas para indicar? Deseja enviar alguma sugestão, crítica ou sugestão? Deseja contribuir com o projeto de alguma forma? Sinta-se a vontade e entre em contato.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <form name="sentMessage" id="contactForm" novalidate>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Seu nome *" id="name" required data-validation-required-message="Por favor, digite seu nome.">
+                <p class="help-block text-danger"></p>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Seu Email *" id="email" required data-validation-required-message="Por favor, digite seu email.">
+                <p class="help-block text-danger"></p>
+              </div>
+              <div class="form-group">
+                <input type="tel" class="form-control" placeholder="Assunto *" id="phone" required data-validation-required-message="Por favor, digite o assunto.">
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <textarea class="form-control" placeholder="Sua Mensagem *" id="message" required data-validation-required-message="Por favor, digite sua mensagem."></textarea>
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-lg-12 text-center">
+              <div id="success"></div>
+              <button type="submit" class="btn btn-xl2">Enviar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8"> <span class="copyright">&copy; 2015 Projeto Myosotis. Template by <a href="http://www.templategarden.com" target="_blank" rel="nofollow">TemplateGarden</a></span> </div>
+      <div class="col-md-4">
+        <ul class="list-inline social-buttons">
+          <li><a target="_blank" href="https://github.com/raulsenaferreira/Projeto-Myosotis"><i class="fa fa-github"></i></a> </li>
+          <!-- <li><a href="#"><i class="fa fa-facebook"></i></a> </li>
+          <li><a href="#"><i class="fa fa-linkedin"></i></a> </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- guarda informaçoes dos pontos -->
+        <input id="pontos">
+        <input id="pdfs">
+        <!-- envio de dados para o banco -->
+        <form id="consultarPoligono" method="post" name="consultarPoligono"  action="">
+            <input id="poligono" type="hidden" name="poligono">
+            <input type="hidden" name="submitted" id="submitted" value="true" />
+            <div id="filtros">
+                <!-- MODAL -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Escolha o filtro de busca</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p><b style="font-size: 14px;">Você deseja buscar por&hellip;</b></p>
+                        <p><b style="font-size: 14px;">Sexo:</b>
+                            <input type="radio" name="sexo" value="F">Feminino
+                            <input type="radio" name="sexo" value="M">Masculino
+                            <input type="radio" name="sexo" value="">Ambos
+                        </p>
+                        <p><b style="font-size: 14px;">Situação:</b>
+                            <input type="radio" name="situacao" value="D">Desaparecidos
+                            <input type="radio" name="situacao" value="E">Encontrados
+                            <input type="radio" name="situacao" value="">Todos
+                        </p>
+                        <!-- <p><b style="font-size: 14px;">Faixa Etária:</b>
+                            <input type="radio" name="faixa" value="1">Crianças (até 12 anos)
+                            <input type="radio" name="faixa" value="2">Adolescentes (13 até 17 anos)
+                            <input type="radio" name="faixa" value="3">Adultos (18 até 60 anos)
+                            <input type="radio" name="faixa" value="4">Idosos (acima de 60 anos)
+                            <input type="radio" name="faixa" value="">Todos
+                        </p> -->
+                        <p><b style="font-size: 14px;">Cor de pele:</b>
+                            <input type="radio" name="raca" value="b">Branca
+                            <input type="radio" name="raca" value="pr">Preta
+                            <input type="radio" name="raca" value="pa">Parda
+                            <input type="radio" name="raca" value="a">Amarela
+                            <input type="radio" name="raca" value="i">Indígena
+                            <input type="radio" name="raca" value="">Todas
+                        </p>
+                        <p class="texto"><b style="font-size: 14px;">Nome:</b>
+                            <input type="text" name="nome_desaparecido">
+                        </p>
+                        <p class="texto"><b style="font-size: 14px;">Estado:</b>
+                            <input class="cod_estado" type="text" name="cod_estado">
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="enviaDados();">Buscar</button>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+                </div>
+        </form>
+<!-- scripts -->
+        <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+        <script async type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script async type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/Chart.js"></script>
+        <script type="text/javascript" src="js/estadosNomeados.js"></script>
+        <script type="text/javascript" src="js/myosotis.js"></script>
+
+<!-- Plugin JavaScript --> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script> 
+<script src="js/classie.js"></script> 
+<script src="js/cbpAnimatedHeader.js"></script> 
+
+<!-- Contact Form JavaScript --> 
+<script src="js/jqBootstrapValidation.js"></script> 
+<script src="js/contact_me.js"></script> 
+
+<!-- Custom Theme JavaScript --> 
+<script src="js/five.js"></script>
+
+</body>
+</html>
