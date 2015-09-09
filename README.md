@@ -36,7 +36,7 @@ Envie um pull request para consideração, ele será muito bem vindo!
 
 * As informações de latitude e longitude precisarão ser extraídas a partir dos endereços que o crawler conseguiu garimpar e colocar no banco de dados. Para isso você deverá geocodificar os endereços do banco mantendo o id do respectivo registro para posterior update no banco (o script de update está no arquivo INSTALL.sql).
 
-* Para geocodificar você pode usar algumas ferramentas baseadas no batchgeo (https://pt.batchgeo.com/), google maps API (https://developers.google.com/maps/) ou alguma outra ferramenta de geocodificação se sua preferência, lembrando que para localizações no Brasil o formato de SRID deve ser 4764.
+* Para geocodificar você pode usar algumas ferramentas baseadas no batchgeo (https://pt.batchgeo.com/), google maps API (https://developers.google.com/maps/) ou alguma outra ferramenta de geocodificação se sua preferência, lembrando que para localizações no Brasil o formato de SRID deve ser 4674.
 
 ##Issues
 https://github.com/raulsenaferreira/Projeto-Myosotis/issues
