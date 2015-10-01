@@ -4,7 +4,7 @@ Projeto-Myosotis
 
 Um sistema crawler-based baseado em tecnologias NoSQL no auxílio a unificação e estudo dos registros de pessoas desaparecidas.
 
-Uma versão beta do sistema pode ser acessado no link: http://www.raulferreira.com.br/Projeto-Myosotis/
+Uma versão beta do sistema pode ser acessado no link: http://projeto-myosotis.com.br/
 
 
 ##O Sistema
@@ -18,7 +18,7 @@ O sistema permite que se faça alguns tipos de consultas específicas como situa
 Ainda em fase experimental, está a coloração dos estados baseados na probabilidade de ocorrer um novo caso de desaparecimento naquele estado. O cálculo é feito com um método estatístico não paramétrico, conhecido como KDE(https://pt.wikipedia.org/wiki/Estimativa_de_densidade_kernel). Ferramentas de visualização em formato de cluster e polígonos também são utilizados, bem como ferramentas para geração de gráficos.
 
 ##Como contribuir
-Dê um Fork e edite as partes que você julga necessário (P.S.: As issues do projeto são um bom lugar para começar).
+Crie um branch e edite as partes que você julga necessário (P.S.: As issues do projeto são um bom lugar para começar).
 
 Instale opcionalmente as dependências listadas abaixo caso queira visualizar as mudanças.
 
