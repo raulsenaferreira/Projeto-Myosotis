@@ -15,7 +15,9 @@
     "socket.io": "^0.9.17",
     "node-phantom": "^0.2.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "coveralls": "^2.11.4"
+  },
   "scripts": {
     "test": "test-crawler.js"
   },
