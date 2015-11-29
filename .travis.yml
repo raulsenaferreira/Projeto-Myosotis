@@ -3,7 +3,7 @@ node_js:
   - "0.10.37"
 services:
 - mongodb
-script: mongod && node test-crawler.js
-sudo: true
+script: node test-crawler.js
+sudo: false
 after_success:
   - coveralls
