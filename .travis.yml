@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - "0.10.37"
-script: mongod && node test-crawler.js
+script: mkdir /data && mkdir /data/db && mongod && node test-crawler.js
 sudo: false
 after_success:
   - coveralls
