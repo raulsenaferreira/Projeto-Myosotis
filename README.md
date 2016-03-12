@@ -49,3 +49,8 @@ First create the directories /data and /data/db
 Later, open your terminal and run: `sudo chown -R $USER /data/db`
 
 Ready, verify again running terminal command: mongod
+
+#### Neither Database nor collection has not been created in MongoDB
+Try run one crawler by time, running one crawler and commenting other ones.
+
+While you do this, verify you database, running mongo shell, look if now, databases and collections are being created. The reason is that some sites may change its structure and the crawler may become scant.
