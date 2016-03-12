@@ -30,9 +30,13 @@ Envie um pull request para consideração, ele será muito bem vindo!
 2. Instale o Node.js (https://nodejs.org/en/) e o mongodb (https://www.mongodb.org/) em sua máquina
 3. Instale o Redis (http://redis.io/)
 4. Instale o módulo pymongo no python (http://api.mongodb.org/python/current/installation.html)
+5. Instale o módulo psycopg2 (http://initd.org/psycopg/docs/install.html)
 4. Execute o script "INSTALL.sql" contido na pasta raiz deste projeto
+5. Altere os arquivos conexao.php e ETL.py adicionando as credenciais de acesso ao banco postgres
 5. Certifique-se de colocar o projeto dentro de uma pasta que possa ser lida pelo Apache Web Server. Certifique-se também em ter instalado em sua máquina a versão 2.7.x do Python
-6. Para executar o crawler, primeiro inicie o mongodb, em seguida vá na pasta raiz do projeto e digite na linha de comando (node crawler.js) ou caso queira apenas testar com alguns registros digite (node test-crawler.js)
+6. Inicie o mongodb (mongod)
+6. Para executar o crawler, vá na pasta raiz do projeto e digite na linha de comando (node crawler.js) ou caso queira apenas testar com alguns registros digite (node test-crawler.js)
+7. Depois de ter crawleado todos os domínios pra dentro do MongoDB, basta entrar na pasta cgi-bin/ e executar o arquivo ETL.py para que seja feito o processo de ETL e gravação dos dados no Postgres
 7. Para acessar a aplicação acesse em seu navegador http://localhost/Projeto-Myosotis/
 8. Para acessar o webservice, primeiro inicie-o digitando na linha de comando(node API.js) digite http://localhost/Projeto-Myosotis:4000/collections/site1/all (a numeração vai de 1 até 6)
 
