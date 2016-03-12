@@ -45,5 +45,7 @@ https://github.com/raulsenaferreira/Projeto-Myosotis/issues
 ##Troubleshooting
 ####Unable to create/open lock file: /data/db/mongod.lock errno:13 Permission denied
 First create the directories /data and /data/db
+
 Later, open your terminal and run: `sudo chown -R $USER /data/db`
+
 Ready, verify again running terminal command: mongod
