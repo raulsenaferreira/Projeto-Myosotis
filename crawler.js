@@ -18,21 +18,10 @@ var registroCrawler1 = new mongoose.Schema({
   , img: String
   , status: {type: String, default: "Desaparecido(a)"}
   , dataDesaparecimento: String
-  , local: String
-  , observacao: String
-  , boletimOcorrencia: String
-  , sexo: String
-  , corDaPele: String
-  , idadeDesaparecimento: String
-  , pesoAproximado: String
-  , idadeHoje: String
-  , alturaAproximada: String
-  , transtornoMental: String
-  , olhos: String
-  , tipoFisico: String
-  , ultimaInformacao: String
+  , estado: String
+  , cidade: String
+  , dataNascimento: String
   , fonte: String
-  , cabelo: String
   , atualizado_em: { type: Date, default: Date.now }
 });
 
@@ -199,7 +188,7 @@ var RegistroCrawler9 = mongoose.model('RegistroCrawler9', registroCrawler9);
 mongoose.connect('mongodb://localhost/myosotis');
 
 //http://www.desaparecidos.gov.br
-//crawler1(generateArray(1, 3019));
+crawler1(generateArray(0, 20));
 
 //http://portal.mj.gov.br
 //crawler2(generateArray(1, 2512));
@@ -226,7 +215,7 @@ paginacao = [13, 53, 58, 18, 26, 30, 164]
 //crawler8(generateArray(1, 2));
 
 //http://www.divulgandodesaparecidos.org
-crawler9(generateArray(1, 1));
+//crawler9(generateArray(1, 1));
 
 //methods
 function generateArray(ini, end) {
@@ -241,76 +230,53 @@ function crawler1 (limite) {
 
   async.forEach(limite, function (id, callback) {
 
-    var urlSegundoNivel = format('http://www.desaparecidos.gov.br/desaparecidos/application/modulo/detalhes.php?id=%s', id);
+    var url = format('http://www.desaparecidos.gov.br/index.php/desparecidos?pag=%s', id);
 
-    request(urlSegundoNivel, function (err, response, body) {
+    request(url, function (err, response, body) {
       if (err) throw err;
       var $ = cheerio.load(body);
+      $('.boxDesaparecidor').each(function(){
+        var url2 = "http://www.desaparecidos.gov.br"+$('.readmore a').attr('href');
+        var nome = $('.titulo').text().trim();
 
-      var nome = $('.titulo').text().trim();
+        //Só prossegue se tiver pelo menos um nome
+        if(nome!="" && nome!=undefined){
+          var img = $('img').attr('src');
+          var status = $('.desaparecido').text().trim();
 
-      //Só prossegue se tiver pelo menos um nome
-      if(nome!="" && nome!=undefined){
-        var img = $('img').attr('src');
-        var status = $('.desaparecido').text().trim();
+          if (status=="" || status==undefined) {
+            status = $('.encontrado').text().trim();
+          }
+          request(url2, function (err, response, body) {
+            var dataNascimento = $('.inf div:nth-child(2)').text().trim();
+            var dataDesaparecimento = $('.inf div:nth-child(3)').text().trim();
+            var estado = $('.inf div:nth-child(4)').text().trim();
+            var cidade = $('.inf div:nth-child(5)').text().trim();
 
-        if (status=="" || status==undefined) {
-          status = $('.encontrado').text().trim();
+            var registro = new RegistroCrawler1({
+                nome: nome
+              , img: img
+              , status: status
+              , dataDesaparecimento: dataDesaparecimento
+              , estado: estado
+              , fonte: url2
+              , cidade: cidade
+              , dataNascimento: dataNascimento
+            });
+
+            registro.save(function(err, registro) {
+              if (err) return console.error(err);
+              //console.dir(registro);
+            });
+          });
         }
-
-        var dataLocal = $('.inf p:nth-child(1)').text().trim();
-        dataLocal = dataLocal.split("no município de");
-        var dataDesaparecimento = dataLocal[0];
-        var local = dataLocal[1];
-        var observacao = $('.inf p:nth-child(2)').text().trim();
-        var boletimOcorrencia = $('.inf p:nth-child(3)').text().trim();
-        var sexo = $('table tr:nth-child(1) td:nth-child(1)').text().trim();
-        var corDaPele = $('table tr:nth-child(1) td:nth-child(2)').text().trim();
-        var idadeDesaparecimento = $('table tr:nth-child(2) td:nth-child(1)').text().trim();
-        var pesoAproximado = $('table tr:nth-child(2) td:nth-child(2)').text().trim();
-        var idadeHoje = $('table tr:nth-child(3) td:nth-child(1)').text().trim();
-        var alturaAproximada = $('table tr:nth-child(3) td:nth-child(2)').text().trim();
-        var transtornoMental = $('table tr:nth-child(4) td:nth-child(1)').text().trim();
-        var olhos = $('table tr:nth-child(4) td:nth-child(2)').text().trim();
-        var tipoFisico = $('table tr:nth-child(5) td:nth-child(1)').text().trim();
-        var cabelo = $('table tr:nth-child(5) td:nth-child(2)').text().trim();
-        var ultimaInformacao = $('.inf p:nth-child(6)').text().trim();
-
-
-        var registro = new RegistroCrawler1({
-            nome: nome
-          , img: img
-          , status: status
-          , dataDesaparecimento: dataDesaparecimento
-          , local: local
-          , fonte: 'http://www.desaparecidos.gov.br/desaparecidos/application/modulo/detalhes.php?id='+id
-          , observacao: observacao
-          , boletimOcorrencia: boletimOcorrencia
-          , sexo: sexo
-          , corDaPele: corDaPele
-          , idadeDesaparecimento: idadeDesaparecimento
-          , pesoAproximado: pesoAproximado
-          , idadeHoje: idadeHoje
-          , alturaAproximada: alturaAproximada
-          , transtornoMental: transtornoMental
-          , olhos: olhos
-          , tipoFisico: tipoFisico
-          , cabelo: cabelo
-          , ultimaInformacao: ultimaInformacao
-        });
-
-        registro.save(function(err, registro) {
-          if (err) return console.error(err);
-          //console.dir(registro);
-
-          callback();
-        });
-      }
+      });
+      callback();
     });
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do primeiro site terminado!!!");
+    console.dir("Crawler do primeiro site terminando...");
   }
 )}
 

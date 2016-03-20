@@ -19,7 +19,7 @@ O sistema permite que se faça alguns tipos de consultas específicas como situa
 Ainda em fase experimental, está a coloração dos estados baseados na probabilidade de ocorrer um novo caso de desaparecimento naquele estado. O cálculo é feito com um método estatístico não paramétrico, conhecido como KDE(https://pt.wikipedia.org/wiki/Estimativa_de_densidade_kernel). Ferramentas de visualização em formato de cluster e polígonos também são utilizados, bem como ferramentas para geração de gráficos.
 
 ##Status of crawled sites
-http://www.desaparecidos.gov.br [Offline]
+http://www.desaparecidos.gov.br [Online]
 
 http://portal.mj.gov.br [Doesn't exist anymore]
 
