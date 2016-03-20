@@ -35,6 +35,8 @@ http://www.desaparecidosbr.com.br/ [Online]
 
 http://www.policiacivil.go.gov.br/pessoas-desaparecidas [Online]
 
+http://www.divulgandodesaparecidos.org [Online]
+
 ##Como contribuir
 Crie um branch e edite as partes que você julga necessário (P.S.: As issues do projeto são um bom lugar para começar).
 

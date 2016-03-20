@@ -152,6 +152,40 @@ var registroCrawler7 = new mongoose.Schema({
     , atualizado_em: { type: Date, default: Date.now }
   });
 
+  var registroCrawler9 = new mongoose.Schema({
+    nome: String
+    , apelido: {type: String, default: ""}
+    , profissao: {type: String, default: ""}
+    , dataNascimento: {type: String, default: ""}
+    , nomeMae: {type: String, default: ""}
+    , nomePai: {type: String, default: ""}
+    , sexo: {type: String, default: ""}
+    , marcas: {type: String, default: ""}
+    , alturaAproximada: {type: String, default: ""}
+    , pesoAproximado: {type: String, default: ""}
+    , olhos: {type: String, default: ""}
+    , img: {type: String, default: ""}
+    , cabelo: {type: String, default: ""}
+    , corDaPele: {type: String, default: ""}
+    , estado: {type: String, default: ""}
+    , cidade: {type: String, default: ""}
+    , bairro: {type: String, default: ""}
+    , dataDesaparecimento: {type: String, default: ""}
+    , tipoDesaparecimento: {type: String, default: ""}
+    , local: {type: String, default: ""}
+    , observacao: {type: String, default: ""}
+    , nomeContato: {type: String, default: ""}
+    , parentesco: {type: String, default: ""}
+    , emailContato: {type: String, default: ""}
+    , boletimOcorrencia: {type: String, default: ""}
+    , ddd: {type: String, default: ""}
+    , telContato: {type: String, default: ""}
+    , dataDoRegistro: {type: String, default: ""}
+    , informacao: {type: String, default: ""}
+    , fonte: String
+    , atualizado_em: { type: Date, default: Date.now }
+  });
+
 var RegistroCrawler1 = mongoose.model('RegistroCrawler1', registroCrawler1);
 var RegistroCrawler2 = mongoose.model('RegistroCrawler2', registroCrawler2);
 var RegistroCrawler3 = mongoose.model('RegistroCrawler3', registroCrawler3);
@@ -160,6 +194,7 @@ var RegistroCrawler5 = mongoose.model('RegistroCrawler5', registroCrawler5);
 var RegistroCrawler6 = mongoose.model('RegistroCrawler6', registroCrawler6);
 var RegistroCrawler7 = mongoose.model('RegistroCrawler7', registroCrawler7);
 var RegistroCrawler8 = mongoose.model('RegistroCrawler8', registroCrawler8);
+var RegistroCrawler9 = mongoose.model('RegistroCrawler9', registroCrawler9);
 
 mongoose.connect('mongodb://localhost/myosotis');
 
@@ -188,8 +223,12 @@ paginacao = [13, 53, 58, 18, 26, 30, 164]
 //crawler7(generateArray(1, 9));
 
 //http://www.policiacivil.go.gov.br/pessoas-desaparecidas
-crawler8(generateArray(1, 2));
+//crawler8(generateArray(1, 2));
 
+//http://www.divulgandodesaparecidos.org
+crawler9(generateArray(1, 1));
+
+//methods
 function generateArray(ini, end) {
   var arr = [];
   while (ini<=end) { arr.push(ini); ini++; }
@@ -721,5 +760,163 @@ function crawler8 (limite) {
   function(err){
     // All tasks are done now
     console.dir("Finalizando crawler do oitavo site...");
+  })
+}
+
+function crawler9 (limite) {
+  console.dir("Iniciando crawler do nono site...");
+
+  async.each(limite, function (id, callback) {
+
+    var url = format('http://www.divulgandodesaparecidos.org/desaparecidos_com_foto/');
+
+    request(url, function (err, response, body) {
+      if (err) throw err;
+      var $ = cheerio.load(body);
+
+      $('#ul-fotos-desaparecidos li').each(function(){
+        var url2 = "http://www.divulgandodesaparecidos.org"+$(this).find('a').attr('href');
+        var img = $(this).find('a img').attr('src');
+        var extensao = url2.substring(url2.length - 4);
+
+        if(extensao == ".php"){
+          request(url2, function (err, response, body) {
+            if (err) throw err;
+            var $ = cheerio.load(body);
+
+            var nome = $('.informacao:nth-child(5)').text().trim();
+            var apelido = $('.informacao:nth-child(8)').text().trim();
+            var profissao = $('.informacao:nth-child(11)').text().trim();
+            var dataNascimento = $('.informacao:nth-child(14)').text().trim();
+            var nomeMae = $('.informacao:nth-child(17)').text().trim();
+            var nomePai = $('.informacao:nth-child(20)').text().trim();
+            var sexo = $('.informacao:nth-child(23)').text().trim();
+            var marcas = $('.informacao:nth-child(26)').text().trim();
+            var alturaAproximada = $('.informacao:nth-child(29)').text().trim();
+            var pesoAproximado = $('.informacao:nth-child(32)').text().trim();
+            var olhos = $('.informacao:nth-child(35)').text().trim();
+            var cabelo = $('.informacao:nth-child(38)').text().trim();
+            var corDaPele = $('.informacao:nth-child(41)').text().trim();
+            var estado = $('.informacao:nth-child(44)').text().trim();
+            var cidade = $('.informacao:nth-child(47)').text().trim();
+            var bairro = $('.informacao:nth-child(50)').text().trim();
+            var dataDesaparecimento = $('.informacao:nth-child(53)').text().trim();
+            var tipoDesaparecimento = $('.informacao:nth-child(56)').text().trim();
+            var local = $('.informacao:nth-child(59)').text().trim();
+            var observacao = $('.informacao:nth-child(62)').text().trim();
+            var nomeContato = $('.informacao:nth-child(65)').text().trim();
+            var parentesco = $('.informacao:nth-child(68)').text().trim();
+            var emailContato = $('.informacao:nth-child(71)').text().trim();
+            var boletimOcorrencia = $('.informacao:nth-child(74)').text().trim();
+            var ddd = $('.informacao:nth-child(77)').text().trim();
+            var telContato = $('.informacao:nth-child(80)').text().trim();
+            var dataDoRegistro = $('.informacao:nth-child(83)').text().trim();
+            var fonte= url2;
+
+            var registro = new RegistroCrawler9({
+              nome: nome
+              , apelido: apelido
+              , profissao: profissao
+              , dataNascimento: dataNascimento
+              , nomeMae: nomeMae
+              , nomePai: nomePai
+              , sexo: sexo
+              , marcas: marcas
+              , alturaAproximada: alturaAproximada
+              , pesoAproximado: pesoAproximado
+              , olhos: olhos
+              , img: img
+              , cabelo: cabelo
+              , corDaPele: corDaPele
+              , estado: estado
+              , cidade: cidade
+              , bairro: bairro
+              , dataDesaparecimento: dataDesaparecimento
+              , tipoDesaparecimento: tipoDesaparecimento
+              , local: local
+              , observacao: observacao
+              , nomeContato: nomeContato
+              , parentesco: parentesco
+              , emailContato: emailContato
+              , boletimOcorrencia: boletimOcorrencia
+              , ddd: ddd
+              , telContato: telContato
+              , dataDoRegistro: dataDoRegistro
+              , fonte: fonte
+            });
+
+            registro.save(function(err, registro) {
+              if (err) return console.error(err);
+              //console.dir(registro);
+            });
+          });
+        }
+        else if(extensao == "html"){
+          request(url2, function (err, response, body) {
+            if (err) throw err;
+            var $ = cheerio.load(body);
+            nome = $('table div h2').text().trim();
+            informacao = $('.style12').text().trim();
+
+            var registro = new RegistroCrawler9({
+              nome: nome
+              , img: img
+              , informacao: informacao
+              , fonte: url2
+            });
+            registro.save(function(err, registro) {
+              if (err) return console.error(err);
+              //console.dir(registro);
+            });
+          });
+        }
+      });
+      callback();
+    });
+  },
+  function(err){
+    // All tasks are done now
+    console.dir("Finalizando crawler do nono site...");
+  })
+  crawler9_2(limite);
+}
+//nono site - parte dos desaparecidos sem foto
+function crawler9_2 (limite) {
+  console.dir("Iniciando crawler do nono site...");
+
+  async.each(limite, function (id, callback) {
+
+    var url = format('http://www.divulgandodesaparecidos.org/desaparecidos_sem_foto/');
+
+    request(url, function (err, response, body) {
+      if (err) throw err;
+      var $ = cheerio.load(body);
+
+      $('#ul-desaparecidos-sem-foto li').each(function(){
+        var url2 = "http://www.divulgandodesaparecidos.org"+$(this).find('a').attr('href');
+
+        request(url2, function (err, response, body) {
+          if (err) throw err;
+          var $ = cheerio.load(body);
+
+          informacao = $('.style12').text().trim();
+
+          var registro = new RegistroCrawler9({
+            nome: ""
+            , informacao: informacao
+            , fonte: url2
+          });
+          registro.save(function(err, registro) {
+            if (err) return console.error(err);
+            //console.dir(registro);
+          });
+        });
+      });
+      callback();
+    });
+  },
+  function(err){
+    // All tasks are done now
+    console.dir("Finalizando crawler do nono site...");
   })
 }
