@@ -5,7 +5,7 @@ Projeto-Myosotis
 
 Um sistema crawler-based baseado em tecnologias NoSQL no auxílio a unificação e estudo dos registros de pessoas desaparecidas.
 
-Uma versão beta do sistema pode ser acessado no link: http://projeto-myosotis.com.br/
+Uma versão beta do sistema poderá ser acessado no link: http://projeto-myosotis.com.br/
 
 
 ##O Sistema
@@ -14,9 +14,17 @@ Este sistema coleta informações contidas em sites de pessoas desaparecidas e g
 
 Por último, os dados são armazenados de forma estruturada em um banco de dados relacional, para posterior análise espacial e textual. O sistema dispõe também de um webservice, e permite que através de algumas URLs qualquer pessoa ou sistema possa consumir os dados "crawleados".
 
-O sistema permite que se faça alguns tipos de consultas específicas como situação(desaparecido/encontrado), raça(branco, pardo, negro, amarelo e indígena), gênero(masculino e feminino), estado(estados do Brasil) ou nome. Além disso, as consultas são armazenadas em um banco NoSQL chave-valor, funcionando como um cache e deixando as consultas mais rápidas. 
+O sistema permite que se faça alguns tipos de consultas específicas como situação(desaparecido/encontrado), raça(branco, pardo, negro, amarelo e indígena), gênero(masculino e feminino), estado(estados do Brasil) ou nome. Além disso, as consultas são armazenadas em um banco NoSQL chave-valor, funcionando como um cache e deixando as consultas mais rápidas.
 
 Ainda em fase experimental, está a coloração dos estados baseados na probabilidade de ocorrer um novo caso de desaparecimento naquele estado. O cálculo é feito com um método estatístico não paramétrico, conhecido como KDE(https://pt.wikipedia.org/wiki/Estimativa_de_densidade_kernel). Ferramentas de visualização em formato de cluster e polígonos também são utilizados, bem como ferramentas para geração de gráficos.
+
+##Status of crawled sites
+http://www.desaparecidos.gov.br [Offline]
+http://portal.mj.gov.br [Doesn't exist anymore]
+http://www.desaparecidosdobrasil.org [Online]
+http://www.desaparecidos.mg.gov.br [Needs adjusts]
+http://www.desaparecidos.rs.gov.br [Online]
+http://www.biamap.com.br/ [Online]
 
 ##Como contribuir
 Crie um branch e edite as partes que você julga necessário (P.S.: As issues do projeto são um bom lugar para começar).

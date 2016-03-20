@@ -109,6 +109,32 @@ var registroCrawler6 = new mongoose.Schema({
   , fonte: String
   , atualizado_em: { type: Date, default: Date.now }
   });
+var registroCrawler7 = new mongoose.Schema({
+  nome: String
+  , apelido: String
+  , img: String
+  , sexo: String
+  , cabelo: String
+  , corDaPele: String
+  , tipoFisico: String
+  , nomePai: String
+  , nomeMae: String
+  , nomeParente: String
+  , parentesco: String
+  , dataNascimento: String
+  , dataDesaparecimento: String
+  , marcas: String
+  , local: String
+  , informacoes: String
+  , nomeContato: String
+  , telContato: String
+  , telContato2: String
+  , celularContato: String
+  , emailContato: String
+  , emailContato2: String
+  , fonte: String
+  , atualizado_em: { type: Date, default: Date.now }
+  });
 
 var RegistroCrawler1 = mongoose.model('RegistroCrawler1', registroCrawler1);
 var RegistroCrawler2 = mongoose.model('RegistroCrawler2', registroCrawler2);
@@ -116,39 +142,40 @@ var RegistroCrawler3 = mongoose.model('RegistroCrawler3', registroCrawler3);
 var RegistroCrawler4 = mongoose.model('RegistroCrawler4', registroCrawler4);
 var RegistroCrawler5 = mongoose.model('RegistroCrawler5', registroCrawler5);
 var RegistroCrawler6 = mongoose.model('RegistroCrawler6', registroCrawler6);
+var RegistroCrawler7 = mongoose.model('RegistroCrawler7', registroCrawler7);
 
 mongoose.connect('mongodb://localhost/myosotis');
 
-// preparing limits of crawling
-var arrCrawler=[];
+//http://www.desaparecidos.gov.br
+//crawler1(generateArray(1, 3019));
 
-arrCrawler = generateArray(1, 3019, arrCrawler);
-crawler1(arrCrawler);
+//http://portal.mj.gov.br
+//crawler2(generateArray(1, 2512));
 
-arrCrawler = generateArray(1, 2512, arrCrawler);
-crawler2(arrCrawler);
-
-arrCrawler = [['santa-catarina'], ['outros-estados/demais-estados'], ['rio-de-janeiro'], ['outros-estados/bahia'], ['parana'], ['rio-grande-do-sul'], ['sao-paulo']];
+//http://www.desaparecidosdobrasil.org
+var arrCrawler = [['santa-catarina'], ['outros-estados/demais-estados'], ['rio-de-janeiro'], ['outros-estados/bahia'], ['parana'], ['rio-grande-do-sul'], ['sao-paulo']];
 paginacao = [13, 53, 58, 18, 26, 30, 164]
-initCrawler3(arrCrawler, paginacao);
+//initCrawler3(arrCrawler, paginacao);
 
-arrCrawler = generateArray(1, 2, arrCrawler);//176
-//crawler4(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
+//http://www.desaparecidos.mg.gov.br
+//crawler4(generateArray(1, 2));//Ainda falta ser ajustado o funcionamento deste crawler
 
-arrCrawler = generateArray(1, 4, arrCrawler);//menores de 18 anos
-crawler5(arrCrawler, false);
-arrCrawler = generateArray(1, 6, arrCrawler);//maiores de 18 anos
-crawler5(arrCrawler, true);
+//http://www.desaparecidos.rs.gov.br
+//crawler5(generateArray(1, 4), false); //menores de 18 anos
+//crawler5(generateArray(1, 6), true); //maiores de 18 anos
 
-arrCrawler = generateArray(1, 5, arrCrawler);
-crawler6(arrCrawler);
+//http://www.biamap.com.br/
+//crawler6(generateArray(1, 5));
 
-function generateArray(ini, end, arr) {
+//http://www.desaparecidosbr.com.br/
+crawler7(generateArray(1, 9));
+
+function generateArray(ini, end) {
+  var arr = [];
   while (ini<=end) { arr.push(ini); ini++; }
   return arr;
 }
 
-//http://www.desaparecidos.gov.br
 function crawler1 (limite) {
   console.dir("Iniciando crawler do primeiro site...");
 
@@ -228,7 +255,6 @@ function crawler1 (limite) {
   }
 )}
 
-//http://portal.mj.gov.br
 function crawler2(limite) {
   console.dir("Iniciando crawler do segundo site...");
 
@@ -304,7 +330,6 @@ function crawler2(limite) {
     });
 }
 
-//http://www.desaparecidosdobrasil.org
 function crawler3(estados, offset) {
   console.dir("Iniciando crawler do terceiro site...");
 
@@ -355,7 +380,6 @@ function initCrawler3(estados, paginacao) {
       crawler3(estados[i], offset);
 }
 
-//http://www.desaparecidos.mg.gov.br
 function crawler4(x) {
   console.dir("Iniciando crawler do quarto site...");
   async.each(x, function (id, next) {
@@ -402,7 +426,6 @@ function crawler4(x) {
   );
 }
 
-//http://www.desaparecidos.rs.gov.br
 function crawler5(ids, ehMaior) {
 
   console.dir("Iniciando crawler do quinto site...");
@@ -453,7 +476,6 @@ function crawler5(ids, ehMaior) {
   })
 }
 
-//http://www.biamap.com.br/
 function crawler6 (limite) {
   console.dir("Iniciando crawler do sexto site...");
   var urls=[];
@@ -472,7 +494,7 @@ function crawler6 (limite) {
         var url2 = $(this).find('.thumb a').attr('href');
         var idade = $(this).find('span[itemprop="age"]').text().trim();
 
-        // >30 tamanho seguro pra não pegar outros link
+        // >30 tamanho seguro pra não pegar outros links
         if(url2.length>30){
 
           request(url2, function (err, response, body) {
@@ -527,5 +549,93 @@ function crawler6 (limite) {
   function(err){
     // All tasks are done now
     console.dir("Crawler do sexto site terminado!!!");
+  })
+}
+
+function crawler7 (limite) {
+  console.dir("Iniciando crawler do setimo site...");
+
+  async.each(limite, function (id, callback) {
+
+    var url = format('http://www.desaparecidosbr.com.br/resultados.php?pagina=%s&genero=&palavra=', id);
+
+    request(url, function (err, response, body) {
+      if (err) throw err;
+      var $ = cheerio.load(body);
+
+      $('.linkpreto10').each(function(){
+        var url2 = $(this).find('tr:nth-child(1)').attr('onclick');
+        var apelido = $(this).find('.preto10 tr:nth-child(3)').text().trim();
+        var img = $(this).find('tr:nth-child(2) td img').attr('src');
+
+        if(url2 != undefined){
+          url2 = url2.replace("javascript: location.href=\'", "");
+          url2 = url2.replace("\';","");
+          url2 = "http://www.desaparecidosbr.com.br/"+url2;
+
+          request(url2, function (err, response, body) {
+            if (err) throw err;
+            var $ = cheerio.load(body);
+
+            var nome = $('.preto10 .preto10 tr:nth-child(1) td:nth-child(2)').text().trim();
+            var sexo = $('.preto10 .preto10 tr:nth-child(2) td:nth-child(2)').text().trim();
+            var cabelo = $('.preto10 .preto10 tr:nth-child(3) td:nth-child(2)').text().trim();
+            var corDaPele = $('.preto10 .preto10 tr:nth-child(4) td:nth-child(2)').text().trim();
+            var tipoFisico = $('.preto10 .preto10 tr:nth-child(5) td:nth-child(2)').text().trim();
+            var nomePai = $('.preto10 .preto10 tr:nth-child(6) td:nth-child(2)').text().trim();
+            var nomeMae = $('.preto10 .preto10 tr:nth-child(7) td:nth-child(2)').text().trim();
+            var nomeParente = $('.preto10 .preto10 tr:nth-child(8) td:nth-child(2)').text().trim();
+            var parentesco = $('.preto10 .preto10 tr:nth-child(9) td:nth-child(2)').text().trim();
+            var dataNascimento = $('.preto10 .preto10 tr:nth-child(10) td:nth-child(2)').text().trim();
+            var dataDesaparecimento = $('.preto10 .preto10 tr:nth-child(11) td:nth-child(2)').text().trim();
+            var marcas = $('.preto10 .preto10 tr:nth-child(12) td:nth-child(2)').text().trim();
+            var local = $('.preto10 .preto10 tr:nth-child(13) td:nth-child(2)').text().trim();
+            var informacoes = $('.preto10 .preto10 tr:nth-child(14) td:nth-child(2)').text().trim();
+            var nomeContato = $('.preto10 .preto10 tr:nth-child(16) td:nth-child(2)').text().trim();
+            var telContato = $('.preto10 .preto10 tr:nth-child(17) td:nth-child(2)').text().trim();
+            var telContato2 = $('.preto10 .preto10 tr:nth-child(18) td:nth-child(2)').text().trim();
+            var celularContato = $('.preto10 .preto10 tr:nth-child(19) td:nth-child(2)').text().trim();
+            var emailContato = $('.preto10 .preto10 tr:nth-child(20) td:nth-child(2)').text().trim();
+            var emailContato2 = $('.preto10 .preto10 tr:nth-child(21) td:nth-child(2)').text().trim();
+
+            var registro = new RegistroCrawler7({
+              nome: nome
+              , apelido: apelido
+              , img: img
+              , sexo: sexo
+              , cabelo: cabelo
+              , corDaPele: corDaPele
+              , tipoFisico: tipoFisico
+              , nomePai: nomePai
+              , nomeMae: nomeMae
+              , nomeParente: nomeParente
+              , parentesco: parentesco
+              , dataNascimento: dataNascimento
+              , dataDesaparecimento: dataDesaparecimento
+              , marcas: marcas
+              , local: local
+              , informacoes: informacoes
+              , nomeContato: nomeContato
+              , telContato: telContato
+              , telContato2: telContato2
+              , celularContato: celularContato
+              , emailContato: emailContato
+              , emailContato2: emailContato2
+              , fonte: url2
+            });
+
+            registro.save(function(err, registro) {
+              if (err) return console.error(err);
+              //console.dir(registro);
+            });
+          });
+        }
+      });
+      callback();
+    });
+  },
+  function(err){
+    // All tasks are done now
+    console.dir("Crawler do setimo site terminado!!!");
   })
 }
