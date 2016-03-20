@@ -31,6 +31,10 @@ http://www.desaparecidos.rs.gov.br [Online]
 
 http://www.biamap.com.br/ [Online]
 
+http://www.desaparecidosbr.com.br/ [Online]
+
+http://www.policiacivil.go.gov.br/pessoas-desaparecidas [Online]
+
 ##Como contribuir
 Crie um branch e edite as partes que você julga necessário (P.S.: As issues do projeto são um bom lugar para começar).
 

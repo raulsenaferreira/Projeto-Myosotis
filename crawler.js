@@ -136,6 +136,22 @@ var registroCrawler7 = new mongoose.Schema({
   , atualizado_em: { type: Date, default: Date.now }
   });
 
+  var registroCrawler8 = new mongoose.Schema({
+    nome: String
+    , img: String
+    , sexo: String
+    , dataNascimento: String
+    , idade: String
+    , dataDesaparecimento: String
+    , local: String
+    , informacoes: String
+    , naturalidade: String
+    , boletimOcorrencia: String
+    , observacao: String
+    , fonte: String
+    , atualizado_em: { type: Date, default: Date.now }
+  });
+
 var RegistroCrawler1 = mongoose.model('RegistroCrawler1', registroCrawler1);
 var RegistroCrawler2 = mongoose.model('RegistroCrawler2', registroCrawler2);
 var RegistroCrawler3 = mongoose.model('RegistroCrawler3', registroCrawler3);
@@ -143,6 +159,7 @@ var RegistroCrawler4 = mongoose.model('RegistroCrawler4', registroCrawler4);
 var RegistroCrawler5 = mongoose.model('RegistroCrawler5', registroCrawler5);
 var RegistroCrawler6 = mongoose.model('RegistroCrawler6', registroCrawler6);
 var RegistroCrawler7 = mongoose.model('RegistroCrawler7', registroCrawler7);
+var RegistroCrawler8 = mongoose.model('RegistroCrawler8', registroCrawler8);
 
 mongoose.connect('mongodb://localhost/myosotis');
 
@@ -168,7 +185,10 @@ paginacao = [13, 53, 58, 18, 26, 30, 164]
 //crawler6(generateArray(1, 5));
 
 //http://www.desaparecidosbr.com.br/
-crawler7(generateArray(1, 9));
+//crawler7(generateArray(1, 9));
+
+//http://www.policiacivil.go.gov.br/pessoas-desaparecidas
+crawler8(generateArray(1, 2));
 
 function generateArray(ini, end) {
   var arr = [];
@@ -637,5 +657,69 @@ function crawler7 (limite) {
   function(err){
     // All tasks are done now
     console.dir("Crawler do setimo site terminado!!!");
+  })
+}
+
+function crawler8 (limite) {
+  console.dir("Iniciando crawler do oitavo site...");
+
+  async.each(limite, function (id, callback) {
+
+    var url = format('http://www.policiacivil.go.gov.br/pessoas-desaparecidas/page/%s', id);
+
+    request(url, function (err, response, body) {
+      if (err) throw err;
+      var $ = cheerio.load(body);
+
+      $('#archive-posts .post-container').each(function(){
+        var url2 = $(this).find('.post-thumb a').attr('href');
+        var informacoes = $(this).find('.entry-summary').text().trim();
+        var img = $(this).find('.post-thumb img').attr('src');
+        var nome = $(this).find('.title-h3').text().trim();
+
+        if(url2 != undefined){
+
+          request(url2, function (err, response, body) {
+            if (err) throw err;
+            var $ = cheerio.load(body);
+
+            var sexo = $('.entry-content h3:nth-child(2)').text().trim();
+            var dataNascimento = $('.entry-content h3:nth-child(3)').text().trim();
+            var idade = $('.entry-content h3:nth-child(4)').text().trim();
+            var dataDesaparecimento = $('.entry-content h3:nth-child(5)').text().trim();
+            var boletimOcorrencia = $('.entry-content h3:nth-child(6)').text().trim();
+            var naturalidade = $('.entry-content h3:nth-child(7)').text().trim();
+            var observacao = $('.entry-content h3:nth-child(8)').text().trim();
+            var local = $('.entry-content h3:nth-child(9)').text().trim();
+            var informacoes = informacoes+$('.news-info').text().trim();
+
+            var registro = new RegistroCrawler8({
+              nome: nome
+              , img: img
+              , sexo: sexo
+              , dataNascimento: dataNascimento
+              , idade: idade
+              , dataDesaparecimento: dataDesaparecimento
+              , local: local
+              , informacoes: informacoes
+              , naturalidade: naturalidade
+              , boletimOcorrencia: boletimOcorrencia
+              , observacao: observacao
+              , fonte: url2
+            });
+
+            registro.save(function(err, registro) {
+              if (err) return console.error(err);
+              //console.dir(registro);
+            });
+          });
+        }
+      });
+      callback();
+    });
+  },
+  function(err){
+    // All tasks are done now
+    console.dir("Finalizando crawler do oitavo site...");
   })
 }
