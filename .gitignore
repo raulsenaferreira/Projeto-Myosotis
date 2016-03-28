@@ -13,3 +13,7 @@ results
 
 node_modules
 npm-debug.log
+
+conexao.php
+cgi-bin/ETL.py
+cgi-bin/KDE.py
