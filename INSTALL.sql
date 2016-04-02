@@ -19,6 +19,8 @@ CREATE TABLE registro
   data_nascimento text COLLATE pg_catalog."pt_BR.utf8" NOT NULL,
   dias_desaparecido text COLLATE pg_catalog."pt_BR.utf8" NOT NULL,
   data_desaparecimento text COLLATE pg_catalog."pt_BR.utf8" NOT NULL,
+  dias_desaparecido text COLLATE pg_catalog."pt_BR.utf8" NOT NULL,
+  idade_desaparecimento text COLLATE pg_catalog."pt_BR.utf8" NOT NULL,
   bairro_desaparecimento text COLLATE pg_catalog."pt_BR.utf8" NOT NULL,
   cidade_desaparecimento text COLLATE pg_catalog."pt_BR.utf8" NOT NULL,
   uf_desaparecimento text COLLATE pg_catalog."pt_BR.utf8" NOT NULL,
@@ -40,9 +42,22 @@ ALTER TABLE registro
 COMMENT ON TABLE registro
   IS 'Banco experimental para armazenar os dados, já tratados, do crawler que busca pessoas desaparecidas.';
 
+
+--- Depois de salvar os registros crawleados, você pode executar os seguintes comandos SQLs para enriquecer e refinar os dados:
+
+-- Geocodifique os endereços em um software ou API a parte e então execute o script de atualização abaixo, para que exiba as informações no mapa
 ---- Altere "path" e "arquivoGeocodificado.csv" pelo seu caminho absoluto e o nome do arquivo que contém os endereços geocodificados (longitude e latitude)
 BEGIN;
 CREATE TEMP TABLE tmp_x (id int, longitude decimal, latitude decimal);
 COPY tmp_x FROM '/path/arquivoGeocodificado.csv' delimiter ',' CSV header;
-UPDATE registro SET latitude = tmp_x.latitude SET longitude = tmp_x.longitude FROM tmp_x WHERE tmp_x.id = registro.id; 
+UPDATE registro SET latitude = tmp_x.latitude SET longitude = tmp_x.longitude FROM tmp_x WHERE tmp_x.id = registro.id;
+COMMIT;
+
+-- Extra data cleaning
+BEGIN;
+UPDATE registro SET idade = REPLACE(idade, 'Idade não informada', '');
+UPDATE registro SET idade = REPLACE(idade, 'anos', '');
+UPDATE registro SET idade = date_part('year', age(data_nascimento::DATE)) WHERE data_nascimento <> '' AND idade LIKE '';
+UPDATE registro SET idade_desaparecimento = (idade::INTEGER - date_part('year', age(data_desaparecimento::DATE))::INTEGER) WHERE data_desaparecimento <> '' AND idade <> '';
+UPDATE registro SET uf_desaparecimento = 'Nao Informado' WHERE uf_desaparecimento LIKE 'Não Informado' OR uf_desaparecimento LIKE 'lugar desconhecido' OR uf_desaparecimento LIKE ''
 COMMIT;

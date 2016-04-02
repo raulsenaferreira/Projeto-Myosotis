@@ -1,11 +1,8 @@
-$(function(){ 
-    var geojson; 
-    
-    
-    
+$(function(){
+    var geojson;
     //autocomplete de codigo de curso
-    preencheCodCurso();
-    //Gráficos
+    var estados = [];
+    preencheCodCurso(estados);
 });
 
 
@@ -15,7 +12,7 @@ function init() {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
     }),
         latlng = L.latLng(-15.7956343, -58.6324594);//Fazendo o mapa iniciar no Brasil
-    
+
     mapGlobal = L.map('map', {center: latlng, zoom: 4, layers: [tiles]});
 }
 
@@ -31,7 +28,7 @@ function preencheFiltros(){
     $("#filtros input:checked").each(function() {
       data['filtros'].push("&"+$(this).attr('name')+"="+$(this).val());
     });
-    
+
     $("#filtros .texto input").each(function() {
         if ($(this).val()!='') {
             data['filtros'].push("&"+$(this).attr('name')+"="+$(this).val());
@@ -41,14 +38,12 @@ function preencheFiltros(){
     return data['filtros'];
 }
 
-function preencheCodCurso () {
+function preencheCodCurso (estados) {
     $.getJSON('js/estadosCombobox.js', function(data){
-        var estados = [];
-         
         $(data).each(function(key, value) {
             estados.push(value.estado);
         });
-         
+
         $('.cod_estado').autocomplete({ source: estados, minLength: 1});
     });
 }
@@ -60,35 +55,35 @@ function enviaDados() {
     situacao = situacao.replace(/,/g,'');
 
     $('#map').html('');
-    
+
     var dados = 'poligono='+$('#poligono').val()+
     '&submitted='+$('#submitted').val()+
-    situacao; 
+    situacao;
     enviaDadosPython(dados);
-    $.ajax({                 
-        type: 'POST',                                  
-        url: 'source.php',                 
-        async: true,                 
-        data: dados+"&tipoProcessamento=php",                 
+    $.ajax({
+        type: 'POST',
+        url: 'source.php',
+        async: true,
+        data: dados+"&tipoProcessamento=php",
         success: function(response) {
             $("#pontos").attr('value',response);
-        }             
-    });           
+        }
+    });
 }
 
 function enviaDadosPython(dados){
-    
-    $.ajax({                 
-        type: 'POST',                                  
-        url: 'source.php',                 
-        async: true,                 
+
+    $.ajax({
+        type: 'POST',
+        url: 'source.php',
+        async: true,
         data: dados+"&tipoProcessamento=python",
         success: function(response) {
             $("#pdfs").attr('value',response);
-            
+
             carregaPontosMapa();
-        }             
-    });  
+        }
+    });
 }
 
 // Carrega os pontos retornados do banco no 2º mapa
@@ -96,29 +91,29 @@ function carregaPontosMapa() {
     try{
         $('#map_container').html('');
         $('#map_container').html('<div id="map"></div>');
-        
+
         init();
 
         var tCoordenadas,
             coordenadas;
 
         tCoordenadas = $("#pontos").val();
-        
+
         if(tCoordenadas != undefined && tCoordenadas != ""){
             coordenadas = JSON.parse(tCoordenadas);
         }
-        
+
         //inserindo pontos no mapa
-        if(coordenadas){ 
-            
-            var markers = L.markerClusterGroup();          
+        if(coordenadas){
+
+            var markers = L.markerClusterGroup();
             for (var i = 0; i < coordenadas.length; i++) {
                 var a = coordenadas[i];
                 var title = a.nome;
                 var idade = a.idade;
                 var dataDesaparecimento = a.data_desaparecimento;
                 var marker = L.marker(new L.LatLng(a.st_y, a.st_x), { title: title });
-                
+
                 var popup = '<b style="text-transform: capitalize;">'+title+'</b><br>';
                 popup+='Idade: '+idade+'<br>';
                 popup+='Desaparecido desde: '+dataDesaparecimento+'<br>';
@@ -127,11 +122,11 @@ function carregaPontosMapa() {
                 markers.addLayer(marker);
             }
             mapGlobal.addLayer(markers);
-            
+
             //Adiciona uma caixa de controle
             // var clusterControl = {"Pontos": markers}
             // L.control.layers(clusterControl).addTo(mapGlobal);
-            
+
             //Coloração dos estados
             heatMap(JSON.parse($("#pdfs").val()));
         }
@@ -144,7 +139,7 @@ function carregaPontosMapa() {
 
 function heatMap(pdfs){
 	pdfs = JSON.parse(pdfs[0].replace(/\'/g, '"'));
-    var arrayPDF = {}
+  var arrayPDF = {};
 	for (x in pdfs) {
         arrayPDF[x] = pdfs[x];
     }
@@ -152,8 +147,8 @@ function heatMap(pdfs){
         nomeEstado = statesData.features[i].properties.Name;
         statesData.features[i].properties.density = arrayPDF[nomeEstado];
         //console.log(statesData.features[i].properties.density);
-    });    
-    
+    });
+
     function style(feature) {
         return {
             fillColor: getColor(feature.properties.density),
@@ -164,7 +159,7 @@ function heatMap(pdfs){
             fillOpacity: 0.6
         };
     }
-    
+
     function onEachFeature(feature, layer) {
         layer.on({
             mouseover: highlightFeature,
@@ -172,7 +167,7 @@ function heatMap(pdfs){
             click: zoomToFeature
         });
     }
-    
+
     var info = L.control();
 
     info.onAdd = function (mapGlobal) {
@@ -223,7 +218,7 @@ function heatMap(pdfs){
             grades = [0, 2, 3, 4, 5, 6, 7, 8],
             labels = [];
 
-        div.innerHTML += '<h5>*Probabilidade de<br>desaparecerimento</h5>';
+        div.innerHTML += '<h5>*Probabilidade de<br>novas ocorrências</h5>';
         // loop through our density intervals and generate a label with a colored square for each interval
         for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=
@@ -240,8 +235,8 @@ function heatMap(pdfs){
         style: style,
         onEachFeature: onEachFeature
     }).addTo(mapGlobal);
-    
-    
+
+
     //grafico
     drawChart();
 }
@@ -267,24 +262,24 @@ function drawChart(){
     var estados={'AC':0, 'AL':0, 'AP':0, 'AM':0, 'BA':0, 'CE':0, 'DF':0, 'ES':0, 'GO':0,
         'MA':0, 'MT':0, 'MS':0, 'MG':0, 'PA':0, 'PB':0, 'PR':0, 'PE':0, 'PI':0,
         'RJ':0, 'RN':0, 'RS':0, 'RO':0, 'RR':0, 'SC':0, 'SP':0, 'SE':0, 'TO':0};
-    
+
     if(tCoordenadas != undefined && tCoordenadas != ""){
         coordenadas = JSON.parse(tCoordenadas);
     }
     if(coordenadas[0] && coordenadas!=null){
-        
+
         $.each(coordenadas , function(i){
 
             if (coordenadas[i].sexo=="M") masculino++;
             else if (coordenadas[i].sexo=="F") feminino++;
-            
+
             var etnia = coordenadas[i].cor_da_pele.toLowerCase();
             if (etnia=="branca" || etnia=="branco") corDaPele['Branca']++;
             else if (etnia=="negra" || etnia=="negro" || etnia=="morena escura" || etnia=="moreno escuro" || etnia=="mulato" || etnia=="mulata") corDaPele['Preta']++;
             else if (etnia=="amarela" || etnia=="amarelo") corDaPele['Amarela']++;
             else if (etnia=="parda" || etnia=="pardo" || etnia=="moreno" || etnia=="morena" || etnia=="moreno claro" || etnia=="morena clara") corDaPele['Parda']++;
             else if (etnia=="indigena" || etnia=="indígena") corDaPele['Indigena']++;
-        
+
             var uf = coordenadas[i].uf_desaparecimento;
             estados[uf]++;
         });
@@ -309,10 +304,10 @@ function drawChart(){
     ]
 
     var html='<canvas id="graficoGenero" width="250" height="250"></canvas>';
-    $("#genero").html(html);               
+    $("#genero").html(html);
     var ctx = $("#graficoGenero").get(0).getContext("2d");
     var myPieChart = new Chart(ctx).Pie(genero);
-    
+
     // Doughnut
     var raca = [
         {
@@ -346,9 +341,9 @@ function drawChart(){
             label: "Indígena"
         }
     ]
-    
+
     var html='<canvas id="graficoCampus" width="250" height="250"></canvas>';
-     $("#campus").html(html);               
+     $("#campus").html(html);
     // For a pie chart
     var ctx = $("#graficoCampus").get(0).getContext("2d");
     var myPieChart = new Chart(ctx).Doughnut(raca);
@@ -357,7 +352,7 @@ function drawChart(){
     //var myPieChart = new Chart(ctx).PolarArea(coordenadas);
     //Radar
     //var myPieChart = new Chart(ctx).Radar(data);
-    
+
     //Bar
     var i=0;
     arrayEstado=[];

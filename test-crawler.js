@@ -18,22 +18,12 @@ var registroCrawler1 = new mongoose.Schema({
   , img: String
   , status: {type: String, default: "Desaparecido(a)"}
   , dataDesaparecimento: String
-  , local: String
-  , observacao: String
-  , boletimOcorrencia: String
-  , sexo: String
-  , corDaPele: String
-  , idadeDesaparecimento: String
-  , pesoAproximado: String
-  , idadeHoje: String
-  , alturaAproximada: String
-  , transtornoMental: String
-  , olhos: String
-  , tipoFisico: String
-  , ultimaInformacao: String
+  , estado: String
+  , cidade: String
+  , dataNascimento: String
   , fonte: String
   , atualizado_em: { type: Date, default: Date.now }
-  });
+});
 
 var registroCrawler2 = new mongoose.Schema({
     nome: { type: String }
@@ -49,6 +39,7 @@ var registroCrawler2 = new mongoose.Schema({
   , pesoAproximado: String
   , alturaAproximada: String
   , olhos: String
+  , cabelo: String
   , raca: String
   , observacao: String
   , dataLocalizacao: String
@@ -56,7 +47,7 @@ var registroCrawler2 = new mongoose.Schema({
   , ufLocalizacao: String
   , fonte: String
   , atualizado_em: { type: Date, default: Date.now }
-  });
+});
 
 var registroCrawler3 = new mongoose.Schema({
     nome: { type: String }
@@ -65,13 +56,13 @@ var registroCrawler3 = new mongoose.Schema({
   , status: {type: String, default: "Desaparecido(a)"}
   , fonte: String
   , informacoes: String
-  , mais: String
   , atualizado_em: { type: Date, default: Date.now }
 });
 
 var registroCrawler4 = new mongoose.Schema({
     nome: { type: String }
   , img: String
+  , local: String
   , status: {type: String, default: "Desaparecido(a)"}
   , fonte: String
   , informacoes: String
@@ -108,82 +99,82 @@ var registroCrawler6 = new mongoose.Schema({
   , atualizado_em: { type: Date, default: Date.now }
   });
 
-  var registroCrawler7 = new mongoose.Schema({
+var registroCrawler7 = new mongoose.Schema({
+  nome: String
+  , apelido: String
+  , img: String
+  , sexo: String
+  , cabelo: String
+  , corDaPele: String
+  , tipoFisico: String
+  , nomePai: String
+  , nomeMae: String
+  , nomeParente: String
+  , parentesco: String
+  , dataNascimento: String
+  , dataDesaparecimento: String
+  , marcas: String
+  , local: String
+  , informacoes: String
+  , nomeContato: String
+  , telContato: String
+  , telContato2: String
+  , celularContato: String
+  , emailContato: String
+  , emailContato2: String
+  , fonte: String
+  , atualizado_em: { type: Date, default: Date.now }
+  });
+
+  var registroCrawler8 = new mongoose.Schema({
     nome: String
-    , apelido: String
     , img: String
     , sexo: String
-    , cabelo: String
-    , corDaPele: String
-    , tipoFisico: String
-    , nomePai: String
-    , nomeMae: String
-    , nomeParente: String
-    , parentesco: String
     , dataNascimento: String
+    , idade: String
     , dataDesaparecimento: String
-    , marcas: String
     , local: String
     , informacoes: String
-    , nomeContato: String
-    , telContato: String
-    , telContato2: String
-    , celularContato: String
-    , emailContato: String
-    , emailContato2: String
+    , naturalidade: String
+    , boletimOcorrencia: String
+    , observacao: String
     , fonte: String
     , atualizado_em: { type: Date, default: Date.now }
   });
 
-var registroCrawler8 = new mongoose.Schema({
-  nome: String
-  , img: String
-  , sexo: String
-  , dataNascimento: String
-  , idade: String
-  , dataDesaparecimento: String
-  , local: String
-  , informacoes: String
-  , naturalidade: String
-  , boletimOcorrencia: String
-  , observacao: String
-  , fonte: String
-  , atualizado_em: { type: Date, default: Date.now }
-});
-
-var registroCrawler9 = new mongoose.Schema({
-  nome: String
-  , apelido: {type: String, default: ""}
-  , profissao: {type: String, default: ""}
-  , dataNascimento: {type: String, default: ""}
-  , nomeMae: {type: String, default: ""}
-  , nomePai: {type: String, default: ""}
-  , sexo: {type: String, default: ""}
-  , marcas: {type: String, default: ""}
-  , alturaAproximada: {type: String, default: ""}
-  , pesoAproximado: {type: String, default: ""}
-  , olhos: {type: String, default: ""}
-  , img: {type: String, default: ""}
-  , cabelo: {type: String, default: ""}
-  , corDaPele: {type: String, default: ""}
-  , estado: {type: String, default: ""}
-  , cidade: {type: String, default: ""}
-  , bairro: {type: String, default: ""}
-  , dataDesaparecimento: {type: String, default: ""}
-  , tipoDesaparecimento: {type: String, default: ""}
-  , local: {type: String, default: ""}
-  , observacao: {type: String, default: ""}
-  , nomeContato: {type: String, default: ""}
-  , parentesco: {type: String, default: ""}
-  , emailContato: {type: String, default: ""}
-  , boletimOcorrencia: {type: String, default: ""}
-  , ddd: {type: String, default: ""}
-  , telContato: {type: String, default: ""}
-  , dataDoRegistro: {type: String, default: ""}
-  , informacao: {type: String, default: ""}
-  , fonte: String
-  , atualizado_em: { type: Date, default: Date.now }
-});
+  var registroCrawler9 = new mongoose.Schema({
+    nome: String
+    , apelido: {type: String, default: ""}
+    , profissao: {type: String, default: ""}
+    , dataNascimento: {type: String, default: ""}
+    , nomeMae: {type: String, default: ""}
+    , nomePai: {type: String, default: ""}
+    , sexo: {type: String, default: ""}
+    , marcas: {type: String, default: ""}
+    , alturaAproximada: {type: String, default: ""}
+    , pesoAproximado: {type: String, default: ""}
+    , olhos: {type: String, default: ""}
+    , img: {type: String, default: ""}
+    , cabelo: {type: String, default: ""}
+    , corDaPele: {type: String, default: ""}
+    , estado: {type: String, default: ""}
+    , cidade: {type: String, default: ""}
+    , bairro: {type: String, default: ""}
+    , dataDesaparecimento: {type: String, default: ""}
+    , tipoDesaparecimento: {type: String, default: ""}
+    , local: {type: String, default: ""}
+    , observacao: {type: String, default: ""}
+    , nomeContato: {type: String, default: ""}
+    , parentesco: {type: String, default: ""}
+    , emailContato: {type: String, default: ""}
+    , boletimOcorrencia: {type: String, default: ""}
+    , ddd: {type: String, default: ""}
+    , telContato: {type: String, default: ""}
+    , dataDoRegistro: {type: String, default: ""}
+    , informacao: {type: String, default: ""}
+    , fonte: String
+    , atualizado_em: { type: Date, default: Date.now }
+  });
 
 var RegistroCrawler1 = mongoose.model('RegistroCrawler1', registroCrawler1);
 var RegistroCrawler2 = mongoose.model('RegistroCrawler2', registroCrawler2);
@@ -197,128 +188,101 @@ var RegistroCrawler9 = mongoose.model('RegistroCrawler9', registroCrawler9);
 
 mongoose.connect('mongodb://localhost/test_myosotis');
 
-// preparing limits of crawling
-var arrCrawler=[];
+//http://www.desaparecidos.gov.br
+crawler1(generateArray(0, 1));
 
-arrCrawler = generateArray(3018, 3019);
-//crawler1(arrCrawler);
+//http://portal.mj.gov.br
+//crawler2(generateArray(1, 2512));
 
-arrCrawler = generateArray(2511, 2512);
-//crawler2(arrCrawler);
-
-//trocar matriz por hashmap, ex: meuHashMap[nome-do-estado] = valor-de-offset
-arrCrawler = [['santa-catarina'], ['outros-estados/demais-estados'], ['rio-de-janeiro'], ['outros-estados/bahia'], ['parana'], ['rio-grande-do-sul'], ['sao-paulo']];
-paginacao = [13, 53, 58, 18, 26, 30, 164]
+//http://www.desaparecidosdobrasil.org
+var arrCrawler = [['santa-catarina'], ['outros-estados/demais-estados'], ['rio-de-janeiro'], ['outros-estados/bahia'], ['parana'], ['rio-grande-do-sul'], ['sao-paulo']];
+paginacao = [2, 2, 2, 2, 2, 2, 2]
 //initCrawler3(arrCrawler, paginacao);
 
-arrCrawler = generateArray(1, 1);//176
-//crawler4(arrCrawler);//Ainda falta ser ajustado o funcionamento deste crawler
+//http://www.desaparecidos.mg.gov.br
+//crawler4(generateArray(1, 2));
 
-arrCrawler = generateArray(1, 1);
-//crawler5(arrCrawler, false);//menores de 18 anos
-//crawler5(arrCrawler, true);//maiores de 18 anos
+//http://www.desaparecidos.rs.gov.br
+//crawler5(generateArray(1, 2), false); //menores de 18 anos
+//crawler5(generateArray(1, 2), true); //maiores de 18 anos
 
-arrCrawler = generateArray(1, 1);
-//crawler6(arrCrawler);
+//http://www.biamap.com.br/
+//crawler6(generateArray(1, 2));
 
-arrCrawler=[];
-arrCrawler = generateArray(1, 2);
-//crawler7(arrCrawler);
+//http://www.desaparecidosbr.com.br/
+//crawler7(generateArray(1, 2));
 
 //http://www.policiacivil.go.gov.br/pessoas-desaparecidas
 //crawler8(generateArray(1, 2));
 
 //http://www.divulgandodesaparecidos.org
-crawler9(generateArray(1, 1));
+//crawler9(generateArray(1, 1));
 
+//methods
 function generateArray(ini, end) {
   var arr = [];
   while (ini<=end) { arr.push(ini); ini++; }
   return arr;
 }
 
-//http://www.desaparecidos.gov.br
 function crawler1 (limite) {
   console.dir("Iniciando crawler do primeiro site...");
 
 
-  async.each(limite, function (id, callback) {
+  async.forEach(limite, function (id, callback) {
 
-    var urlSegundoNivel = format('http://www.desaparecidos.gov.br/desaparecidos/application/modulo/detalhes.php?id=%s', id);
+    var url = format('http://www.desaparecidos.gov.br/index.php/desparecidos?pag=%s', id);
 
-    request(urlSegundoNivel, function (err, response, body) {
+    request(url, function (err, response, body) {
       if (err) throw err;
       var $ = cheerio.load(body);
+      $('.boxDesaparecidor').each(function(){
+        var url2 = "http://www.desaparecidos.gov.br"+$('.readmore a').attr('href');
+        var nome = $('.titulo').text().trim();
 
-      var nome = $('.titulo').text().trim();
+        //Só prossegue se tiver pelo menos um nome
+        if(nome!="" && nome!=undefined){
+          var img = $('img').attr('src');
+          var status = $('.desaparecido').text().trim();
 
-      //Só prossegue se tiver pelo menos um nome
-      if(nome!="" && nome!=undefined){
-        var img = $('img').attr('src');
-        var status = $('.desaparecido').text().trim();
+          if (status=="" || status==undefined) {
+            status = $('.encontrado').text().trim();
+          }
+          request(url2, function (err, response, body) {
+            var dataNascimento = $('.inf div:nth-child(2)').text().trim();
+            var dataDesaparecimento = $('.inf div:nth-child(3)').text().trim();
+            var estado = $('.inf div:nth-child(4)').text().trim();
+            var cidade = $('.inf div:nth-child(5)').text().trim();
 
-        if (status=="" || status==undefined) {
-          status = $('.encontrado').text().trim();
+            var registro = new RegistroCrawler1({
+                nome: nome
+              , img: img
+              , status: status
+              , dataDesaparecimento: dataDesaparecimento
+              , estado: estado
+              , fonte: url2
+              , cidade: cidade
+              , dataNascimento: dataNascimento
+            });
+
+            registro.save(function(err, registro) {
+              if (err) return console.error(err);
+              //console.dir(registro);
+            });
+          });
         }
-
-        var dataLocal = $('.inf p:nth-child(1)').text().trim();
-        dataLocal = dataLocal.split("no município de");
-        var dataDesaparecimento = dataLocal[0];
-        var local = dataLocal[1];
-        var observacao = $('.inf p:nth-child(2)').text().trim();
-        var boletimOcorrencia = $('.inf p:nth-child(3)').text().trim();
-        var sexo = $('table tr:nth-child(1) td:nth-child(1)').text().trim();
-        var corDaPele = $('table tr:nth-child(1) td:nth-child(2)').text().trim();
-        var idadeDesaparecimento = $('table tr:nth-child(2) td:nth-child(1)').text().trim();
-        var pesoAproximado = $('table tr:nth-child(2) td:nth-child(2)').text().trim();
-        var idadeHoje = $('table tr:nth-child(3) td:nth-child(1)').text().trim();
-        var alturaAproximada = $('table tr:nth-child(3) td:nth-child(2)').text().trim();
-        var transtornoMental = $('table tr:nth-child(4) td:nth-child(1)').text().trim();
-        var olhos = $('table tr:nth-child(4) td:nth-child(2)').text().trim();
-        var tipoFisico = $('table tr:nth-child(5) td:nth-child(1)').text().trim();
-        var cabelos = $('table tr:nth-child(5) td:nth-child(2)').text().trim();
-        var ultimaInformacao = $('.inf p:nth-child(6)').text().trim();
-
-
-        var registro = new RegistroCrawler1({
-            nome: nome
-          , img: img
-          , status: status
-          , dataDesaparecimento: dataDesaparecimento
-          , local: local
-          , fonte: 'http://www.desaparecidos.gov.br/desaparecidos/application/modulo/detalhes.php?id='+id
-          , observacao: observacao
-          , boletimOcorrencia: boletimOcorrencia
-          , sexo: sexo
-          , corDaPele: corDaPele
-          , idadeDesaparecimento: idadeDesaparecimento
-          , pesoAproximado: pesoAproximado
-          , idadeHoje: idadeHoje
-          , alturaAproximada: alturaAproximada
-          , transtornoMental: transtornoMental
-          , olhos: olhos
-          , tipoFisico: tipoFisico
-          , ultimaInformacao: ultimaInformacao
-        });
-
-        registro.save(function(err, registro) {
-          if (err) return console.error(err);
-          //console.dir(registro);
-          callback();
-        });
-      }
+      });
+      callback();
     });
   },
   function(err){
     // All tasks are done now
-    console.dir("Crawler do primeiro site terminado!!!");
+    console.dir("Crawler do primeiro site terminando...");
   }
 )}
 
-//http://portal.mj.gov.br
 function crawler2(limite) {
   console.dir("Iniciando crawler do segundo site...");
-  //var limite = [19, 199]; // 2512
 
 
   async.each(limite, function (id, callback) {
@@ -368,6 +332,7 @@ function crawler2(limite) {
             , alturaAproximada: alturaAproximada
             , pesoAproximado: pesoAproximado
             , olhos: olhos
+            , cabelo: cabelo
             , raca: raca
             , observacao: observacao
             , dataLocalizacao: dataLocalizacao
@@ -379,6 +344,7 @@ function crawler2(limite) {
           registro.save(function(err, registro) {
             if (err) return console.error(err);
             //console.dir(registro);
+
             callback();
           });
         }
@@ -390,7 +356,6 @@ function crawler2(limite) {
     });
 }
 
-//http://www.desaparecidosdobrasil.org
 function crawler3(estados, offset) {
   console.dir("Iniciando crawler do terceiro site...");
 
@@ -441,29 +406,42 @@ function initCrawler3(estados, paginacao) {
       crawler3(estados[i], offset);
 }
 
-//http://www.desaparecidos.mg.gov.br
-function crawler4(limite) {
+function crawler4(x) {
   console.dir("Iniciando crawler do quarto site...");
-  async.each(limite, function (id, next) {
-    var url = format('http://www.desaparecidos.mg.gov.br/album.asp?pg=%s', id);
+  async.each(x, function (id, next) {
+    var url = format('http://www.desaparecidos.mg.gov.br/album.asp?pg=%d', id);
 
     request(url, function (err, response, body) {
       if (err) throw err;
       var $ = cheerio.load(body);
 
+      //var tabela = $('table tr:nth-child(7)').find('table');
+      $('table tr:nth-child(7) table td:nth-child(odd)').each(function () {
+        var nome = $('.txtalbum1').text();
+        var mais = "http://www.desaparecidos.mg.gov.br"+$('table a').attr('href');
+        var img = $('table a img').attr('src');
 
-      //$('a').each(function () {
-        var nome = $(this).find('.txtalbum1').text();
-        var link = $(this).find('a').attr('href');
-        //var img =  $(this).find('img').attr('src');
+        // request(mais, function (err, response, body) {
+        //   if (err) throw err;
+        //   var $ = cheerio.load(body);
+        //   var detalhe = $('.txtdetalhe').text();
+        //   console.dir(detalhe);
+        // });
 
-        console.dir(nome);
-        console.dir(link);
-        //console.dir(img);
+         var registro = new Desaparecido({
+            nome: nome
+          , img: img
+          , local: "Minas Gerais"
+          , mais: mais
+        });
 
+        registro.save(function(err, registro) {
+          if (err) return console.error(err);
+          console.dir(registro);
 
-
-      //});
+          next();
+        });
+      });
       //console.log('Número de : '+);
     });
  },
@@ -474,7 +452,6 @@ function crawler4(limite) {
   );
 }
 
-//http://www.desaparecidos.rs.gov.br
 function crawler5(ids, ehMaior) {
 
   console.dir("Iniciando crawler do quinto site...");
@@ -525,11 +502,11 @@ function crawler5(ids, ehMaior) {
   })
 }
 
-//http://www.biamap.com.br/
 function crawler6 (limite) {
   console.dir("Iniciando crawler do sexto site...");
+  var urls=[];
 
-  async.forEach(limite, function (id, callback) {
+  async.each(limite, function (id, callback) {
 
     var url = format('http://www.biamap.com.br/page/%s/', id);
 
@@ -601,14 +578,13 @@ function crawler6 (limite) {
   })
 }
 
-//http://www.desaparecidosbr.com.br/
 function crawler7 (limite) {
   console.dir("Iniciando crawler do setimo site...");
 
   async.each(limite, function (id, callback) {
 
     var url = format('http://www.desaparecidosbr.com.br/resultados.php?pagina=%s&genero=&palavra=', id);
-    console.dir(url);
+
     request(url, function (err, response, body) {
       if (err) throw err;
       var $ = cheerio.load(body);
@@ -617,7 +593,7 @@ function crawler7 (limite) {
         var url2 = $(this).find('tr:nth-child(1)').attr('onclick');
         var apelido = $(this).find('.preto10 tr:nth-child(3)').text().trim();
         var img = $(this).find('tr:nth-child(2) td img').attr('src');
-        console.dir(url2);
+
         if(url2 != undefined){
           url2 = url2.replace("javascript: location.href=\'", "");
           url2 = url2.replace("\';","");
@@ -754,7 +730,6 @@ function crawler8 (limite) {
   })
 }
 
-//http://www.divulgandodesaparecidos.org
 function crawler9 (limite) {
   console.dir("Iniciando crawler do nono site...");
 
@@ -858,7 +833,7 @@ function crawler9 (limite) {
             });
             registro.save(function(err, registro) {
               if (err) return console.error(err);
-              console.dir(registro);
+              //console.dir(registro);
             });
           });
         }
@@ -872,7 +847,7 @@ function crawler9 (limite) {
   })
   crawler9_2(limite);
 }
-
+//nono site - parte dos desaparecidos sem foto
 function crawler9_2 (limite) {
   console.dir("Iniciando crawler do nono site...");
 
@@ -900,7 +875,7 @@ function crawler9_2 (limite) {
           });
           registro.save(function(err, registro) {
             if (err) return console.error(err);
-            console.dir(registro);
+            //console.dir(registro);
           });
         });
       });

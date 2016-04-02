@@ -188,7 +188,7 @@ var RegistroCrawler9 = mongoose.model('RegistroCrawler9', registroCrawler9);
 mongoose.connect('mongodb://localhost/myosotis');
 
 //http://www.desaparecidos.gov.br
-crawler1(generateArray(0, 20));
+//crawler1(generateArray(0, 20));
 
 //http://portal.mj.gov.br
 //crawler2(generateArray(1, 2512));
@@ -199,7 +199,7 @@ paginacao = [13, 53, 58, 18, 26, 30, 164]
 //initCrawler3(arrCrawler, paginacao);
 
 //http://www.desaparecidos.mg.gov.br
-//crawler4(generateArray(1, 2));//Ainda falta ser ajustado o funcionamento deste crawler
+crawler4(generateArray(1, 186));
 
 //http://www.desaparecidos.rs.gov.br
 //crawler5(generateArray(1, 4), false); //menores de 18 anos

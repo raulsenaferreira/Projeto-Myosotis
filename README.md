@@ -25,7 +25,7 @@ http://portal.mj.gov.br [Doesn't exist anymore]
 
 http://www.desaparecidosdobrasil.org [Online]
 
-http://www.desaparecidos.mg.gov.br [Needs adjusts]
+http://www.desaparecidos.mg.gov.br [Online]
 
 http://www.desaparecidos.rs.gov.br [Online]
 

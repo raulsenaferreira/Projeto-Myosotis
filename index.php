@@ -22,7 +22,7 @@
         <script src="js/leaflet.markercluster-src.js"></script>
     </head>
     <style type="text/css">
-    
+
     </style>
     <body onload="init()" role="document" class="skin-blue">
         <!-- Main content -->
@@ -37,7 +37,7 @@
                         <div id="map_container">
                             <div id="map"></div>
                         </div>
-                        
+
                         <div class="avisoMap">
                             <ul class="listaSemMarcador">
                                 <li> Clique no botão "Buscar" e monte a sua consulta, caso você não selecione nenhuma opção a consulta trará todos os resultados. </li>
@@ -50,13 +50,13 @@
                     <div class="box-footer no-border">
                         <!-- botões de busca -->
                         <ul id="mapMenu" class="listaSemMarcador">
-                            <li class="liButtonMap"> 
-                                <input type="button" class="btn btn-primary mapMenuButton imagem" value="Buscar" 
-                                       id="enviar" data-toggle="modal" data-target="#myModal"> 
+                            <li class="liButtonMap">
+                                <input type="button" class="btn btn-primary mapMenuButton imagem" value="Buscar"
+                                       id="enviar" data-toggle="modal" data-target="#myModal">
                             </li>
-                            <li class="liButtonMap"> 
-                                <input type="button" class="btn btn-primary mapMenuButton" value="Salvar Consulta" 
-                                       id="save" data-toggle="modal" data-target="#modalSave" onclick="salvarConsulta();"> 
+                            <li class="liButtonMap">
+                                <input type="button" class="btn btn-primary mapMenuButton" value="Salvar Consulta"
+                                       id="save" data-toggle="modal" data-target="#modalSave" onclick="salvarConsulta();">
                             </li>
                         </ul>
                     </div>
@@ -64,10 +64,10 @@
                 <!-- /.box -->
                 <div class="nav-tabs-custom">
                     <!-- Tabs within a box -->
-                    
+
                     <h3 class="graficoTitulo">Gráficos</h3>
                     <div class="tab-content no-padding">
-                        
+
                         <div class="chart tab-pane active" id="revenue-chart" style="position: relative; width: 270px; height: 270px;">
                             <h3>Gênero</h3>
                             <div id="genero" width="250" height="250"></div>
@@ -148,7 +148,7 @@
                   </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
                 </div>
-        </form> 
+        </form>
         <!-- scripts -->
         <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
         <script async type="text/javascript" src="js/jquery-ui.min.js"></script>
