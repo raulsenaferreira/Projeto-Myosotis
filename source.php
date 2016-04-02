@@ -4,23 +4,15 @@
 	$params = "";
 	// Montagem da query e envio dos dados
 	if(isset($_POST['submitted']) ) {
-		$tipoProcessamento = trim($_POST['tipoProcessamento']);
+		$tipoProcessamento = isset($_POST['tipoProcessamento']) ? trim($_POST['tipoProcessamento']) : "";
 		//$faixa = trim($_POST['faixa']);
-		$sexo = trim($_POST['sexo']);
-		$situacao = trim($_POST['situacao']);
-		$nome = trim($_POST['nome_desaparecido']);
-		$cod_estado = trim($_POST['cod_estado']);
-		$cor_da_pele = trim($_POST['raca']);
-		$poligono = trim($_POST['poligono']);
-
-		$params .= ($cod_estado!="") ? " AND uf_desaparecimento = '".$cod_estado."'" : "";
-		$params .= ($sexo!="") ? " AND sexo = '".$sexo."'" : "";
-		$params .= ($situacao!="") ? " AND status ilike '".$situacao."%'" : "";
-
+		$sexo = isset($_POST['sexo']) ? " AND sexo = '".trim($_POST['sexo'])."'" : "";
+		$situacao = isset($_POST['situacao']) ? " AND status ilike '".trim($_POST['situacao'])."%'" : "";
+		$nome = isset($_POST['nome_desaparecido']) ? " AND nome ilike '".trim($_POST['nome_desaparecido'])."%'" : "";
+		$cod_estado = isset($_POST['cod_estado']) ? " AND uf_desaparecimento = '".trim($_POST['cod_estado'])."'" : "";
+		$cor_da_pele = isset($_POST['raca']) ? " AND cor_da_pele ilike '".trim($_POST['raca'])."%'" : "";
+		$poligono = isset($_POST['poligono']) ? trim($_POST['poligono']) : "";
 		//$params .= ($faixa!="") ? " AND campus = '".$faixa."'" : "";
-
-		$params .= ($nome!="") ? " AND nome ilike '".$nome."%'" : "";
-		$params .= ($cor_da_pele!="") ? " AND cor_da_pele ilike '".$cor_da_pele."%'" : "";
 
 		if($tipoProcessamento=='python'){
 			// envia restrição do polígono caso este tenha sido desenhado no mapa

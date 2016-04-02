@@ -1,7 +1,8 @@
 <?php
+//ini_set('display_errors', 1); error_reporting(E_ALL);//for debug
 
-$myfile = fopen("/cgi-bin/config.txt", "r") or die("Unable to open file!");
-$connectString = fread($myfile,filesize("/cgi-bin/config.txt"));
+$myfile = fopen(realpath(dirname(__FILE__))."/cgi-bin/config.txt", "r") or die("Unable to open file!");
+$connectString = fread($myfile,filesize(realpath(dirname(__FILE__))."/cgi-bin/config.txt"));
 fclose($myfile);
 
 $link = pg_connect($connectString);

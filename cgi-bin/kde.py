@@ -6,11 +6,16 @@ import numpy as np
 import scipy.stats  # Para o kernel density estimation
 import cgi, cgitb
 import hashlib
+import os
 #import redis
 
 cgitb.enable()  # debug
 
-connParams = [line.rstrip('\n') for line in open('config.txt')]
+script_dir = os.path.dirname(__file__)
+rel_path = "config.txt"
+abs_file_path = os.path.join(script_dir, rel_path)
+connParams = [line.rstrip('\n') for line in open(abs_file_path)]
+
 CDFs = -1
 allowRedisCaching = False
 allowParallelKDEProcessing = False
