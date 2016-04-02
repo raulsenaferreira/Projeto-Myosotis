@@ -50,14 +50,24 @@ COMMENT ON TABLE registro
 BEGIN;
 CREATE TEMP TABLE tmp_x (id int, longitude decimal, latitude decimal);
 COPY tmp_x FROM '/path/arquivoGeocodificado.csv' delimiter ',' CSV header;
+<<<<<<< HEAD
 UPDATE registro SET latitude = tmp_x.latitude SET longitude = tmp_x.longitude FROM tmp_x WHERE tmp_x.id = registro.id;
 COMMIT;
 
 -- Extra data cleaning
+=======
+UPDATE registro SET latitude = tmp_x.latitude SET longitude = tmp_x.longitude FROM tmp_x WHERE tmp_x.id = registro.id; 
+COMMIT;
+
+-- Limpa e fornece a idade baseada na data de nascimento, além de fornecer a idade em que a pessoa desapareceu
+>>>>>>> 86520d96d7ba9ba127a6c7114df4b82e98baa0da
 BEGIN;
 UPDATE registro SET idade = REPLACE(idade, 'Idade não informada', '');
 UPDATE registro SET idade = REPLACE(idade, 'anos', '');
 UPDATE registro SET idade = date_part('year', age(data_nascimento::DATE)) WHERE data_nascimento <> '' AND idade LIKE '';
 UPDATE registro SET idade_desaparecimento = (idade::INTEGER - date_part('year', age(data_desaparecimento::DATE))::INTEGER) WHERE data_desaparecimento <> '' AND idade <> '';
+<<<<<<< HEAD
 UPDATE registro SET uf_desaparecimento = 'Nao Informado' WHERE uf_desaparecimento LIKE 'Não Informado' OR uf_desaparecimento LIKE 'lugar desconhecido' OR uf_desaparecimento LIKE ''
+=======
+>>>>>>> 86520d96d7ba9ba127a6c7114df4b82e98baa0da
 COMMIT;
