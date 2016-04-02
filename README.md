@@ -52,7 +52,7 @@ Envie um pull request para consideração, ele será muito bem vindo!
 5. Instale o módulo psycopg2 (http://initd.org/psycopg/docs/install.html)
 6. Execute no terminal `npm install` para baixar automaticamente todas as dependências do projeto
 7. Execute o script "INSTALL.sql" contido na pasta raiz deste projeto
-8. Altere os arquivos conexao.php e ETL.py adicionando as credenciais de acesso ao banco postgres
+8. Altere o arquivo config.txt adicionando as credenciais de acesso ao banco postgres
 9. Certifique-se de colocar o projeto dentro de uma pasta que possa ser lida pelo Apache Web Server. Certifique-se também em ter instalado em sua máquina a versão 2.7.x do Python
 10. Inicie o mongodb (mongod)
 11. Para executar o crawler, vá na pasta raiz do projeto e digite na linha de comando (node crawler.js) ou caso queira apenas testar com alguns registros digite (node test-crawler.js)
