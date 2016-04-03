@@ -45,7 +45,8 @@ Instale opcionalmente as dependências listadas abaixo caso queira visualizar as
 Envie um pull request para consideração, ele será muito bem vindo!
 
 ##Dependências
-1. Instale o Postgres (http://www.postgresql.org/) e a extensão PostGIS (http://postgis.net/)
+1. Instale o Postgres (http://www.postgresql.org/) e a extensão PostGIS (http://postgis.net/).
+2. Instale Apache e PHP 5 e certifique-se de instalar o módulo do postgres no PHP (`sudo apt-get install php5-pgsql`)
 2. Instale o Node.js (https://nodejs.org/en/) e o mongodb (https://www.mongodb.org/) em sua máquina
 3. Instale o Redis (http://redis.io/)
 4. Instale o módulo pymongo no python (http://api.mongodb.org/python/current/installation.html)
