@@ -51,6 +51,8 @@ Envie um pull request para consideração, ele será muito bem vindo!
 3. Instale o Redis (http://redis.io/)
 4. Instale o módulo pymongo no python (http://api.mongodb.org/python/current/installation.html)
 5. Instale o módulo psycopg2 (http://initd.org/psycopg/docs/install.html)
+6. Instale o módulo de paralelização do python Joblib (`easy_install joblib`)
+7. Instale a biblioteca de computação científica NumPy, SciPy e suas dependências (`sudo apt-get install python-numpy libblas-dev liblapack-dev gfortran python-dev`) (`sudo pip install numpy --upgrade`) (`sudo pip install scipy --upgrade`)
 6. Execute no terminal `npm install` para baixar automaticamente todas as dependências do projeto
 7. Execute o script "INSTALL.sql" contido na pasta raiz deste projeto
 8. Altere o arquivo config.txt adicionando as credenciais de acesso ao banco postgres
