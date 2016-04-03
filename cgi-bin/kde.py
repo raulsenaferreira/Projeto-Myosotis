@@ -72,10 +72,10 @@ values = np.vstack([m1, m2])
 
 tam = len(values[0])
 limite = range(tam)
-fator = 5000
+fator = 10
 
 #Calculo do KDE
-kernel = scipy.stats.kde.gaussian_kde(values)
+kernel = scipy.stats.kde.gaussian_kde(values, bw_method="silverman")
 
 def recuperaArrayPDFParalelo(j):
     return kernel.evaluate(np.vstack([values[0][j], values[1][j]]))[0]*fator

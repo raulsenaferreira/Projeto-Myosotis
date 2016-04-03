@@ -178,8 +178,8 @@ function heatMap(pdfs){
 
     // method that we will use to update the control based on feature properties passed
     info.update = function (props) {
-        this._div.innerHTML = '<h4>Desaparecidos por Estado</h4>' +  (props ?
-            '<b>' + props.Name + '</b><br />' + props.density + ' registros.'
+        this._div.innerHTML = '<h4>PDF por Estado</h4>' +  (props ?
+            '<b>' + props.Name + '</b><br />' + props.density + '.'
             : 'Passe o mouse sobre um estado');
     };
 
