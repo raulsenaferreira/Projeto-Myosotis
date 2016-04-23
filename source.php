@@ -5,14 +5,15 @@
 	// Montagem da query e envio dos dados
 	if(isset($_POST['submitted']) ) {
 		$tipoProcessamento = isset($_POST['tipoProcessamento']) ? trim($_POST['tipoProcessamento']) : "";
-		//$faixa = trim($_POST['faixa']);
-		$sexo = isset($_POST['sexo']) ? " AND sexo = '".trim($_POST['sexo'])."'" : "";
-		$situacao = isset($_POST['situacao']) ? " AND status ilike '".trim($_POST['situacao'])."%'" : "";
-		$nome = isset($_POST['nome_desaparecido']) ? " AND nome ilike '".trim($_POST['nome_desaparecido'])."%'" : "";
-		$cod_estado = isset($_POST['cod_estado']) ? " AND uf_desaparecimento = '".trim($_POST['cod_estado'])."'" : "";
-		$cor_da_pele = isset($_POST['raca']) ? " AND cor_da_pele ilike '".trim($_POST['raca'])."%'" : "";
-		$poligono = isset($_POST['poligono']) ? trim($_POST['poligono']) : "";
-		//$params .= ($faixa!="") ? " AND campus = '".$faixa."'" : "";
+		
+		$sexo = (isset($_POST['sexo']) && trim($_POST['sexo']) != "") ? " AND sexo = '".trim($_POST['sexo'])."'" : "";
+		$situacao = (isset($_POST['situacao']) && trim($_POST['situacao']) != "") ? " AND status ilike '".trim($_POST['situacao'])."%'" : "";
+		$nome = (isset($_POST['nome']) && trim($_POST['nome']) != "") ? " AND nome ilike '%".trim($_POST['nome_desaparecido'])."%'" : "";
+		$cod_estado = (isset($_POST['cod_estado']) && trim($_POST['cod_estado']) != "") ? " AND uf_desaparecimento ilike '%".trim($_POST['cod_estado'])."'" : "";
+		$cor_da_pele = (isset($_POST['cor_da_pele']) && trim($_POST['cor_da_pele']) != "") ? " AND cor_da_pele ilike '".trim($_POST['raca'])."%'" : "";
+		$poligono = (isset($_POST['poligono']) && trim($_POST['poligono']) != "") ? trim($_POST['poligono']) : "";
+		
+		$params .= $nome.$sexo.$situacao.$cod_estado.$cor_da_pele;
 
 		if($tipoProcessamento=='python'){
 			// envia restrição do polígono caso este tenha sido desenhado no mapa
