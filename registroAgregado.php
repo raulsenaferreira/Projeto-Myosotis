@@ -23,30 +23,12 @@
 	$JSON = pg_fetch_row($result);
 	
 	pg_free_result($result);
-	$nome = '<div id="nome"><h2>Não informado</h2></div>';
-	$imagem = '<div id="imagem">Não informado</div>';
-	$sexo = '<div id="sexo">Não informado</div>';
-	$olhos = '<div id="olhos">Não informado</div>';
-	$cabelo = '<div id="cabelo">Não informado</div>';
-	$cor_da_pele ='<div id="cor_da_pele">Não informado</div>';
-	$peso_aproximado = '<div id="peso_aproximado">Não informado</div>';
-	$altura_aproximada = '<div id="altura_aproximada">Não informado</div>';
-	$tipo_fisico = '<div id="tipo_fisico">Não informado</div>';
-	$transtorno_mental = '<div id="transtorno_mental">Não informado</div>';
-	$idade = '<div id="idade">Não informado</div>';
-	$data_nascimento = '<div id="data_nascimento">Não informado</div>';
-	$dias_desaparecido = '<div id="dias_desaparecido">Não informado</div>';
-	$data_desaparecimento = '<div id="data_desaparecimento">Não informado</div>';
-	$bairro_desaparecimento = '<div id="bairro_desaparecimento">Não informado</div>';
-	$cidade_desaparecimento = '<div id="cidade_desaparecimento">Não informado</div>';
-	$uf_desaparecimento = '<div id="uf_desaparecimento">Não informado</div>';
-	$marca_caracteristica = '<div id="marca_caracteristica">Não informado</div>';
-	$status='';
-	$informacoes = '<div id="informacoes"></div>';
-	$boletim_ocorrencia = '<div id="boletim_ocorrencia">Não informado</div>';
-	$fonte = '';
-	$longitude = '<div id="longitude">Desconhecida</div>';
-	$latitude = '<div id="latitude">Desconhecida</div>';
+	
+	$nome = $imagem = $sexo = $olhos = $cabelo = $cor_da_pele = $peso_aproximado = $altura_aproximada = $tipo_fisico = '';
+	$transtorno_mental = $idade = $data_nascimento = $dias_desaparecido = $data_desaparecimento = $bairro_desaparecimento = '';
+	$cidade_desaparecimento = $uf_desaparecimento = $marca_caracteristica = $status = $informacoes = $boletim_ocorrencia = '';
+	$fonte = $longitude = $latitude = '';
+	
 
 	if($JSON[0]!='') $nome = '<div id="nome"><h2>'.$JSON[0].'</h2></div>';
 	if($JSON[1]!='') $imagem = '<div id="imagem"><img src="'.$JSON[1].'"></div>';
