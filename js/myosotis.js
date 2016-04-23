@@ -369,10 +369,10 @@ function drawChart(){
         datasets: [
             {
                 label: "Registros/Estados",
-                fillColor: "rgba(220,220,220,0.5)",
-                strokeColor: "rgba(220,220,220,0.8)",
-                highlightFill: "rgba(220,220,220,0.75)",
-                highlightStroke: "rgba(220,220,220,1)",
+                fillColor: "rgba(174,58,227,0.5)",
+                strokeColor: "rgba(174,58,227,0.8)",
+                highlightFill: "rgba(174,58,227,0.75)",
+                highlightStroke: "rgba(174,58,227,1)",
                 data: [estados['AC'], estados['AL'], estados['AP'], estados['AM'], estados['BA'], estados['CE'], estados['DF'],
                 estados['ES'], estados['GO'], estados['MA'], estados['MT'], estados['MS'], estados['MG'], estados['PA'],
                 estados['PB'], estados['PR'], estados['PE'], estados['PI'], estados['RJ'], estados['RN'], estados['RS'],
