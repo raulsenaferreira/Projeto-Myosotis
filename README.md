@@ -7,6 +7,9 @@ Um sistema crawler-based baseado em tecnologias NoSQL no auxílio a unificação
 
 Uma versão beta do sistema poderá ser acessado no link: http://projeto-myosotis.com.br/
 
+A versão beta da API contendo os dados em formato JSON pode ser acessado no link: http://projeto-myosotis.com.br:4000/collections/site`x`/all (troque x pelo numero da base de dados, que vai de 1 a 9)
+
+A licença pra uso do sistema e dos dados da API é a [Apache](https://github.com/raulsenaferreira/Projeto-Myosotis/blob/master/LICENSE). Caso você queira usar o sistema como ele está ou modificar o sistema existente em experimentos ou qualquer outro tipo de trabalho, peço apenas que dê uma rápida olhada em [Termos de uso](#termos-de-uso).
 
 ##O Sistema
 
@@ -70,6 +73,20 @@ Envie um pull request para consideração, ele será muito bem vindo!
 
 ##Issues
 https://github.com/raulsenaferreira/Projeto-Myosotis/issues
+
+(#termos-de-uso)
+##Termos de Uso
+Este projeto foi desenvolvido com a intenção de ser open-source, para que o pesquisador ou desenvolvedor que tiver a intenção de fazer algo parecido, não comece do zero, e tenha a oportunidade ou de fundamentar seu trabalho tomando como baseline este projeto ou tenha a oportunidade de trabalhar em conjunto voltado para um bem comum. 
+
+Mas ainda assim, o pesquisador/desenvolvedor tem total liberdade para copiar/modificar o código e usar em seus experimentos. Pede-se apenas que além de seguir as regras da Apache License, siga algumas regras de boa conduta e ética comuns em projetos de código livre pelo mundo:
+
+1. O mais importante na licença Apache é o fato de que todo o trabalho realizado a partir deste deve ser aberto e conter a licença Apache, não se esqueça disso.
+ 
+2. Cite o autor, `Raul S. Ferreira` e/ou o `Projeto Myosotis` em seu artigo ou no README.MD do seu trabalho/projeto.
+ 
+3. Notifique o autor sobre o seu trabalho. Ele ficará feliz em saber que outras pessoas estão construindo coisas legais apoiadas por seu trabalho e com certeza mencionará o seu trabalho de volta.
+
+A única coisa que um desenvolvedor de projetos livres ganha em troca de seu trabalho suado é a reputação. Reputação é algo difícil de se conseguir mas fácil de dar. Hoje você ajuda e amanhã com certeza será ajudado.
 
 ##Troubleshooting
 ####Unable to create/open lock file: /data/db/mongod.lock errno:13 Permission denied
