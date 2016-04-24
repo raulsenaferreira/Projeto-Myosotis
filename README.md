@@ -7,7 +7,7 @@ Um sistema crawler-based baseado em tecnologias NoSQL no auxílio a unificação
 
 Uma versão beta do sistema poderá ser acessado no link: http://projeto-myosotis.com.br/
 
-A versão beta da API contendo os dados em formato JSON pode ser acessado no link: http://projeto-myosotis.com.br:4000/collections/site`x`/all (troque x pelo numero da base de dados, que vai de 1 a 9)
+A versão beta da API contendo os dados em formato JSON pode ser acessado no link: http://projeto-myosotis.com.br:4000/collections/site `x` /all (troque x pelo numero da base de dados, que vai de 1 a 9)
 
 A licença pra uso do sistema e dos dados da API é a [Apache](https://github.com/raulsenaferreira/Projeto-Myosotis/blob/master/LICENSE). Caso você queira usar o sistema como ele está ou modificar o sistema existente em experimentos ou qualquer outro tipo de trabalho, peço apenas que dê uma rápida olhada em [Termos de uso](#termos-de-uso).
 
