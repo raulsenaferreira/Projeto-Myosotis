@@ -74,7 +74,7 @@ Envie um pull request para consideração, ele será muito bem vindo!
 ##Issues
 https://github.com/raulsenaferreira/Projeto-Myosotis/issues
 
-(#termos-de-uso)
+<a id="termos-de-uso"><a>
 ##Termos de Uso
 Este projeto foi desenvolvido com a intenção de ser open-source, para que o pesquisador ou desenvolvedor que tiver a intenção de fazer algo parecido, não comece do zero, e tenha a oportunidade ou de fundamentar seu trabalho tomando como baseline este projeto ou tenha a oportunidade de trabalhar em conjunto voltado para um bem comum. 
 
