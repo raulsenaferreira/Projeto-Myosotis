@@ -10,11 +10,11 @@ Use the following citation if you intend to use the **DATABASE** (myosotis_datab
 
 Bibtex style:
 ```
-@misc{ferreira_s_raul_2017_283320,
-  author       = {Ferreira, S. Raul},
+@misc{ferreira_raul_s_2015_283320,
+  author       = {Ferreira, Raul S.},
   title        = {Missing Persons Brazilian Database},
-  month        = feb,
-  year         = 2017,
+  month        = sep,
+  year         = 2015,
   doi          = {10.5281/zenodo.283320},
   url          = {https://doi.org/10.5281/zenodo.283320}
 }
@@ -22,7 +22,7 @@ Bibtex style:
 ```
 Other styles:
 ```
-Ferreira, S. Raul. (2017). Missing Persons Brazilian Database [Data set]. Zenodo. http://doi.org/10.5281/zenodo.283320
+Ferreira, S. Raul. (2015). Missing Persons Brazilian Database [Data set]. Zenodo. http://doi.org/10.5281/zenodo.283320
 ```
 
 If you intend to use part or entire code of this repository or use the **MYOSOTIS SYSTEM** then you have to use this bibtex citation:
