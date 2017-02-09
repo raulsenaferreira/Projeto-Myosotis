@@ -1,8 +1,51 @@
 Projeto-Myosotis
 ================
+[![DOI](https://zenodo.org/badge/24845151.svg)](https://zenodo.org/badge/latestdoi/24845151)
+
 [![Build Status](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis.svg)](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis)
 [![Coverage Status](https://coveralls.io/repos/raulsenaferreira/Projeto-Myosotis/badge.svg?branch=master&service=github)](https://coveralls.io/github/raulsenaferreira/Projeto-Myosotis?branch=master)
 
+##Citations and use of this systems and/or database to research
+Use the following citation if you intend to use the **DATABASE** (myosotis_database.xlsx) already collected in this first release of this system:
+
+Bibtex style:
+```
+@misc{ferreira_s_raul_2017_283320,
+  author       = {Ferreira, S. Raul},
+  title        = {Missing Persons Brazilian Database},
+  month        = feb,
+  year         = 2017,
+  doi          = {10.5281/zenodo.283320},
+  url          = {https://doi.org/10.5281/zenodo.283320}
+}
+
+```
+Other styles:
+```
+Ferreira, S. Raul. (2017). Missing Persons Brazilian Database [Data set]. Zenodo. http://doi.org/10.5281/zenodo.283320
+```
+
+If you intend to use part or entire code of this repository or use the **MYOSOTIS SYSTEM** then you have to use this bibtex citation:
+
+Bibtex style:
+```
+@misc{ferreira_s_raul_2017_283247,
+  author       = {Ferreira, S. Raul},
+  title        = {{Repository of the Myosotis System: Data 
+                   Integration and Knowledge Discovery Applied to
+                   Missing People Problem}},
+  month        = feb,
+  year         = 2017,
+  doi          = {10.5281/zenodo.283247},
+  url          = {https://doi.org/10.5281/zenodo.283247}
+}
+```
+Other styles:
+```
+Ferreira, S. Raul. (2017). Repository of the Myosotis System: Data Integration and Knowledge Discovery Applied to Missing People Problem [Data set]. Zenodo. http://doi.org/10.5281/zenodo.283247
+```
+
+##O Sistema
 Um sistema crawler-based baseado em tecnologias NoSQL no auxílio a unificação e estudo dos registros de pessoas desaparecidas.
 
 Uma versão beta do sistema poderá ser acessado no link: http://projeto-myosotis.com.br/
@@ -10,8 +53,6 @@ Uma versão beta do sistema poderá ser acessado no link: http://projeto-myosoti
 A versão beta da API contendo os dados em formato JSON pode ser acessado no link: http://projeto-myosotis.com.br:4000/collections/site `x` /all (troque x pelo numero da base de dados, que vai de 1 a 9)
 
 A licença pra uso do sistema e dos dados da API é a [Apache](https://github.com/raulsenaferreira/Projeto-Myosotis/blob/master/LICENSE). Caso você queira usar o sistema como ele está ou modificar o sistema existente em experimentos ou qualquer outro tipo de trabalho, peço apenas que dê uma rápida olhada em [Termos de uso](#termos-de-uso).
-
-##O Sistema
 
 Este sistema coleta informações contidas em sites de pessoas desaparecidas e guarda em um banco de dados NoSQL, preservando a estrutura heterogênea dos dados. Depois, através de um processo de ETL simples feito em Python, elimina registros duplicados e extrai o máximo de informações do registro. Em seguida, essas informações de diferentes fontes sobre um determinado registro são agregados, unificando assim as informações da pessoa desaparecida e tornando a informação mais completa mantendo as fontes de onde as informações foram extraídas.
 
@@ -82,7 +123,25 @@ Mas ainda assim, o pesquisador/desenvolvedor tem total liberdade para copiar/mod
 
 1. O mais importante na licença Apache é o fato de que todo o trabalho realizado a partir deste deve ser aberto e conter a licença Apache, não se esqueça disso.
  
-2. Cite o autor, `Raul S. Ferreira` e/ou o `Projeto Myosotis` em seu artigo ou no README.MD do seu trabalho/projeto.
+2. Cite o autor, `Raul S. Ferreira` e/ou o `Projeto Myosotis` em seu artigo ou no README.MD do seu trabalho/projeto:
+
+Bibtex:
+```
+@misc{ferreira_s_raul_2017_283247,
+  author       = {Ferreira, S. Raul},
+  title        = {{Repository of the Myosotis System: Data 
+                   Integration and Knowledge Discovery Applied to
+                   Missing People Problem}},
+  month        = feb,
+  year         = 2017,
+  doi          = {10.5281/zenodo.283247},
+  url          = {https://doi.org/10.5281/zenodo.283247}
+}
+```
+Ou:
+```
+Ferreira, S. Raul. (2017). Repository of the Myosotis System: Data Integration and Knowledge Discovery Applied to Missing People Problem [Data set]. Zenodo. http://doi.org/10.5281/zenodo.283247
+```
  
 3. Notifique o autor sobre o seu trabalho. Ele ficará feliz em saber que outras pessoas estão construindo coisas legais apoiadas por seu trabalho e com certeza mencionará o seu trabalho de volta.
 
