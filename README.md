@@ -5,27 +5,7 @@ Projeto-Myosotis
 [![Build Status](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis.svg)](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis)
 [![Coverage Status](https://coveralls.io/repos/raulsenaferreira/Projeto-Myosotis/badge.svg?branch=master&service=github)](https://coveralls.io/github/raulsenaferreira/Projeto-Myosotis?branch=master)
 
-##Citations and use of this systems and/or database to research
-Use the following citation if you intend to use the **DATABASE** (myosotis_database.xlsx) already collected in this first release of this system:
-
-Bibtex style:
-```
-@misc{ferreira_raul_s_2015_283320,
-  author       = {Ferreira, Raul S.},
-  title        = {Missing Persons Brazilian Database},
-  month        = sep,
-  year         = 2015,
-  doi          = {10.5281/zenodo.283320},
-  url          = {https://doi.org/10.5281/zenodo.283320}
-}
-
-```
-Other styles:
-```
-Ferreira, S. Raul. (2015). Missing Persons Brazilian Database [Data set]. Zenodo. http://doi.org/10.5281/zenodo.283320
-```
-
-If you intend to use part or entire code of this repository or use the **MYOSOTIS SYSTEM** then you can use this bibtex citation:
+If you intend to use part or entire code of this repository or use the **MYOSOTIS SYSTEM** or the **DATABASE** (myosotis_database.xlsx) then you can use this bibtex citation:
 
 Bibtex style:
 ```
@@ -111,34 +91,6 @@ https://github.com/raulsenaferreira/Projeto-Myosotis/issues
 <a id="termos-de-uso"><a>
 ##Termos de Uso
 Este projeto foi desenvolvido com a intenção de ser open-source, para que o pesquisador ou desenvolvedor que tiver a intenção de fazer algo parecido, não comece do zero, e tenha a oportunidade ou de fundamentar seu trabalho tomando como baseline este projeto ou tenha a oportunidade de trabalhar em conjunto voltado para um bem comum. 
-
-Mas ainda assim, o pesquisador/desenvolvedor tem total liberdade para copiar/modificar o código e usar em seus experimentos. Pede-se apenas que além de seguir as regras da Apache License, siga algumas regras de boa conduta e ética comuns em projetos de código livre pelo mundo:
-
-1. O mais importante na licença Apache é o fato de que todo o trabalho realizado a partir deste deve ser aberto e conter a licença Apache, não se esqueça disso.
- 
-2. Cite o autor, `Raul S. Ferreira` e/ou o `Projeto Myosotis` em seu artigo ou no README.MD do seu trabalho/projeto:
-
-Bibtex:
-```
-@misc{ferreira_s_raul_2017_283247,
-  author       = {Ferreira, S. Raul},
-  title        = {{Repository of the Myosotis System: Data 
-                   Integration and Knowledge Discovery Applied to
-                   Missing People Problem}},
-  month        = feb,
-  year         = 2017,
-  doi          = {10.5281/zenodo.283247},
-  url          = {https://doi.org/10.5281/zenodo.283247}
-}
-```
-Ou:
-```
-Ferreira, S. Raul. (2017). Repository of the Myosotis System: Data Integration and Knowledge Discovery Applied to Missing People Problem [Data set]. Zenodo. http://doi.org/10.5281/zenodo.283247
-```
- 
-3. Notifique o autor sobre o seu trabalho. Ele ficará feliz em saber que outras pessoas estão construindo coisas legais apoiadas por seu trabalho e com certeza mencionará o seu trabalho de volta.
-
-A única coisa que um desenvolvedor de projetos livres ganha em troca de seu trabalho suado é a reputação. Reputação é algo difícil de se conseguir mas fácil de dar. Hoje você ajuda e amanhã com certeza será ajudado.
 
 ##Troubleshooting
 ####Unable to create/open lock file: /data/db/mongod.lock errno:13 Permission denied
