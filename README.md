@@ -25,24 +25,17 @@ Other styles:
 Ferreira, S. Raul. (2015). Missing Persons Brazilian Database [Data set]. Zenodo. http://doi.org/10.5281/zenodo.283320
 ```
 
-If you intend to use part or entire code of this repository or use the **MYOSOTIS SYSTEM** then you have to use this bibtex citation:
+If you intend to use part or entire code of this repository or use the **MYOSOTIS SYSTEM** then you can use this bibtex citation:
 
 Bibtex style:
 ```
-@misc{ferreira_s_raul_2017_283247,
-  author       = {Ferreira, S. Raul},
-  title        = {{Repository of the Myosotis System: Data 
-                   Integration and Knowledge Discovery Applied to
-                   Missing People Problem}},
-  month        = feb,
-  year         = 2017,
-  doi          = {10.5281/zenodo.283247},
-  url          = {https://doi.org/10.5281/zenodo.283247}
+@inproceedings{ferreira2018myosotis,
+  title={Myosotis: An information system applied to missing people problem},
+  author={Ferreira, Raul S and de Oliveira, Carlos G and Lima, Alexandre AB},
+  booktitle={Proceedings of the XIV Brazilian Symposium on Information Systems},
+  pages={1--7},
+  year={2018}
 }
-```
-Other styles:
-```
-Ferreira, S. Raul. (2017). Repository of the Myosotis System: Data Integration and Knowledge Discovery Applied to Missing People Problem [Data set]. Zenodo. http://doi.org/10.5281/zenodo.283247
 ```
 
 ##O Sistema
