@@ -1,9 +1,6 @@
 Projeto-Myosotis
 ================
 
-[![Build Status](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis.svg)](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis)
-[![Coverage Status](https://coveralls.io/repos/raulsenaferreira/Projeto-Myosotis/badge.svg?branch=master&service=github)](https://coveralls.io/github/raulsenaferreira/Projeto-Myosotis?branch=master)
-
 If you intend to use part or entire code of this repository or use the **MYOSOTIS SYSTEM** or the **DATABASE** (myosotis_database.xlsx) then you can use this bibtex citation:
 
 Bibtex style:
