@@ -1,6 +1,5 @@
 Projeto-Myosotis
 ================
-[![DOI](https://zenodo.org/badge/24845151.svg)](https://zenodo.org/badge/latestdoi/24845151)
 
 [![Build Status](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis.svg)](https://travis-ci.org/raulsenaferreira/Projeto-Myosotis)
 [![Coverage Status](https://coveralls.io/repos/raulsenaferreira/Projeto-Myosotis/badge.svg?branch=master&service=github)](https://coveralls.io/github/raulsenaferreira/Projeto-Myosotis?branch=master)
@@ -18,7 +17,9 @@ Bibtex style:
 }
 ```
 
-##O Sistema
+## Instructions below are partially in Portuguese and English
+
+## O Sistema
 Um sistema crawler-based baseado em tecnologias NoSQL no auxílio a unificação e estudo dos registros de pessoas desaparecidas.
 
 Uma versão beta do sistema poderá ser acessado no link: http://projeto-myosotis.com.br/
@@ -35,7 +36,7 @@ O sistema permite que se faça alguns tipos de consultas específicas como situa
 
 Ainda em fase experimental, está a coloração dos estados baseados na probabilidade de ocorrer um novo caso de desaparecimento naquele estado. O cálculo é feito com um método estatístico não paramétrico, conhecido como KDE(https://pt.wikipedia.org/wiki/Estimativa_de_densidade_kernel). Ferramentas de visualização em formato de cluster e polígonos também são utilizados, bem como ferramentas para geração de gráficos.
 
-##Status of crawled sites
+## Status of crawled sites
 http://www.desaparecidos.gov.br [Online]
 
 http://portal.mj.gov.br [Doesn't exist anymore]
@@ -54,14 +55,14 @@ http://www.policiacivil.go.gov.br/pessoas-desaparecidas [Online]
 
 http://www.divulgandodesaparecidos.org [Online]
 
-##Como contribuir
+## Como contribuir
 Crie um branch e edite as partes que você julga necessário (P.S.: As issues do projeto são um bom lugar para começar).
 
 Instale opcionalmente as dependências listadas abaixo caso queira visualizar as mudanças.
 
 Envie um pull request para consideração, ele será muito bem vindo!
 
-##Dependências
+## Dependências
 1. Instale o Postgres (http://www.postgresql.org/) e a extensão PostGIS (http://postgis.net/).
 2. Instale Apache e PHP 5 e certifique-se de instalar o módulo do postgres no PHP (`sudo apt-get install php5-pgsql`)
 2. Instale o Node.js (https://nodejs.org/en/) e o mongodb (https://www.mongodb.org/) em sua máquina
@@ -85,15 +86,16 @@ Envie um pull request para consideração, ele será muito bem vindo!
 
 * Para geocodificar você pode usar algumas ferramentas baseadas no batchgeo (https://pt.batchgeo.com/), google maps API (https://developers.google.com/maps/) ou alguma outra ferramenta de geocodificação se sua preferência, lembrando que para localizações no Brasil o formato de SRID deve ser 4674.
 
-##Issues
+## Issues
 https://github.com/raulsenaferreira/Projeto-Myosotis/issues
 
 <a id="termos-de-uso"><a>
 ##Termos de Uso
 Este projeto foi desenvolvido com a intenção de ser open-source, para que o pesquisador ou desenvolvedor que tiver a intenção de fazer algo parecido, não comece do zero, e tenha a oportunidade ou de fundamentar seu trabalho tomando como baseline este projeto ou tenha a oportunidade de trabalhar em conjunto voltado para um bem comum. 
 
-##Troubleshooting
-####Unable to create/open lock file: /data/db/mongod.lock errno:13 Permission denied
+## Troubleshooting
+  
+#### Unable to create/open lock file: /data/db/mongod.lock errno:13 Permission denied
 First create the directories /data and /data/db
 
 Later, open your terminal and run: `sudo chown -R $USER /data/db`
